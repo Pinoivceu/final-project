@@ -12,18 +12,18 @@ export default function SummaryCard({
     label,
     iconEmoji
 }: SummaryCardProps) { return (
-    <div className="  p-3 rounded-xl flex items-center justify-between transition-all">
+    <div className="  p-3 size-full  rounded-xl border bg-card flex items-center justify-between transition-all">
         {/* Sisi Kiri: Nilai dan Label */}
         <div className="flex flex-col gap-1">
-            <p className="text-3xl font-bold text-white tracking-tight">
+            <p className="text-xl font-bold tracking-tight">
                 {value}
                 {unit && (
-                    <span className="text-xl font-medium ml-1.5 text-white/80">
+                    <span className="text-xl font-bold ml-1.5 ">
                         {unit}
                     </span>
                 )}
             </p>
-            <p className="text-neutral-500 text-lg font-medium">
+            <p className=" text-sm ">
                 {label}
             </p>
         </div>

@@ -21,7 +21,7 @@ model User {
   password     String    // Disimpan sebagai hash (argon2/bcrypt)
   
   // Role: 'owner' atau 'mandor'
-  role         String    @default("petani")
+  role         String    @default("mandor")
   
   // Foto Profil (Opsional)
   image        String?   @map("profile_picture")
@@ -36,5 +36,130 @@ model User {
   lastLogin    DateTime? @map("last_login")
   updatedAt    DateTime  @updatedAt @map("updated_at")
 
+  lands           Land[]    @relation("MandorLands")
+  treatmentLogs   TreatmentLog[]
+  harvests        Harvest[]
+  tasksAssigned   Task[]    @relation("MandorTasks")
+  tasksCreated    Task[]    @relation("OwnerTasks")
+
   @@map("users")
+}
+
+model Land {
+  id              Int       @id @default(autoincrement())
+  landName        String
+  areaSize        Float
+  locationAddress String?   @db.Text
+  coordinates     String?   @db.Text
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  // Foreign Key harus String karena merujuk ke User.id
+  mandorId        String    
+  mandor          User      @relation("MandorLands", fields: [mandorId], references: [id])
+  
+  plants          Plant[]
+  treatmentLogs   TreatmentLog[]
+  harvests        Harvest[]
+  tasks           Task[]
+
+  @@map("lands")
+}
+
+model Plant {
+  id                 Int       @id @default(autoincrement())
+  variety            String
+  activeBranches     Int
+  plantedAt          DateTime?
+  locationCoordinate String?
+  status             String    @default("active")
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  landId             Int
+  land               Land      @relation(fields: [landId], references: [id])
+
+  @@map("plants")
+}
+
+model TreatmentLog {
+  id              Int       @id @default(autoincrement())
+  activityType    String
+  description     String?   @db.Text
+  executionDate   DateTime
+  
+  landId          Int
+  land            Land      @relation(fields: [landId], references: [id])
+  
+  // Foreign Key harus String
+  mandorId        String    
+  mandor          User      @relation(fields: [mandorId], references: [id])
+  
+  documentations  TreatmentDocumentation[]
+
+  @@map("treatment_logs")
+}
+
+model TreatmentDocumentation {
+  id             Int          @id @default(autoincrement())
+  photoUrl       String
+  caption        String?      @db.Text
+  takenAt        DateTime?    @default(now())
+  latitude       Float?
+  longitude      Float?
+
+  treatmentLogId Int
+  treatmentLog   TreatmentLog @relation(fields: [treatmentLogId], references: [id])
+  harvests       Harvest[]    @relation("HarvestEvidence")
+
+  @@map("treatment_documentations")
+}
+
+model Harvest {
+  id              Int       @id @default(autoincrement())
+  harvestDate     DateTime
+  totalWeight     Float
+  notes           String?   @db.Text
+  createdAt       DateTime  @default(now())
+
+  landId          Int
+  land            Land      @relation(fields: [landId], references: [id])
+  
+  // Foreign Key harus String
+  mandorId        String    
+  mandor          User      @relation(fields: [mandorId], references: [id])
+  
+  photoEvidenceId Int?
+  photoEvidence   TreatmentDocumentation? @relation("HarvestEvidence", fields: [photoEvidenceId], references: [id])
+
+  @@map("harvests")
+}
+
+model Task {
+  id              Int       @id @default(autoincrement())
+  title           String
+  description     String?   @db.Text
+  activityType    String
+  status          String    @default("pending")
+  
+  dueDate         DateTime?
+  startedAt       DateTime?
+  completedAt     DateTime?
+  verifiedAt      DateTime?
+  rejectionReason String?   @db.Text
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  landId          Int
+  land            Land      @relation(fields: [landId], references: [id])
+  
+  // Semua yang merujuk ke User harus String
+  mandorId        String    
+  mandor          User      @relation("MandorTasks", fields: [mandorId], references: [id])
+  
+  ownerId         String    
+  owner           User      @relation("OwnerTasks", fields: [ownerId], references: [id])
+
+  @@map("tasks")
 }
