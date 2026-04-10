@@ -230,6 +230,11 @@ export type UserWhereInput = {
   joinedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   lastLogin?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  lands?: Prisma.LandListRelationFilter
+  treatmentLogs?: Prisma.TreatmentLogListRelationFilter
+  harvests?: Prisma.HarvestListRelationFilter
+  tasksAssigned?: Prisma.TaskListRelationFilter
+  tasksCreated?: Prisma.TaskListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -244,6 +249,11 @@ export type UserOrderByWithRelationInput = {
   joinedAt?: Prisma.SortOrder
   lastLogin?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  lands?: Prisma.LandOrderByRelationAggregateInput
+  treatmentLogs?: Prisma.TreatmentLogOrderByRelationAggregateInput
+  harvests?: Prisma.HarvestOrderByRelationAggregateInput
+  tasksAssigned?: Prisma.TaskOrderByRelationAggregateInput
+  tasksCreated?: Prisma.TaskOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -261,6 +271,11 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   joinedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   lastLogin?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  lands?: Prisma.LandListRelationFilter
+  treatmentLogs?: Prisma.TreatmentLogListRelationFilter
+  harvests?: Prisma.HarvestListRelationFilter
+  tasksAssigned?: Prisma.TaskListRelationFilter
+  tasksCreated?: Prisma.TaskListRelationFilter
 }, "id" | "username">
 
 export type UserOrderByWithAggregationInput = {
@@ -309,6 +324,11 @@ export type UserCreateInput = {
   joinedAt?: Date | string
   lastLogin?: Date | string | null
   updatedAt?: Date | string
+  lands?: Prisma.LandCreateNestedManyWithoutMandorInput
+  treatmentLogs?: Prisma.TreatmentLogCreateNestedManyWithoutMandorInput
+  harvests?: Prisma.HarvestCreateNestedManyWithoutMandorInput
+  tasksAssigned?: Prisma.TaskCreateNestedManyWithoutMandorInput
+  tasksCreated?: Prisma.TaskCreateNestedManyWithoutOwnerInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -323,6 +343,11 @@ export type UserUncheckedCreateInput = {
   joinedAt?: Date | string
   lastLogin?: Date | string | null
   updatedAt?: Date | string
+  lands?: Prisma.LandUncheckedCreateNestedManyWithoutMandorInput
+  treatmentLogs?: Prisma.TreatmentLogUncheckedCreateNestedManyWithoutMandorInput
+  harvests?: Prisma.HarvestUncheckedCreateNestedManyWithoutMandorInput
+  tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutMandorInput
+  tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
 }
 
 export type UserUpdateInput = {
@@ -337,6 +362,11 @@ export type UserUpdateInput = {
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lands?: Prisma.LandUpdateManyWithoutMandorNestedInput
+  treatmentLogs?: Prisma.TreatmentLogUpdateManyWithoutMandorNestedInput
+  harvests?: Prisma.HarvestUpdateManyWithoutMandorNestedInput
+  tasksAssigned?: Prisma.TaskUpdateManyWithoutMandorNestedInput
+  tasksCreated?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -351,6 +381,11 @@ export type UserUncheckedUpdateInput = {
   joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lands?: Prisma.LandUncheckedUpdateManyWithoutMandorNestedInput
+  treatmentLogs?: Prisma.TreatmentLogUncheckedUpdateManyWithoutMandorNestedInput
+  harvests?: Prisma.HarvestUncheckedUpdateManyWithoutMandorNestedInput
+  tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutMandorNestedInput
+  tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -437,6 +472,11 @@ export type UserMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type UserScalarRelationFilter = {
+  is?: Prisma.UserWhereInput
+  isNot?: Prisma.UserWhereInput
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
@@ -453,6 +493,581 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
 
+export type UserCreateNestedOneWithoutLandsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLandsInput, Prisma.UserUncheckedCreateWithoutLandsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLandsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutLandsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutLandsInput, Prisma.UserUncheckedCreateWithoutLandsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutLandsInput
+  upsert?: Prisma.UserUpsertWithoutLandsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutLandsInput, Prisma.UserUpdateWithoutLandsInput>, Prisma.UserUncheckedUpdateWithoutLandsInput>
+}
+
+export type UserCreateNestedOneWithoutTreatmentLogsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTreatmentLogsInput, Prisma.UserUncheckedCreateWithoutTreatmentLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTreatmentLogsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutTreatmentLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTreatmentLogsInput, Prisma.UserUncheckedCreateWithoutTreatmentLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTreatmentLogsInput
+  upsert?: Prisma.UserUpsertWithoutTreatmentLogsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTreatmentLogsInput, Prisma.UserUpdateWithoutTreatmentLogsInput>, Prisma.UserUncheckedUpdateWithoutTreatmentLogsInput>
+}
+
+export type UserCreateNestedOneWithoutHarvestsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutHarvestsInput, Prisma.UserUncheckedCreateWithoutHarvestsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutHarvestsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutHarvestsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutHarvestsInput, Prisma.UserUncheckedCreateWithoutHarvestsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutHarvestsInput
+  upsert?: Prisma.UserUpsertWithoutHarvestsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutHarvestsInput, Prisma.UserUpdateWithoutHarvestsInput>, Prisma.UserUncheckedUpdateWithoutHarvestsInput>
+}
+
+export type UserCreateNestedOneWithoutTasksAssignedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTasksAssignedInput, Prisma.UserUncheckedCreateWithoutTasksAssignedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTasksAssignedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutTasksCreatedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTasksCreatedInput, Prisma.UserUncheckedCreateWithoutTasksCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTasksCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutTasksAssignedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTasksAssignedInput, Prisma.UserUncheckedCreateWithoutTasksAssignedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTasksAssignedInput
+  upsert?: Prisma.UserUpsertWithoutTasksAssignedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTasksAssignedInput, Prisma.UserUpdateWithoutTasksAssignedInput>, Prisma.UserUncheckedUpdateWithoutTasksAssignedInput>
+}
+
+export type UserUpdateOneRequiredWithoutTasksCreatedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTasksCreatedInput, Prisma.UserUncheckedCreateWithoutTasksCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTasksCreatedInput
+  upsert?: Prisma.UserUpsertWithoutTasksCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTasksCreatedInput, Prisma.UserUpdateWithoutTasksCreatedInput>, Prisma.UserUncheckedUpdateWithoutTasksCreatedInput>
+}
+
+export type UserCreateWithoutLandsInput = {
+  id?: string
+  fullName: string
+  username: string
+  password: string
+  role?: string
+  image?: string | null
+  phoneNumber?: string | null
+  status?: string
+  joinedAt?: Date | string
+  lastLogin?: Date | string | null
+  updatedAt?: Date | string
+  treatmentLogs?: Prisma.TreatmentLogCreateNestedManyWithoutMandorInput
+  harvests?: Prisma.HarvestCreateNestedManyWithoutMandorInput
+  tasksAssigned?: Prisma.TaskCreateNestedManyWithoutMandorInput
+  tasksCreated?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+}
+
+export type UserUncheckedCreateWithoutLandsInput = {
+  id?: string
+  fullName: string
+  username: string
+  password: string
+  role?: string
+  image?: string | null
+  phoneNumber?: string | null
+  status?: string
+  joinedAt?: Date | string
+  lastLogin?: Date | string | null
+  updatedAt?: Date | string
+  treatmentLogs?: Prisma.TreatmentLogUncheckedCreateNestedManyWithoutMandorInput
+  harvests?: Prisma.HarvestUncheckedCreateNestedManyWithoutMandorInput
+  tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutMandorInput
+  tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+}
+
+export type UserCreateOrConnectWithoutLandsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutLandsInput, Prisma.UserUncheckedCreateWithoutLandsInput>
+}
+
+export type UserUpsertWithoutLandsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutLandsInput, Prisma.UserUncheckedUpdateWithoutLandsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutLandsInput, Prisma.UserUncheckedCreateWithoutLandsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutLandsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutLandsInput, Prisma.UserUncheckedUpdateWithoutLandsInput>
+}
+
+export type UserUpdateWithoutLandsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  treatmentLogs?: Prisma.TreatmentLogUpdateManyWithoutMandorNestedInput
+  harvests?: Prisma.HarvestUpdateManyWithoutMandorNestedInput
+  tasksAssigned?: Prisma.TaskUpdateManyWithoutMandorNestedInput
+  tasksCreated?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutLandsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  treatmentLogs?: Prisma.TreatmentLogUncheckedUpdateManyWithoutMandorNestedInput
+  harvests?: Prisma.HarvestUncheckedUpdateManyWithoutMandorNestedInput
+  tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutMandorNestedInput
+  tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+}
+
+export type UserCreateWithoutTreatmentLogsInput = {
+  id?: string
+  fullName: string
+  username: string
+  password: string
+  role?: string
+  image?: string | null
+  phoneNumber?: string | null
+  status?: string
+  joinedAt?: Date | string
+  lastLogin?: Date | string | null
+  updatedAt?: Date | string
+  lands?: Prisma.LandCreateNestedManyWithoutMandorInput
+  harvests?: Prisma.HarvestCreateNestedManyWithoutMandorInput
+  tasksAssigned?: Prisma.TaskCreateNestedManyWithoutMandorInput
+  tasksCreated?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+}
+
+export type UserUncheckedCreateWithoutTreatmentLogsInput = {
+  id?: string
+  fullName: string
+  username: string
+  password: string
+  role?: string
+  image?: string | null
+  phoneNumber?: string | null
+  status?: string
+  joinedAt?: Date | string
+  lastLogin?: Date | string | null
+  updatedAt?: Date | string
+  lands?: Prisma.LandUncheckedCreateNestedManyWithoutMandorInput
+  harvests?: Prisma.HarvestUncheckedCreateNestedManyWithoutMandorInput
+  tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutMandorInput
+  tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+}
+
+export type UserCreateOrConnectWithoutTreatmentLogsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTreatmentLogsInput, Prisma.UserUncheckedCreateWithoutTreatmentLogsInput>
+}
+
+export type UserUpsertWithoutTreatmentLogsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTreatmentLogsInput, Prisma.UserUncheckedUpdateWithoutTreatmentLogsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTreatmentLogsInput, Prisma.UserUncheckedCreateWithoutTreatmentLogsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTreatmentLogsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTreatmentLogsInput, Prisma.UserUncheckedUpdateWithoutTreatmentLogsInput>
+}
+
+export type UserUpdateWithoutTreatmentLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lands?: Prisma.LandUpdateManyWithoutMandorNestedInput
+  harvests?: Prisma.HarvestUpdateManyWithoutMandorNestedInput
+  tasksAssigned?: Prisma.TaskUpdateManyWithoutMandorNestedInput
+  tasksCreated?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTreatmentLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lands?: Prisma.LandUncheckedUpdateManyWithoutMandorNestedInput
+  harvests?: Prisma.HarvestUncheckedUpdateManyWithoutMandorNestedInput
+  tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutMandorNestedInput
+  tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+}
+
+export type UserCreateWithoutHarvestsInput = {
+  id?: string
+  fullName: string
+  username: string
+  password: string
+  role?: string
+  image?: string | null
+  phoneNumber?: string | null
+  status?: string
+  joinedAt?: Date | string
+  lastLogin?: Date | string | null
+  updatedAt?: Date | string
+  lands?: Prisma.LandCreateNestedManyWithoutMandorInput
+  treatmentLogs?: Prisma.TreatmentLogCreateNestedManyWithoutMandorInput
+  tasksAssigned?: Prisma.TaskCreateNestedManyWithoutMandorInput
+  tasksCreated?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+}
+
+export type UserUncheckedCreateWithoutHarvestsInput = {
+  id?: string
+  fullName: string
+  username: string
+  password: string
+  role?: string
+  image?: string | null
+  phoneNumber?: string | null
+  status?: string
+  joinedAt?: Date | string
+  lastLogin?: Date | string | null
+  updatedAt?: Date | string
+  lands?: Prisma.LandUncheckedCreateNestedManyWithoutMandorInput
+  treatmentLogs?: Prisma.TreatmentLogUncheckedCreateNestedManyWithoutMandorInput
+  tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutMandorInput
+  tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+}
+
+export type UserCreateOrConnectWithoutHarvestsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutHarvestsInput, Prisma.UserUncheckedCreateWithoutHarvestsInput>
+}
+
+export type UserUpsertWithoutHarvestsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutHarvestsInput, Prisma.UserUncheckedUpdateWithoutHarvestsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutHarvestsInput, Prisma.UserUncheckedCreateWithoutHarvestsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutHarvestsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutHarvestsInput, Prisma.UserUncheckedUpdateWithoutHarvestsInput>
+}
+
+export type UserUpdateWithoutHarvestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lands?: Prisma.LandUpdateManyWithoutMandorNestedInput
+  treatmentLogs?: Prisma.TreatmentLogUpdateManyWithoutMandorNestedInput
+  tasksAssigned?: Prisma.TaskUpdateManyWithoutMandorNestedInput
+  tasksCreated?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutHarvestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lands?: Prisma.LandUncheckedUpdateManyWithoutMandorNestedInput
+  treatmentLogs?: Prisma.TreatmentLogUncheckedUpdateManyWithoutMandorNestedInput
+  tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutMandorNestedInput
+  tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+}
+
+export type UserCreateWithoutTasksAssignedInput = {
+  id?: string
+  fullName: string
+  username: string
+  password: string
+  role?: string
+  image?: string | null
+  phoneNumber?: string | null
+  status?: string
+  joinedAt?: Date | string
+  lastLogin?: Date | string | null
+  updatedAt?: Date | string
+  lands?: Prisma.LandCreateNestedManyWithoutMandorInput
+  treatmentLogs?: Prisma.TreatmentLogCreateNestedManyWithoutMandorInput
+  harvests?: Prisma.HarvestCreateNestedManyWithoutMandorInput
+  tasksCreated?: Prisma.TaskCreateNestedManyWithoutOwnerInput
+}
+
+export type UserUncheckedCreateWithoutTasksAssignedInput = {
+  id?: string
+  fullName: string
+  username: string
+  password: string
+  role?: string
+  image?: string | null
+  phoneNumber?: string | null
+  status?: string
+  joinedAt?: Date | string
+  lastLogin?: Date | string | null
+  updatedAt?: Date | string
+  lands?: Prisma.LandUncheckedCreateNestedManyWithoutMandorInput
+  treatmentLogs?: Prisma.TreatmentLogUncheckedCreateNestedManyWithoutMandorInput
+  harvests?: Prisma.HarvestUncheckedCreateNestedManyWithoutMandorInput
+  tasksCreated?: Prisma.TaskUncheckedCreateNestedManyWithoutOwnerInput
+}
+
+export type UserCreateOrConnectWithoutTasksAssignedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTasksAssignedInput, Prisma.UserUncheckedCreateWithoutTasksAssignedInput>
+}
+
+export type UserCreateWithoutTasksCreatedInput = {
+  id?: string
+  fullName: string
+  username: string
+  password: string
+  role?: string
+  image?: string | null
+  phoneNumber?: string | null
+  status?: string
+  joinedAt?: Date | string
+  lastLogin?: Date | string | null
+  updatedAt?: Date | string
+  lands?: Prisma.LandCreateNestedManyWithoutMandorInput
+  treatmentLogs?: Prisma.TreatmentLogCreateNestedManyWithoutMandorInput
+  harvests?: Prisma.HarvestCreateNestedManyWithoutMandorInput
+  tasksAssigned?: Prisma.TaskCreateNestedManyWithoutMandorInput
+}
+
+export type UserUncheckedCreateWithoutTasksCreatedInput = {
+  id?: string
+  fullName: string
+  username: string
+  password: string
+  role?: string
+  image?: string | null
+  phoneNumber?: string | null
+  status?: string
+  joinedAt?: Date | string
+  lastLogin?: Date | string | null
+  updatedAt?: Date | string
+  lands?: Prisma.LandUncheckedCreateNestedManyWithoutMandorInput
+  treatmentLogs?: Prisma.TreatmentLogUncheckedCreateNestedManyWithoutMandorInput
+  harvests?: Prisma.HarvestUncheckedCreateNestedManyWithoutMandorInput
+  tasksAssigned?: Prisma.TaskUncheckedCreateNestedManyWithoutMandorInput
+}
+
+export type UserCreateOrConnectWithoutTasksCreatedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTasksCreatedInput, Prisma.UserUncheckedCreateWithoutTasksCreatedInput>
+}
+
+export type UserUpsertWithoutTasksAssignedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTasksAssignedInput, Prisma.UserUncheckedUpdateWithoutTasksAssignedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTasksAssignedInput, Prisma.UserUncheckedCreateWithoutTasksAssignedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTasksAssignedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTasksAssignedInput, Prisma.UserUncheckedUpdateWithoutTasksAssignedInput>
+}
+
+export type UserUpdateWithoutTasksAssignedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lands?: Prisma.LandUpdateManyWithoutMandorNestedInput
+  treatmentLogs?: Prisma.TreatmentLogUpdateManyWithoutMandorNestedInput
+  harvests?: Prisma.HarvestUpdateManyWithoutMandorNestedInput
+  tasksCreated?: Prisma.TaskUpdateManyWithoutOwnerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTasksAssignedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lands?: Prisma.LandUncheckedUpdateManyWithoutMandorNestedInput
+  treatmentLogs?: Prisma.TreatmentLogUncheckedUpdateManyWithoutMandorNestedInput
+  harvests?: Prisma.HarvestUncheckedUpdateManyWithoutMandorNestedInput
+  tasksCreated?: Prisma.TaskUncheckedUpdateManyWithoutOwnerNestedInput
+}
+
+export type UserUpsertWithoutTasksCreatedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTasksCreatedInput, Prisma.UserUncheckedUpdateWithoutTasksCreatedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTasksCreatedInput, Prisma.UserUncheckedCreateWithoutTasksCreatedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutTasksCreatedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTasksCreatedInput, Prisma.UserUncheckedUpdateWithoutTasksCreatedInput>
+}
+
+export type UserUpdateWithoutTasksCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lands?: Prisma.LandUpdateManyWithoutMandorNestedInput
+  treatmentLogs?: Prisma.TreatmentLogUpdateManyWithoutMandorNestedInput
+  harvests?: Prisma.HarvestUpdateManyWithoutMandorNestedInput
+  tasksAssigned?: Prisma.TaskUpdateManyWithoutMandorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTasksCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  joinedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastLogin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lands?: Prisma.LandUncheckedUpdateManyWithoutMandorNestedInput
+  treatmentLogs?: Prisma.TreatmentLogUncheckedUpdateManyWithoutMandorNestedInput
+  harvests?: Prisma.HarvestUncheckedUpdateManyWithoutMandorNestedInput
+  tasksAssigned?: Prisma.TaskUncheckedUpdateManyWithoutMandorNestedInput
+}
+
+
+/**
+ * Count Type UserCountOutputType
+ */
+
+export type UserCountOutputType = {
+  lands: number
+  treatmentLogs: number
+  harvests: number
+  tasksAssigned: number
+  tasksCreated: number
+}
+
+export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  lands?: boolean | UserCountOutputTypeCountLandsArgs
+  treatmentLogs?: boolean | UserCountOutputTypeCountTreatmentLogsArgs
+  harvests?: boolean | UserCountOutputTypeCountHarvestsArgs
+  tasksAssigned?: boolean | UserCountOutputTypeCountTasksAssignedArgs
+  tasksCreated?: boolean | UserCountOutputTypeCountTasksCreatedArgs
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserCountOutputType
+   */
+  select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountLandsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LandWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountTreatmentLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TreatmentLogWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountHarvestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.HarvestWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountTasksAssignedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TaskWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountTasksCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TaskWhereInput
+}
 
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -467,6 +1082,12 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   joinedAt?: boolean
   lastLogin?: boolean
   updatedAt?: boolean
+  lands?: boolean | Prisma.User$landsArgs<ExtArgs>
+  treatmentLogs?: boolean | Prisma.User$treatmentLogsArgs<ExtArgs>
+  harvests?: boolean | Prisma.User$harvestsArgs<ExtArgs>
+  tasksAssigned?: boolean | Prisma.User$tasksAssignedArgs<ExtArgs>
+  tasksCreated?: boolean | Prisma.User$tasksCreatedArgs<ExtArgs>
+  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -512,10 +1133,26 @@ export type UserSelectScalar = {
 }
 
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fullName" | "username" | "password" | "role" | "image" | "phoneNumber" | "status" | "joinedAt" | "lastLogin" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  lands?: boolean | Prisma.User$landsArgs<ExtArgs>
+  treatmentLogs?: boolean | Prisma.User$treatmentLogsArgs<ExtArgs>
+  harvests?: boolean | Prisma.User$harvestsArgs<ExtArgs>
+  tasksAssigned?: boolean | Prisma.User$tasksAssignedArgs<ExtArgs>
+  tasksCreated?: boolean | Prisma.User$tasksCreatedArgs<ExtArgs>
+  _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
-  objects: {}
+  objects: {
+    lands: Prisma.$LandPayload<ExtArgs>[]
+    treatmentLogs: Prisma.$TreatmentLogPayload<ExtArgs>[]
+    harvests: Prisma.$HarvestPayload<ExtArgs>[]
+    tasksAssigned: Prisma.$TaskPayload<ExtArgs>[]
+    tasksCreated: Prisma.$TaskPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     fullName: string
@@ -922,6 +1559,11 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  lands<T extends Prisma.User$landsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$landsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LandPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  treatmentLogs<T extends Prisma.User$treatmentLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$treatmentLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TreatmentLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  harvests<T extends Prisma.User$harvestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$harvestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HarvestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tasksAssigned<T extends Prisma.User$tasksAssignedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$tasksAssignedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tasksCreated<T extends Prisma.User$tasksCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$tasksCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -979,6 +1621,10 @@ export type UserFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter, which User to fetch.
    */
   where: Prisma.UserWhereUniqueInput
@@ -997,6 +1643,10 @@ export type UserFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter, which User to fetch.
    */
   where: Prisma.UserWhereUniqueInput
@@ -1014,6 +1664,10 @@ export type UserFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * Filter, which User to fetch.
    */
@@ -1063,6 +1717,10 @@ export type UserFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter, which User to fetch.
    */
   where?: Prisma.UserWhereInput
@@ -1110,6 +1768,10 @@ export type UserFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * Filter, which Users to fetch.
    */
@@ -1159,6 +1821,10 @@ export type UserCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * The data needed to create a User.
    */
   data: Prisma.XOR<Prisma.UserCreateInput, Prisma.UserUncheckedCreateInput>
@@ -1206,6 +1872,10 @@ export type UserUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
   /**
    * The data needed to update a User.
    */
@@ -1273,6 +1943,10 @@ export type UserUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * The filter to search for the User to update in case it exists.
    */
   where: Prisma.UserWhereUniqueInput
@@ -1299,6 +1973,10 @@ export type UserDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  /**
    * Filter which User to delete.
    */
   where: Prisma.UserWhereUniqueInput
@@ -1319,6 +1997,126 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
+ * User.lands
+ */
+export type User$landsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Land
+   */
+  select?: Prisma.LandSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Land
+   */
+  omit?: Prisma.LandOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LandInclude<ExtArgs> | null
+  where?: Prisma.LandWhereInput
+  orderBy?: Prisma.LandOrderByWithRelationInput | Prisma.LandOrderByWithRelationInput[]
+  cursor?: Prisma.LandWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LandScalarFieldEnum | Prisma.LandScalarFieldEnum[]
+}
+
+/**
+ * User.treatmentLogs
+ */
+export type User$treatmentLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TreatmentLog
+   */
+  select?: Prisma.TreatmentLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TreatmentLog
+   */
+  omit?: Prisma.TreatmentLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TreatmentLogInclude<ExtArgs> | null
+  where?: Prisma.TreatmentLogWhereInput
+  orderBy?: Prisma.TreatmentLogOrderByWithRelationInput | Prisma.TreatmentLogOrderByWithRelationInput[]
+  cursor?: Prisma.TreatmentLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TreatmentLogScalarFieldEnum | Prisma.TreatmentLogScalarFieldEnum[]
+}
+
+/**
+ * User.harvests
+ */
+export type User$harvestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Harvest
+   */
+  select?: Prisma.HarvestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Harvest
+   */
+  omit?: Prisma.HarvestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HarvestInclude<ExtArgs> | null
+  where?: Prisma.HarvestWhereInput
+  orderBy?: Prisma.HarvestOrderByWithRelationInput | Prisma.HarvestOrderByWithRelationInput[]
+  cursor?: Prisma.HarvestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.HarvestScalarFieldEnum | Prisma.HarvestScalarFieldEnum[]
+}
+
+/**
+ * User.tasksAssigned
+ */
+export type User$tasksAssignedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Task
+   */
+  select?: Prisma.TaskSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Task
+   */
+  omit?: Prisma.TaskOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TaskInclude<ExtArgs> | null
+  where?: Prisma.TaskWhereInput
+  orderBy?: Prisma.TaskOrderByWithRelationInput | Prisma.TaskOrderByWithRelationInput[]
+  cursor?: Prisma.TaskWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TaskScalarFieldEnum | Prisma.TaskScalarFieldEnum[]
+}
+
+/**
+ * User.tasksCreated
+ */
+export type User$tasksCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Task
+   */
+  select?: Prisma.TaskSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Task
+   */
+  omit?: Prisma.TaskOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TaskInclude<ExtArgs> | null
+  where?: Prisma.TaskWhereInput
+  orderBy?: Prisma.TaskOrderByWithRelationInput | Prisma.TaskOrderByWithRelationInput[]
+  cursor?: Prisma.TaskWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TaskScalarFieldEnum | Prisma.TaskScalarFieldEnum[]
+}
+
+/**
  * User without action
  */
 export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1330,4 +2128,8 @@ export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
    * Omit specific fields from the User
    */
   omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
 }

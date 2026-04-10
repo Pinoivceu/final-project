@@ -1,5 +1,6 @@
+import Link from "next/link";
 export interface FieldsCardProps {
-    id: any;
+    id: any
     name: any;
     foreman: any;
     area: any;
@@ -14,13 +15,12 @@ export default function FieldsCard({
     image,
 }: FieldsCardProps) {
     return (
-        <div className="border bg-card rounded-2xl p-3 flex flex-col gap-3 hover:border-neutral-700 transition-all cursor-pointer group">
-            {/* 1. Nama Kebun (Header) */}
+        <Link href={`/owner/dashboard/lands/${id}`} className="block">
+        <div  className="border bg-card rounded-2xl p-3 flex flex-col gap-3 hover:border-neutral-700 transition-all cursor-pointer group">
             <h2 className=" text-base font-bold ">
                 {name}
             </h2>
 
-            {/* 2. Container Gambar (Peta Satelit) */}
             <div className="w-full aspect-4/3 overflow-hidden rounded-xl ">
                 <img
                     src={image}
@@ -39,7 +39,6 @@ export default function FieldsCard({
                     </span>
                 </div>
 
-                {/* Area Section */}
                 <div className="flex items-center gap-1.5">
                     <span className="text-sm" role="img" aria-label="area">📐</span>
                     <span className=" text-sm">
@@ -48,5 +47,6 @@ export default function FieldsCard({
                 </div>
             </div>
         </div>
+        </Link>
     )
 }

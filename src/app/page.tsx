@@ -10,7 +10,6 @@ export default function Home() {
 
   return (
     <main>
-      <h1>Owner Dashboard</h1>
       <div >
         <MapView />
       </div>

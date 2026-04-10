@@ -1,7 +1,7 @@
 "use server"
 import * as argon2 from "argon2";
 import { loginSchema } from "@/lib/validation/auth";
-import prisma from "../../../lib/prisma";
+import prisma from "../../lib/prisma";
 import { createSession } from "@/lib/session";
 
 export async function authenticateUser(formData: any) {

@@ -5,10 +5,8 @@ import "leaflet/dist/leaflet.css"
 
 export default function MapView() {
 
-    const center:LatLngTuple = [51.505, -0.09]
-   
-    
-
+    const center:LatLngTuple = [-3.726338206905929, 102.6157135685002]
+ 
     const fillBlueOptions = { fillColor: 'blue' }
     const fillRedOptions = { fillColor: 'red' }
     const greenOptions = { color: 'green', fillColor: 'green' }

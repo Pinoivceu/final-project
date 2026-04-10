@@ -51,7 +51,13 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  User: 'User'
+  User: 'User',
+  Land: 'Land',
+  Plant: 'Plant',
+  TreatmentLog: 'TreatmentLog',
+  TreatmentDocumentation: 'TreatmentDocumentation',
+  Harvest: 'Harvest',
+  Task: 'Task'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -87,12 +93,110 @@ export const UserScalarFieldEnum = {
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+export const LandScalarFieldEnum = {
+  id: 'id',
+  landName: 'landName',
+  areaSize: 'areaSize',
+  locationAddress: 'locationAddress',
+  coordinates: 'coordinates',
+  image: 'image',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  mandorId: 'mandorId'
+} as const
+
+export type LandScalarFieldEnum = (typeof LandScalarFieldEnum)[keyof typeof LandScalarFieldEnum]
+
+
+export const PlantScalarFieldEnum = {
+  id: 'id',
+  variety: 'variety',
+  activeBranches: 'activeBranches',
+  plantedAt: 'plantedAt',
+  locationCoordinate: 'locationCoordinate',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  landId: 'landId'
+} as const
+
+export type PlantScalarFieldEnum = (typeof PlantScalarFieldEnum)[keyof typeof PlantScalarFieldEnum]
+
+
+export const TreatmentLogScalarFieldEnum = {
+  id: 'id',
+  activityType: 'activityType',
+  description: 'description',
+  executionDate: 'executionDate',
+  landId: 'landId',
+  mandorId: 'mandorId'
+} as const
+
+export type TreatmentLogScalarFieldEnum = (typeof TreatmentLogScalarFieldEnum)[keyof typeof TreatmentLogScalarFieldEnum]
+
+
+export const TreatmentDocumentationScalarFieldEnum = {
+  id: 'id',
+  photoUrl: 'photoUrl',
+  caption: 'caption',
+  takenAt: 'takenAt',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  treatmentLogId: 'treatmentLogId'
+} as const
+
+export type TreatmentDocumentationScalarFieldEnum = (typeof TreatmentDocumentationScalarFieldEnum)[keyof typeof TreatmentDocumentationScalarFieldEnum]
+
+
+export const HarvestScalarFieldEnum = {
+  id: 'id',
+  harvestDate: 'harvestDate',
+  totalWeight: 'totalWeight',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  landId: 'landId',
+  mandorId: 'mandorId',
+  photoEvidenceId: 'photoEvidenceId'
+} as const
+
+export type HarvestScalarFieldEnum = (typeof HarvestScalarFieldEnum)[keyof typeof HarvestScalarFieldEnum]
+
+
+export const TaskScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  activityType: 'activityType',
+  status: 'status',
+  dueDate: 'dueDate',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  verifiedAt: 'verifiedAt',
+  rejectionReason: 'rejectionReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  landId: 'landId',
+  mandorId: 'mandorId',
+  ownerId: 'ownerId'
+} as const
+
+export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {
@@ -109,4 +213,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

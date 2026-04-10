@@ -15,33 +15,31 @@ const prisma = new PrismaClient({
 
 
 export async function main() {
-    const hashedPassword = await argon2.hash("password123");
-    const userData: Prisma.UserCreateInput[] = [
 
-    {
-        fullName: 'Budi Setiawan',
-        username: 'Owner',
-        password: hashedPassword,
-        role: 'owner',
-        status: 'active',
-        phoneNumber: '08123456789',
-        image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Budi',
-    },
-    {
-        fullName: 'Agus Prayitno',
-        username: 'mandor',
-        password: hashedPassword,
-        role: 'mandor',
-        status: 'active',
-        phoneNumber: '08987654321',
-        image: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Agus',
-    },
 
-];
+    console.log("Seeding plants...");
+    const plants = [];
+for (let i = 0; i < 380; i++) {
+  plants.push({
+    landId: 1,
+    variety: "Robusta",
+    activeBranches: Math.floor(Math.random() * 15),
+    status: "active",
+    // Logika random koordinat di dalam range poligon
+    locationCoordinate: JSON.stringify({
+      type: "Point",
+      coordinates: [
+        102.6150 + Math.random() * 0.0006, 
+        -3.7256 - Math.random() * 0.0008
+      ]
+    }),
+  });
+}
+await prisma.plant.createMany({ data: plants });
 
-    for (const u of userData) {
-        await prisma.user.create({ data: u });
-    }
+
+   
+    
 }
 
 main();
