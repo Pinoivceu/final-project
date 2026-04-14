@@ -12,75 +12,77 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import React from "react"
 import { toast } from "sonner"
-import { deletePlant, updateplantStatus } from "./action"
+import { deleteProduction } from "./action"
+import React from "react"
 
-export type Plants = {
+export type Production = {
     id: any
-    variety: any
-    locationCoordinate: any
-    status: any
+    harvestDate: any
+    totalWeight: any
+    notes: any
+    landId: any
 }
 
-export const columns: ColumnDef<Plants>[] = [
-    {
-        accessorKey: "id",
-        header: "Plants Id",
-    },
-    {
-        accessorKey: "variety",
-        header: "Variety",
-    },
-    
-    {
-        accessorKey: "plantedAt",
-        header: "Planted At",
+export const productionColumns: ColumnDef<Production>[] = [
+   {
+        accessorKey: "harvestDate",
+        header: "Tanggal Panen",
+        cell: ({ row }) => {
+            const date = new Date(row.getValue("harvestDate"))
+            return <div>{date.toLocaleDateString('id-ID', { 
+                day: '2-digit', 
+                month: 'long', 
+                year: 'numeric' 
+            })}</div>
+        }
     },
 
     {
-        accessorKey: "status",
-        header: "Status",
+        accessorKey: "totalWeight",
+        header: "Total Berat (Kg)",
+        cell: ({ row }) => {
+            const weight = parseFloat(row.getValue("totalWeight"))
+            return <div className="font-medium">{weight.toFixed(2)} Kg</div>
+        }
     },
     {
+        accessorKey: "notes",
+        header: "Catatan",
+        cell: ({ row }) => (
+            <div className="max-w-50 truncate text-muted-foreground italic">
+                {row.getValue("notes") || "-"}
+            </div>
+        )
+    },
+{
         id: "actions",
         cell: ({ row }) => {
             const plants = row.original
 
             const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);
             const handleDelete = (id: any) => {
-                toast.promise(deletePlant(id), {
-                    loading: 'Sedang menghapus plant...',
+                toast.promise(deleteProduction(id), {
+                    loading: 'Sedang menghapus ..',
                     success: (data) => {
                         setShowDeleteDialog(false);
-                        return 'plant berhasil dihapus!';
+                        return 'berhasil dihapus!';
                     },
                     error: (err) => {
-                        return 'Gagal menghapus plant: ' + (err.message || 'Terjadi kesalahan');
+                        return 'Gagal menghapus  ' + (err.message || 'Terjadi kesalahan');
                     },
                     position: "top-right"
                 });
             }
-            const handleDisable = (id: any) => {
-                toast.promise(updateplantStatus(id), {
-                    loading: 'Mengubah status plant...',
-                    success: (data) => {
-                        return 'Status berhasil diubah!';
-                    },
-                    error: (err) => {
-                        return 'Gagal mengubah status: ' + (err.message || 'Terjadi kesalahan');
-                    },
-                    position: "top-right"
-                });
-            }
+            
 
             return (
                 <>
@@ -110,12 +112,9 @@ export const columns: ColumnDef<Plants>[] = [
                                 className="text-destructive cursor-pointer"
                                 onClick={() => setShowDeleteDialog(true)}
                             >
-                                Delete Plant
+                                Delete
                             </DropdownMenuItem>
 
-                            <DropdownMenuItem onClick={() => handleDisable(plants.id)}>
-                                Nonaktifkan
-                            </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
                     <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>

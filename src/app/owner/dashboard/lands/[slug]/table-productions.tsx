@@ -34,7 +34,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
 }
 
-export function DataTable<TData, TValue>({
+export function ProductionTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -55,14 +55,7 @@ export function DataTable<TData, TValue>({
 // TODO:tambahkan filter dan sorting
   return (
     <div className="bg-card rounded-md p-3 gap-6 size-full flex flex-col">
-      <Input
-        placeholder="Cari Tanaman..."
-        value={(table.getColumn("id")?.getFilterValue() as string) ?? ""}
-        onChange={(event) =>
-          table.getColumn("id")?.setFilterValue(event.target.value)
-        }
-        className="max-w-sm"
-      />
+       
       <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader className="bg-accent text-accent-foreground">
@@ -184,4 +177,3 @@ export function DataTable<TData, TValue>({
     </div>
   )
 }
-

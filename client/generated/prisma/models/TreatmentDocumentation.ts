@@ -245,7 +245,6 @@ export type TreatmentDocumentationWhereInput = {
   longitude?: Prisma.FloatNullableFilter<"TreatmentDocumentation"> | number | null
   treatmentLogId?: Prisma.IntFilter<"TreatmentDocumentation"> | number
   treatmentLog?: Prisma.XOR<Prisma.TreatmentLogScalarRelationFilter, Prisma.TreatmentLogWhereInput>
-  harvests?: Prisma.HarvestListRelationFilter
 }
 
 export type TreatmentDocumentationOrderByWithRelationInput = {
@@ -257,7 +256,6 @@ export type TreatmentDocumentationOrderByWithRelationInput = {
   longitude?: Prisma.SortOrderInput | Prisma.SortOrder
   treatmentLogId?: Prisma.SortOrder
   treatmentLog?: Prisma.TreatmentLogOrderByWithRelationInput
-  harvests?: Prisma.HarvestOrderByRelationAggregateInput
 }
 
 export type TreatmentDocumentationWhereUniqueInput = Prisma.AtLeast<{
@@ -272,7 +270,6 @@ export type TreatmentDocumentationWhereUniqueInput = Prisma.AtLeast<{
   longitude?: Prisma.FloatNullableFilter<"TreatmentDocumentation"> | number | null
   treatmentLogId?: Prisma.IntFilter<"TreatmentDocumentation"> | number
   treatmentLog?: Prisma.XOR<Prisma.TreatmentLogScalarRelationFilter, Prisma.TreatmentLogWhereInput>
-  harvests?: Prisma.HarvestListRelationFilter
 }, "id">
 
 export type TreatmentDocumentationOrderByWithAggregationInput = {
@@ -310,7 +307,6 @@ export type TreatmentDocumentationCreateInput = {
   latitude?: number | null
   longitude?: number | null
   treatmentLog: Prisma.TreatmentLogCreateNestedOneWithoutDocumentationsInput
-  harvests?: Prisma.HarvestCreateNestedManyWithoutPhotoEvidenceInput
 }
 
 export type TreatmentDocumentationUncheckedCreateInput = {
@@ -321,7 +317,6 @@ export type TreatmentDocumentationUncheckedCreateInput = {
   latitude?: number | null
   longitude?: number | null
   treatmentLogId: number
-  harvests?: Prisma.HarvestUncheckedCreateNestedManyWithoutPhotoEvidenceInput
 }
 
 export type TreatmentDocumentationUpdateInput = {
@@ -331,7 +326,6 @@ export type TreatmentDocumentationUpdateInput = {
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   treatmentLog?: Prisma.TreatmentLogUpdateOneRequiredWithoutDocumentationsNestedInput
-  harvests?: Prisma.HarvestUpdateManyWithoutPhotoEvidenceNestedInput
 }
 
 export type TreatmentDocumentationUncheckedUpdateInput = {
@@ -342,7 +336,6 @@ export type TreatmentDocumentationUncheckedUpdateInput = {
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   treatmentLogId?: Prisma.IntFieldUpdateOperationsInput | number
-  harvests?: Prisma.HarvestUncheckedUpdateManyWithoutPhotoEvidenceNestedInput
 }
 
 export type TreatmentDocumentationCreateManyInput = {
@@ -427,11 +420,6 @@ export type TreatmentDocumentationSumOrderByAggregateInput = {
   treatmentLogId?: Prisma.SortOrder
 }
 
-export type TreatmentDocumentationNullableScalarRelationFilter = {
-  is?: Prisma.TreatmentDocumentationWhereInput | null
-  isNot?: Prisma.TreatmentDocumentationWhereInput | null
-}
-
 export type TreatmentDocumentationCreateNestedManyWithoutTreatmentLogInput = {
   create?: Prisma.XOR<Prisma.TreatmentDocumentationCreateWithoutTreatmentLogInput, Prisma.TreatmentDocumentationUncheckedCreateWithoutTreatmentLogInput> | Prisma.TreatmentDocumentationCreateWithoutTreatmentLogInput[] | Prisma.TreatmentDocumentationUncheckedCreateWithoutTreatmentLogInput[]
   connectOrCreate?: Prisma.TreatmentDocumentationCreateOrConnectWithoutTreatmentLogInput | Prisma.TreatmentDocumentationCreateOrConnectWithoutTreatmentLogInput[]
@@ -482,29 +470,12 @@ export type NullableFloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type TreatmentDocumentationCreateNestedOneWithoutHarvestsInput = {
-  create?: Prisma.XOR<Prisma.TreatmentDocumentationCreateWithoutHarvestsInput, Prisma.TreatmentDocumentationUncheckedCreateWithoutHarvestsInput>
-  connectOrCreate?: Prisma.TreatmentDocumentationCreateOrConnectWithoutHarvestsInput
-  connect?: Prisma.TreatmentDocumentationWhereUniqueInput
-}
-
-export type TreatmentDocumentationUpdateOneWithoutHarvestsNestedInput = {
-  create?: Prisma.XOR<Prisma.TreatmentDocumentationCreateWithoutHarvestsInput, Prisma.TreatmentDocumentationUncheckedCreateWithoutHarvestsInput>
-  connectOrCreate?: Prisma.TreatmentDocumentationCreateOrConnectWithoutHarvestsInput
-  upsert?: Prisma.TreatmentDocumentationUpsertWithoutHarvestsInput
-  disconnect?: Prisma.TreatmentDocumentationWhereInput | boolean
-  delete?: Prisma.TreatmentDocumentationWhereInput | boolean
-  connect?: Prisma.TreatmentDocumentationWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TreatmentDocumentationUpdateToOneWithWhereWithoutHarvestsInput, Prisma.TreatmentDocumentationUpdateWithoutHarvestsInput>, Prisma.TreatmentDocumentationUncheckedUpdateWithoutHarvestsInput>
-}
-
 export type TreatmentDocumentationCreateWithoutTreatmentLogInput = {
   photoUrl: string
   caption?: string | null
   takenAt?: Date | string | null
   latitude?: number | null
   longitude?: number | null
-  harvests?: Prisma.HarvestCreateNestedManyWithoutPhotoEvidenceInput
 }
 
 export type TreatmentDocumentationUncheckedCreateWithoutTreatmentLogInput = {
@@ -514,7 +485,6 @@ export type TreatmentDocumentationUncheckedCreateWithoutTreatmentLogInput = {
   takenAt?: Date | string | null
   latitude?: number | null
   longitude?: number | null
-  harvests?: Prisma.HarvestUncheckedCreateNestedManyWithoutPhotoEvidenceInput
 }
 
 export type TreatmentDocumentationCreateOrConnectWithoutTreatmentLogInput = {
@@ -556,60 +526,6 @@ export type TreatmentDocumentationScalarWhereInput = {
   treatmentLogId?: Prisma.IntFilter<"TreatmentDocumentation"> | number
 }
 
-export type TreatmentDocumentationCreateWithoutHarvestsInput = {
-  photoUrl: string
-  caption?: string | null
-  takenAt?: Date | string | null
-  latitude?: number | null
-  longitude?: number | null
-  treatmentLog: Prisma.TreatmentLogCreateNestedOneWithoutDocumentationsInput
-}
-
-export type TreatmentDocumentationUncheckedCreateWithoutHarvestsInput = {
-  id?: number
-  photoUrl: string
-  caption?: string | null
-  takenAt?: Date | string | null
-  latitude?: number | null
-  longitude?: number | null
-  treatmentLogId: number
-}
-
-export type TreatmentDocumentationCreateOrConnectWithoutHarvestsInput = {
-  where: Prisma.TreatmentDocumentationWhereUniqueInput
-  create: Prisma.XOR<Prisma.TreatmentDocumentationCreateWithoutHarvestsInput, Prisma.TreatmentDocumentationUncheckedCreateWithoutHarvestsInput>
-}
-
-export type TreatmentDocumentationUpsertWithoutHarvestsInput = {
-  update: Prisma.XOR<Prisma.TreatmentDocumentationUpdateWithoutHarvestsInput, Prisma.TreatmentDocumentationUncheckedUpdateWithoutHarvestsInput>
-  create: Prisma.XOR<Prisma.TreatmentDocumentationCreateWithoutHarvestsInput, Prisma.TreatmentDocumentationUncheckedCreateWithoutHarvestsInput>
-  where?: Prisma.TreatmentDocumentationWhereInput
-}
-
-export type TreatmentDocumentationUpdateToOneWithWhereWithoutHarvestsInput = {
-  where?: Prisma.TreatmentDocumentationWhereInput
-  data: Prisma.XOR<Prisma.TreatmentDocumentationUpdateWithoutHarvestsInput, Prisma.TreatmentDocumentationUncheckedUpdateWithoutHarvestsInput>
-}
-
-export type TreatmentDocumentationUpdateWithoutHarvestsInput = {
-  photoUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  takenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  treatmentLog?: Prisma.TreatmentLogUpdateOneRequiredWithoutDocumentationsNestedInput
-}
-
-export type TreatmentDocumentationUncheckedUpdateWithoutHarvestsInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  photoUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  caption?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  takenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  treatmentLogId?: Prisma.IntFieldUpdateOperationsInput | number
-}
-
 export type TreatmentDocumentationCreateManyTreatmentLogInput = {
   id?: number
   photoUrl: string
@@ -625,7 +541,6 @@ export type TreatmentDocumentationUpdateWithoutTreatmentLogInput = {
   takenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  harvests?: Prisma.HarvestUpdateManyWithoutPhotoEvidenceNestedInput
 }
 
 export type TreatmentDocumentationUncheckedUpdateWithoutTreatmentLogInput = {
@@ -635,7 +550,6 @@ export type TreatmentDocumentationUncheckedUpdateWithoutTreatmentLogInput = {
   takenAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   latitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   longitude?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  harvests?: Prisma.HarvestUncheckedUpdateManyWithoutPhotoEvidenceNestedInput
 }
 
 export type TreatmentDocumentationUncheckedUpdateManyWithoutTreatmentLogInput = {
@@ -648,35 +562,6 @@ export type TreatmentDocumentationUncheckedUpdateManyWithoutTreatmentLogInput = 
 }
 
 
-/**
- * Count Type TreatmentDocumentationCountOutputType
- */
-
-export type TreatmentDocumentationCountOutputType = {
-  harvests: number
-}
-
-export type TreatmentDocumentationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  harvests?: boolean | TreatmentDocumentationCountOutputTypeCountHarvestsArgs
-}
-
-/**
- * TreatmentDocumentationCountOutputType without action
- */
-export type TreatmentDocumentationCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the TreatmentDocumentationCountOutputType
-   */
-  select?: Prisma.TreatmentDocumentationCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * TreatmentDocumentationCountOutputType without action
- */
-export type TreatmentDocumentationCountOutputTypeCountHarvestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.HarvestWhereInput
-}
-
 
 export type TreatmentDocumentationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -687,8 +572,6 @@ export type TreatmentDocumentationSelect<ExtArgs extends runtime.Types.Extension
   longitude?: boolean
   treatmentLogId?: boolean
   treatmentLog?: boolean | Prisma.TreatmentLogDefaultArgs<ExtArgs>
-  harvests?: boolean | Prisma.TreatmentDocumentation$harvestsArgs<ExtArgs>
-  _count?: boolean | Prisma.TreatmentDocumentationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["treatmentDocumentation"]>
 
 export type TreatmentDocumentationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -726,8 +609,6 @@ export type TreatmentDocumentationSelectScalar = {
 export type TreatmentDocumentationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "photoUrl" | "caption" | "takenAt" | "latitude" | "longitude" | "treatmentLogId", ExtArgs["result"]["treatmentDocumentation"]>
 export type TreatmentDocumentationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   treatmentLog?: boolean | Prisma.TreatmentLogDefaultArgs<ExtArgs>
-  harvests?: boolean | Prisma.TreatmentDocumentation$harvestsArgs<ExtArgs>
-  _count?: boolean | Prisma.TreatmentDocumentationCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TreatmentDocumentationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   treatmentLog?: boolean | Prisma.TreatmentLogDefaultArgs<ExtArgs>
@@ -740,7 +621,6 @@ export type $TreatmentDocumentationPayload<ExtArgs extends runtime.Types.Extensi
   name: "TreatmentDocumentation"
   objects: {
     treatmentLog: Prisma.$TreatmentLogPayload<ExtArgs>
-    harvests: Prisma.$HarvestPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1145,7 +1025,6 @@ readonly fields: TreatmentDocumentationFieldRefs;
 export interface Prisma__TreatmentDocumentationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   treatmentLog<T extends Prisma.TreatmentLogDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TreatmentLogDefaultArgs<ExtArgs>>): Prisma.Prisma__TreatmentLogClient<runtime.Types.Result.GetResult<Prisma.$TreatmentLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  harvests<T extends Prisma.TreatmentDocumentation$harvestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TreatmentDocumentation$harvestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HarvestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1580,30 +1459,6 @@ export type TreatmentDocumentationDeleteManyArgs<ExtArgs extends runtime.Types.E
    * Limit how many TreatmentDocumentations to delete.
    */
   limit?: number
-}
-
-/**
- * TreatmentDocumentation.harvests
- */
-export type TreatmentDocumentation$harvestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Harvest
-   */
-  select?: Prisma.HarvestSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Harvest
-   */
-  omit?: Prisma.HarvestOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.HarvestInclude<ExtArgs> | null
-  where?: Prisma.HarvestWhereInput
-  orderBy?: Prisma.HarvestOrderByWithRelationInput | Prisma.HarvestOrderByWithRelationInput[]
-  cursor?: Prisma.HarvestWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.HarvestScalarFieldEnum | Prisma.HarvestScalarFieldEnum[]
 }
 
 /**

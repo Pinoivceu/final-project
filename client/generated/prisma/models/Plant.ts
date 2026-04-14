@@ -29,13 +29,11 @@ export type AggregatePlant = {
 export type PlantAvgAggregateOutputType = {
   id: number | null
   activeBranches: number | null
-  landId: number | null
 }
 
 export type PlantSumAggregateOutputType = {
   id: number | null
   activeBranches: number | null
-  landId: number | null
 }
 
 export type PlantMinAggregateOutputType = {
@@ -46,7 +44,7 @@ export type PlantMinAggregateOutputType = {
   status: string | null
   createdAt: Date | null
   updatedAt: Date | null
-  landId: number | null
+  landId: string | null
 }
 
 export type PlantMaxAggregateOutputType = {
@@ -57,7 +55,7 @@ export type PlantMaxAggregateOutputType = {
   status: string | null
   createdAt: Date | null
   updatedAt: Date | null
-  landId: number | null
+  landId: string | null
 }
 
 export type PlantCountAggregateOutputType = {
@@ -77,13 +75,11 @@ export type PlantCountAggregateOutputType = {
 export type PlantAvgAggregateInputType = {
   id?: true
   activeBranches?: true
-  landId?: true
 }
 
 export type PlantSumAggregateInputType = {
   id?: true
   activeBranches?: true
-  landId?: true
 }
 
 export type PlantMinAggregateInputType = {
@@ -216,7 +212,7 @@ export type PlantGroupByOutputType = {
   status: string
   createdAt: Date
   updatedAt: Date
-  landId: number
+  landId: string
   _count: PlantCountAggregateOutputType | null
   _avg: PlantAvgAggregateOutputType | null
   _sum: PlantSumAggregateOutputType | null
@@ -251,7 +247,7 @@ export type PlantWhereInput = {
   status?: Prisma.StringFilter<"Plant"> | string
   createdAt?: Prisma.DateTimeFilter<"Plant"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Plant"> | Date | string
-  landId?: Prisma.IntFilter<"Plant"> | number
+  landId?: Prisma.StringFilter<"Plant"> | string
   land?: Prisma.XOR<Prisma.LandScalarRelationFilter, Prisma.LandWhereInput>
 }
 
@@ -280,7 +276,7 @@ export type PlantWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.StringFilter<"Plant"> | string
   createdAt?: Prisma.DateTimeFilter<"Plant"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Plant"> | Date | string
-  landId?: Prisma.IntFilter<"Plant"> | number
+  landId?: Prisma.StringFilter<"Plant"> | string
   land?: Prisma.XOR<Prisma.LandScalarRelationFilter, Prisma.LandWhereInput>
 }, "id">
 
@@ -313,7 +309,7 @@ export type PlantScalarWhereWithAggregatesInput = {
   status?: Prisma.StringWithAggregatesFilter<"Plant"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Plant"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Plant"> | Date | string
-  landId?: Prisma.IntWithAggregatesFilter<"Plant"> | number
+  landId?: Prisma.StringWithAggregatesFilter<"Plant"> | string
 }
 
 export type PlantCreateInput = {
@@ -336,7 +332,7 @@ export type PlantUncheckedCreateInput = {
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  landId: number
+  landId: string
 }
 
 export type PlantUpdateInput = {
@@ -359,7 +355,7 @@ export type PlantUncheckedUpdateInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  landId?: Prisma.IntFieldUpdateOperationsInput | number
+  landId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type PlantCreateManyInput = {
@@ -371,7 +367,7 @@ export type PlantCreateManyInput = {
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  landId: number
+  landId: string
 }
 
 export type PlantUpdateManyMutationInput = {
@@ -393,7 +389,7 @@ export type PlantUncheckedUpdateManyInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  landId?: Prisma.IntFieldUpdateOperationsInput | number
+  landId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type PlantListRelationFilter = {
@@ -421,7 +417,6 @@ export type PlantCountOrderByAggregateInput = {
 export type PlantAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   activeBranches?: Prisma.SortOrder
-  landId?: Prisma.SortOrder
 }
 
 export type PlantMaxOrderByAggregateInput = {
@@ -449,7 +444,6 @@ export type PlantMinOrderByAggregateInput = {
 export type PlantSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   activeBranches?: Prisma.SortOrder
-  landId?: Prisma.SortOrder
 }
 
 export type PlantCreateNestedManyWithoutLandInput = {
@@ -492,6 +486,14 @@ export type PlantUncheckedUpdateManyWithoutLandNestedInput = {
   update?: Prisma.PlantUpdateWithWhereUniqueWithoutLandInput | Prisma.PlantUpdateWithWhereUniqueWithoutLandInput[]
   updateMany?: Prisma.PlantUpdateManyWithWhereWithoutLandInput | Prisma.PlantUpdateManyWithWhereWithoutLandInput[]
   deleteMany?: Prisma.PlantScalarWhereInput | Prisma.PlantScalarWhereInput[]
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type PlantCreateWithoutLandInput = {
@@ -553,7 +555,7 @@ export type PlantScalarWhereInput = {
   status?: Prisma.StringFilter<"Plant"> | string
   createdAt?: Prisma.DateTimeFilter<"Plant"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Plant"> | Date | string
-  landId?: Prisma.IntFilter<"Plant"> | number
+  landId?: Prisma.StringFilter<"Plant"> | string
 }
 
 export type PlantCreateManyLandInput = {
@@ -677,7 +679,7 @@ export type $PlantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     status: string
     createdAt: Date
     updatedAt: Date
-    landId: number
+    landId: string
   }, ExtArgs["result"]["plant"]>
   composites: {}
 }
@@ -1110,7 +1112,7 @@ export interface PlantFieldRefs {
   readonly status: Prisma.FieldRef<"Plant", 'String'>
   readonly createdAt: Prisma.FieldRef<"Plant", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Plant", 'DateTime'>
-  readonly landId: Prisma.FieldRef<"Plant", 'Int'>
+  readonly landId: Prisma.FieldRef<"Plant", 'String'>
 }
     
 

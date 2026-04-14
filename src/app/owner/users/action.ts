@@ -37,8 +37,8 @@ export async function deleteUser(userId: any) {
         revalidatePath("/owner/user")
 
         return { success: true }
-    } catch (error) {
-        return { success: false, error: "Gagal menghapus user" }
+    } catch (error :any) {
+       throw new Error(error.message || "Gagal menghapus user");
     }
 }
 

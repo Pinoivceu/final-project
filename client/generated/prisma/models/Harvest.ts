@@ -27,39 +27,29 @@ export type AggregateHarvest = {
 }
 
 export type HarvestAvgAggregateOutputType = {
-  id: number | null
   totalWeight: number | null
-  landId: number | null
-  photoEvidenceId: number | null
 }
 
 export type HarvestSumAggregateOutputType = {
-  id: number | null
   totalWeight: number | null
-  landId: number | null
-  photoEvidenceId: number | null
 }
 
 export type HarvestMinAggregateOutputType = {
-  id: number | null
+  id: string | null
   harvestDate: Date | null
   totalWeight: number | null
   notes: string | null
   createdAt: Date | null
-  landId: number | null
-  mandorId: string | null
-  photoEvidenceId: number | null
+  landId: string | null
 }
 
 export type HarvestMaxAggregateOutputType = {
-  id: number | null
+  id: string | null
   harvestDate: Date | null
   totalWeight: number | null
   notes: string | null
   createdAt: Date | null
-  landId: number | null
-  mandorId: string | null
-  photoEvidenceId: number | null
+  landId: string | null
 }
 
 export type HarvestCountAggregateOutputType = {
@@ -69,24 +59,16 @@ export type HarvestCountAggregateOutputType = {
   notes: number
   createdAt: number
   landId: number
-  mandorId: number
-  photoEvidenceId: number
   _all: number
 }
 
 
 export type HarvestAvgAggregateInputType = {
-  id?: true
   totalWeight?: true
-  landId?: true
-  photoEvidenceId?: true
 }
 
 export type HarvestSumAggregateInputType = {
-  id?: true
   totalWeight?: true
-  landId?: true
-  photoEvidenceId?: true
 }
 
 export type HarvestMinAggregateInputType = {
@@ -96,8 +78,6 @@ export type HarvestMinAggregateInputType = {
   notes?: true
   createdAt?: true
   landId?: true
-  mandorId?: true
-  photoEvidenceId?: true
 }
 
 export type HarvestMaxAggregateInputType = {
@@ -107,8 +87,6 @@ export type HarvestMaxAggregateInputType = {
   notes?: true
   createdAt?: true
   landId?: true
-  mandorId?: true
-  photoEvidenceId?: true
 }
 
 export type HarvestCountAggregateInputType = {
@@ -118,8 +96,6 @@ export type HarvestCountAggregateInputType = {
   notes?: true
   createdAt?: true
   landId?: true
-  mandorId?: true
-  photoEvidenceId?: true
   _all?: true
 }
 
@@ -210,14 +186,12 @@ export type HarvestGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 export type HarvestGroupByOutputType = {
-  id: number
+  id: string
   harvestDate: Date
   totalWeight: number
   notes: string | null
   createdAt: Date
-  landId: number
-  mandorId: string
-  photoEvidenceId: number | null
+  landId: string
   _count: HarvestCountAggregateOutputType | null
   _avg: HarvestAvgAggregateOutputType | null
   _sum: HarvestSumAggregateOutputType | null
@@ -244,17 +218,13 @@ export type HarvestWhereInput = {
   AND?: Prisma.HarvestWhereInput | Prisma.HarvestWhereInput[]
   OR?: Prisma.HarvestWhereInput[]
   NOT?: Prisma.HarvestWhereInput | Prisma.HarvestWhereInput[]
-  id?: Prisma.IntFilter<"Harvest"> | number
+  id?: Prisma.StringFilter<"Harvest"> | string
   harvestDate?: Prisma.DateTimeFilter<"Harvest"> | Date | string
   totalWeight?: Prisma.FloatFilter<"Harvest"> | number
   notes?: Prisma.StringNullableFilter<"Harvest"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Harvest"> | Date | string
-  landId?: Prisma.IntFilter<"Harvest"> | number
-  mandorId?: Prisma.StringFilter<"Harvest"> | string
-  photoEvidenceId?: Prisma.IntNullableFilter<"Harvest"> | number | null
+  landId?: Prisma.StringFilter<"Harvest"> | string
   land?: Prisma.XOR<Prisma.LandScalarRelationFilter, Prisma.LandWhereInput>
-  mandor?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  photoEvidence?: Prisma.XOR<Prisma.TreatmentDocumentationNullableScalarRelationFilter, Prisma.TreatmentDocumentationWhereInput> | null
 }
 
 export type HarvestOrderByWithRelationInput = {
@@ -264,15 +234,11 @@ export type HarvestOrderByWithRelationInput = {
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   landId?: Prisma.SortOrder
-  mandorId?: Prisma.SortOrder
-  photoEvidenceId?: Prisma.SortOrderInput | Prisma.SortOrder
   land?: Prisma.LandOrderByWithRelationInput
-  mandor?: Prisma.UserOrderByWithRelationInput
-  photoEvidence?: Prisma.TreatmentDocumentationOrderByWithRelationInput
 }
 
 export type HarvestWhereUniqueInput = Prisma.AtLeast<{
-  id?: number
+  id?: string
   AND?: Prisma.HarvestWhereInput | Prisma.HarvestWhereInput[]
   OR?: Prisma.HarvestWhereInput[]
   NOT?: Prisma.HarvestWhereInput | Prisma.HarvestWhereInput[]
@@ -280,12 +246,8 @@ export type HarvestWhereUniqueInput = Prisma.AtLeast<{
   totalWeight?: Prisma.FloatFilter<"Harvest"> | number
   notes?: Prisma.StringNullableFilter<"Harvest"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Harvest"> | Date | string
-  landId?: Prisma.IntFilter<"Harvest"> | number
-  mandorId?: Prisma.StringFilter<"Harvest"> | string
-  photoEvidenceId?: Prisma.IntNullableFilter<"Harvest"> | number | null
+  landId?: Prisma.StringFilter<"Harvest"> | string
   land?: Prisma.XOR<Prisma.LandScalarRelationFilter, Prisma.LandWhereInput>
-  mandor?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  photoEvidence?: Prisma.XOR<Prisma.TreatmentDocumentationNullableScalarRelationFilter, Prisma.TreatmentDocumentationWhereInput> | null
 }, "id">
 
 export type HarvestOrderByWithAggregationInput = {
@@ -295,8 +257,6 @@ export type HarvestOrderByWithAggregationInput = {
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   landId?: Prisma.SortOrder
-  mandorId?: Prisma.SortOrder
-  photoEvidenceId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.HarvestCountOrderByAggregateInput
   _avg?: Prisma.HarvestAvgOrderByAggregateInput
   _max?: Prisma.HarvestMaxOrderByAggregateInput
@@ -308,70 +268,61 @@ export type HarvestScalarWhereWithAggregatesInput = {
   AND?: Prisma.HarvestScalarWhereWithAggregatesInput | Prisma.HarvestScalarWhereWithAggregatesInput[]
   OR?: Prisma.HarvestScalarWhereWithAggregatesInput[]
   NOT?: Prisma.HarvestScalarWhereWithAggregatesInput | Prisma.HarvestScalarWhereWithAggregatesInput[]
-  id?: Prisma.IntWithAggregatesFilter<"Harvest"> | number
+  id?: Prisma.StringWithAggregatesFilter<"Harvest"> | string
   harvestDate?: Prisma.DateTimeWithAggregatesFilter<"Harvest"> | Date | string
   totalWeight?: Prisma.FloatWithAggregatesFilter<"Harvest"> | number
   notes?: Prisma.StringNullableWithAggregatesFilter<"Harvest"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Harvest"> | Date | string
-  landId?: Prisma.IntWithAggregatesFilter<"Harvest"> | number
-  mandorId?: Prisma.StringWithAggregatesFilter<"Harvest"> | string
-  photoEvidenceId?: Prisma.IntNullableWithAggregatesFilter<"Harvest"> | number | null
+  landId?: Prisma.StringWithAggregatesFilter<"Harvest"> | string
 }
 
 export type HarvestCreateInput = {
+  id?: string
   harvestDate: Date | string
   totalWeight: number
   notes?: string | null
   createdAt?: Date | string
   land: Prisma.LandCreateNestedOneWithoutHarvestsInput
-  mandor: Prisma.UserCreateNestedOneWithoutHarvestsInput
-  photoEvidence?: Prisma.TreatmentDocumentationCreateNestedOneWithoutHarvestsInput
 }
 
 export type HarvestUncheckedCreateInput = {
-  id?: number
+  id?: string
   harvestDate: Date | string
   totalWeight: number
   notes?: string | null
   createdAt?: Date | string
-  landId: number
-  mandorId: string
-  photoEvidenceId?: number | null
+  landId: string
 }
 
 export type HarvestUpdateInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   harvestDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalWeight?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   land?: Prisma.LandUpdateOneRequiredWithoutHarvestsNestedInput
-  mandor?: Prisma.UserUpdateOneRequiredWithoutHarvestsNestedInput
-  photoEvidence?: Prisma.TreatmentDocumentationUpdateOneWithoutHarvestsNestedInput
 }
 
 export type HarvestUncheckedUpdateInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   harvestDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalWeight?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  landId?: Prisma.IntFieldUpdateOperationsInput | number
-  mandorId?: Prisma.StringFieldUpdateOperationsInput | string
-  photoEvidenceId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  landId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type HarvestCreateManyInput = {
-  id?: number
+  id?: string
   harvestDate: Date | string
   totalWeight: number
   notes?: string | null
   createdAt?: Date | string
-  landId: number
-  mandorId: string
-  photoEvidenceId?: number | null
+  landId: string
 }
 
 export type HarvestUpdateManyMutationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   harvestDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalWeight?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -379,14 +330,12 @@ export type HarvestUpdateManyMutationInput = {
 }
 
 export type HarvestUncheckedUpdateManyInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   harvestDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalWeight?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  landId?: Prisma.IntFieldUpdateOperationsInput | number
-  mandorId?: Prisma.StringFieldUpdateOperationsInput | string
-  photoEvidenceId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  landId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type HarvestListRelationFilter = {
@@ -406,15 +355,10 @@ export type HarvestCountOrderByAggregateInput = {
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   landId?: Prisma.SortOrder
-  mandorId?: Prisma.SortOrder
-  photoEvidenceId?: Prisma.SortOrder
 }
 
 export type HarvestAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   totalWeight?: Prisma.SortOrder
-  landId?: Prisma.SortOrder
-  photoEvidenceId?: Prisma.SortOrder
 }
 
 export type HarvestMaxOrderByAggregateInput = {
@@ -424,8 +368,6 @@ export type HarvestMaxOrderByAggregateInput = {
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   landId?: Prisma.SortOrder
-  mandorId?: Prisma.SortOrder
-  photoEvidenceId?: Prisma.SortOrder
 }
 
 export type HarvestMinOrderByAggregateInput = {
@@ -435,57 +377,10 @@ export type HarvestMinOrderByAggregateInput = {
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   landId?: Prisma.SortOrder
-  mandorId?: Prisma.SortOrder
-  photoEvidenceId?: Prisma.SortOrder
 }
 
 export type HarvestSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   totalWeight?: Prisma.SortOrder
-  landId?: Prisma.SortOrder
-  photoEvidenceId?: Prisma.SortOrder
-}
-
-export type HarvestCreateNestedManyWithoutMandorInput = {
-  create?: Prisma.XOR<Prisma.HarvestCreateWithoutMandorInput, Prisma.HarvestUncheckedCreateWithoutMandorInput> | Prisma.HarvestCreateWithoutMandorInput[] | Prisma.HarvestUncheckedCreateWithoutMandorInput[]
-  connectOrCreate?: Prisma.HarvestCreateOrConnectWithoutMandorInput | Prisma.HarvestCreateOrConnectWithoutMandorInput[]
-  createMany?: Prisma.HarvestCreateManyMandorInputEnvelope
-  connect?: Prisma.HarvestWhereUniqueInput | Prisma.HarvestWhereUniqueInput[]
-}
-
-export type HarvestUncheckedCreateNestedManyWithoutMandorInput = {
-  create?: Prisma.XOR<Prisma.HarvestCreateWithoutMandorInput, Prisma.HarvestUncheckedCreateWithoutMandorInput> | Prisma.HarvestCreateWithoutMandorInput[] | Prisma.HarvestUncheckedCreateWithoutMandorInput[]
-  connectOrCreate?: Prisma.HarvestCreateOrConnectWithoutMandorInput | Prisma.HarvestCreateOrConnectWithoutMandorInput[]
-  createMany?: Prisma.HarvestCreateManyMandorInputEnvelope
-  connect?: Prisma.HarvestWhereUniqueInput | Prisma.HarvestWhereUniqueInput[]
-}
-
-export type HarvestUpdateManyWithoutMandorNestedInput = {
-  create?: Prisma.XOR<Prisma.HarvestCreateWithoutMandorInput, Prisma.HarvestUncheckedCreateWithoutMandorInput> | Prisma.HarvestCreateWithoutMandorInput[] | Prisma.HarvestUncheckedCreateWithoutMandorInput[]
-  connectOrCreate?: Prisma.HarvestCreateOrConnectWithoutMandorInput | Prisma.HarvestCreateOrConnectWithoutMandorInput[]
-  upsert?: Prisma.HarvestUpsertWithWhereUniqueWithoutMandorInput | Prisma.HarvestUpsertWithWhereUniqueWithoutMandorInput[]
-  createMany?: Prisma.HarvestCreateManyMandorInputEnvelope
-  set?: Prisma.HarvestWhereUniqueInput | Prisma.HarvestWhereUniqueInput[]
-  disconnect?: Prisma.HarvestWhereUniqueInput | Prisma.HarvestWhereUniqueInput[]
-  delete?: Prisma.HarvestWhereUniqueInput | Prisma.HarvestWhereUniqueInput[]
-  connect?: Prisma.HarvestWhereUniqueInput | Prisma.HarvestWhereUniqueInput[]
-  update?: Prisma.HarvestUpdateWithWhereUniqueWithoutMandorInput | Prisma.HarvestUpdateWithWhereUniqueWithoutMandorInput[]
-  updateMany?: Prisma.HarvestUpdateManyWithWhereWithoutMandorInput | Prisma.HarvestUpdateManyWithWhereWithoutMandorInput[]
-  deleteMany?: Prisma.HarvestScalarWhereInput | Prisma.HarvestScalarWhereInput[]
-}
-
-export type HarvestUncheckedUpdateManyWithoutMandorNestedInput = {
-  create?: Prisma.XOR<Prisma.HarvestCreateWithoutMandorInput, Prisma.HarvestUncheckedCreateWithoutMandorInput> | Prisma.HarvestCreateWithoutMandorInput[] | Prisma.HarvestUncheckedCreateWithoutMandorInput[]
-  connectOrCreate?: Prisma.HarvestCreateOrConnectWithoutMandorInput | Prisma.HarvestCreateOrConnectWithoutMandorInput[]
-  upsert?: Prisma.HarvestUpsertWithWhereUniqueWithoutMandorInput | Prisma.HarvestUpsertWithWhereUniqueWithoutMandorInput[]
-  createMany?: Prisma.HarvestCreateManyMandorInputEnvelope
-  set?: Prisma.HarvestWhereUniqueInput | Prisma.HarvestWhereUniqueInput[]
-  disconnect?: Prisma.HarvestWhereUniqueInput | Prisma.HarvestWhereUniqueInput[]
-  delete?: Prisma.HarvestWhereUniqueInput | Prisma.HarvestWhereUniqueInput[]
-  connect?: Prisma.HarvestWhereUniqueInput | Prisma.HarvestWhereUniqueInput[]
-  update?: Prisma.HarvestUpdateWithWhereUniqueWithoutMandorInput | Prisma.HarvestUpdateWithWhereUniqueWithoutMandorInput[]
-  updateMany?: Prisma.HarvestUpdateManyWithWhereWithoutMandorInput | Prisma.HarvestUpdateManyWithWhereWithoutMandorInput[]
-  deleteMany?: Prisma.HarvestScalarWhereInput | Prisma.HarvestScalarWhereInput[]
 }
 
 export type HarvestCreateNestedManyWithoutLandInput = {
@@ -530,132 +425,20 @@ export type HarvestUncheckedUpdateManyWithoutLandNestedInput = {
   deleteMany?: Prisma.HarvestScalarWhereInput | Prisma.HarvestScalarWhereInput[]
 }
 
-export type HarvestCreateNestedManyWithoutPhotoEvidenceInput = {
-  create?: Prisma.XOR<Prisma.HarvestCreateWithoutPhotoEvidenceInput, Prisma.HarvestUncheckedCreateWithoutPhotoEvidenceInput> | Prisma.HarvestCreateWithoutPhotoEvidenceInput[] | Prisma.HarvestUncheckedCreateWithoutPhotoEvidenceInput[]
-  connectOrCreate?: Prisma.HarvestCreateOrConnectWithoutPhotoEvidenceInput | Prisma.HarvestCreateOrConnectWithoutPhotoEvidenceInput[]
-  createMany?: Prisma.HarvestCreateManyPhotoEvidenceInputEnvelope
-  connect?: Prisma.HarvestWhereUniqueInput | Prisma.HarvestWhereUniqueInput[]
-}
-
-export type HarvestUncheckedCreateNestedManyWithoutPhotoEvidenceInput = {
-  create?: Prisma.XOR<Prisma.HarvestCreateWithoutPhotoEvidenceInput, Prisma.HarvestUncheckedCreateWithoutPhotoEvidenceInput> | Prisma.HarvestCreateWithoutPhotoEvidenceInput[] | Prisma.HarvestUncheckedCreateWithoutPhotoEvidenceInput[]
-  connectOrCreate?: Prisma.HarvestCreateOrConnectWithoutPhotoEvidenceInput | Prisma.HarvestCreateOrConnectWithoutPhotoEvidenceInput[]
-  createMany?: Prisma.HarvestCreateManyPhotoEvidenceInputEnvelope
-  connect?: Prisma.HarvestWhereUniqueInput | Prisma.HarvestWhereUniqueInput[]
-}
-
-export type HarvestUpdateManyWithoutPhotoEvidenceNestedInput = {
-  create?: Prisma.XOR<Prisma.HarvestCreateWithoutPhotoEvidenceInput, Prisma.HarvestUncheckedCreateWithoutPhotoEvidenceInput> | Prisma.HarvestCreateWithoutPhotoEvidenceInput[] | Prisma.HarvestUncheckedCreateWithoutPhotoEvidenceInput[]
-  connectOrCreate?: Prisma.HarvestCreateOrConnectWithoutPhotoEvidenceInput | Prisma.HarvestCreateOrConnectWithoutPhotoEvidenceInput[]
-  upsert?: Prisma.HarvestUpsertWithWhereUniqueWithoutPhotoEvidenceInput | Prisma.HarvestUpsertWithWhereUniqueWithoutPhotoEvidenceInput[]
-  createMany?: Prisma.HarvestCreateManyPhotoEvidenceInputEnvelope
-  set?: Prisma.HarvestWhereUniqueInput | Prisma.HarvestWhereUniqueInput[]
-  disconnect?: Prisma.HarvestWhereUniqueInput | Prisma.HarvestWhereUniqueInput[]
-  delete?: Prisma.HarvestWhereUniqueInput | Prisma.HarvestWhereUniqueInput[]
-  connect?: Prisma.HarvestWhereUniqueInput | Prisma.HarvestWhereUniqueInput[]
-  update?: Prisma.HarvestUpdateWithWhereUniqueWithoutPhotoEvidenceInput | Prisma.HarvestUpdateWithWhereUniqueWithoutPhotoEvidenceInput[]
-  updateMany?: Prisma.HarvestUpdateManyWithWhereWithoutPhotoEvidenceInput | Prisma.HarvestUpdateManyWithWhereWithoutPhotoEvidenceInput[]
-  deleteMany?: Prisma.HarvestScalarWhereInput | Prisma.HarvestScalarWhereInput[]
-}
-
-export type HarvestUncheckedUpdateManyWithoutPhotoEvidenceNestedInput = {
-  create?: Prisma.XOR<Prisma.HarvestCreateWithoutPhotoEvidenceInput, Prisma.HarvestUncheckedCreateWithoutPhotoEvidenceInput> | Prisma.HarvestCreateWithoutPhotoEvidenceInput[] | Prisma.HarvestUncheckedCreateWithoutPhotoEvidenceInput[]
-  connectOrCreate?: Prisma.HarvestCreateOrConnectWithoutPhotoEvidenceInput | Prisma.HarvestCreateOrConnectWithoutPhotoEvidenceInput[]
-  upsert?: Prisma.HarvestUpsertWithWhereUniqueWithoutPhotoEvidenceInput | Prisma.HarvestUpsertWithWhereUniqueWithoutPhotoEvidenceInput[]
-  createMany?: Prisma.HarvestCreateManyPhotoEvidenceInputEnvelope
-  set?: Prisma.HarvestWhereUniqueInput | Prisma.HarvestWhereUniqueInput[]
-  disconnect?: Prisma.HarvestWhereUniqueInput | Prisma.HarvestWhereUniqueInput[]
-  delete?: Prisma.HarvestWhereUniqueInput | Prisma.HarvestWhereUniqueInput[]
-  connect?: Prisma.HarvestWhereUniqueInput | Prisma.HarvestWhereUniqueInput[]
-  update?: Prisma.HarvestUpdateWithWhereUniqueWithoutPhotoEvidenceInput | Prisma.HarvestUpdateWithWhereUniqueWithoutPhotoEvidenceInput[]
-  updateMany?: Prisma.HarvestUpdateManyWithWhereWithoutPhotoEvidenceInput | Prisma.HarvestUpdateManyWithWhereWithoutPhotoEvidenceInput[]
-  deleteMany?: Prisma.HarvestScalarWhereInput | Prisma.HarvestScalarWhereInput[]
-}
-
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
-export type HarvestCreateWithoutMandorInput = {
-  harvestDate: Date | string
-  totalWeight: number
-  notes?: string | null
-  createdAt?: Date | string
-  land: Prisma.LandCreateNestedOneWithoutHarvestsInput
-  photoEvidence?: Prisma.TreatmentDocumentationCreateNestedOneWithoutHarvestsInput
-}
-
-export type HarvestUncheckedCreateWithoutMandorInput = {
-  id?: number
-  harvestDate: Date | string
-  totalWeight: number
-  notes?: string | null
-  createdAt?: Date | string
-  landId: number
-  photoEvidenceId?: number | null
-}
-
-export type HarvestCreateOrConnectWithoutMandorInput = {
-  where: Prisma.HarvestWhereUniqueInput
-  create: Prisma.XOR<Prisma.HarvestCreateWithoutMandorInput, Prisma.HarvestUncheckedCreateWithoutMandorInput>
-}
-
-export type HarvestCreateManyMandorInputEnvelope = {
-  data: Prisma.HarvestCreateManyMandorInput | Prisma.HarvestCreateManyMandorInput[]
-  skipDuplicates?: boolean
-}
-
-export type HarvestUpsertWithWhereUniqueWithoutMandorInput = {
-  where: Prisma.HarvestWhereUniqueInput
-  update: Prisma.XOR<Prisma.HarvestUpdateWithoutMandorInput, Prisma.HarvestUncheckedUpdateWithoutMandorInput>
-  create: Prisma.XOR<Prisma.HarvestCreateWithoutMandorInput, Prisma.HarvestUncheckedCreateWithoutMandorInput>
-}
-
-export type HarvestUpdateWithWhereUniqueWithoutMandorInput = {
-  where: Prisma.HarvestWhereUniqueInput
-  data: Prisma.XOR<Prisma.HarvestUpdateWithoutMandorInput, Prisma.HarvestUncheckedUpdateWithoutMandorInput>
-}
-
-export type HarvestUpdateManyWithWhereWithoutMandorInput = {
-  where: Prisma.HarvestScalarWhereInput
-  data: Prisma.XOR<Prisma.HarvestUpdateManyMutationInput, Prisma.HarvestUncheckedUpdateManyWithoutMandorInput>
-}
-
-export type HarvestScalarWhereInput = {
-  AND?: Prisma.HarvestScalarWhereInput | Prisma.HarvestScalarWhereInput[]
-  OR?: Prisma.HarvestScalarWhereInput[]
-  NOT?: Prisma.HarvestScalarWhereInput | Prisma.HarvestScalarWhereInput[]
-  id?: Prisma.IntFilter<"Harvest"> | number
-  harvestDate?: Prisma.DateTimeFilter<"Harvest"> | Date | string
-  totalWeight?: Prisma.FloatFilter<"Harvest"> | number
-  notes?: Prisma.StringNullableFilter<"Harvest"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"Harvest"> | Date | string
-  landId?: Prisma.IntFilter<"Harvest"> | number
-  mandorId?: Prisma.StringFilter<"Harvest"> | string
-  photoEvidenceId?: Prisma.IntNullableFilter<"Harvest"> | number | null
-}
-
 export type HarvestCreateWithoutLandInput = {
+  id?: string
   harvestDate: Date | string
   totalWeight: number
   notes?: string | null
   createdAt?: Date | string
-  mandor: Prisma.UserCreateNestedOneWithoutHarvestsInput
-  photoEvidence?: Prisma.TreatmentDocumentationCreateNestedOneWithoutHarvestsInput
 }
 
 export type HarvestUncheckedCreateWithoutLandInput = {
-  id?: number
+  id?: string
   harvestDate: Date | string
   totalWeight: number
   notes?: string | null
   createdAt?: Date | string
-  mandorId: string
-  photoEvidenceId?: number | null
 }
 
 export type HarvestCreateOrConnectWithoutLandInput = {
@@ -684,166 +467,48 @@ export type HarvestUpdateManyWithWhereWithoutLandInput = {
   data: Prisma.XOR<Prisma.HarvestUpdateManyMutationInput, Prisma.HarvestUncheckedUpdateManyWithoutLandInput>
 }
 
-export type HarvestCreateWithoutPhotoEvidenceInput = {
-  harvestDate: Date | string
-  totalWeight: number
-  notes?: string | null
-  createdAt?: Date | string
-  land: Prisma.LandCreateNestedOneWithoutHarvestsInput
-  mandor: Prisma.UserCreateNestedOneWithoutHarvestsInput
-}
-
-export type HarvestUncheckedCreateWithoutPhotoEvidenceInput = {
-  id?: number
-  harvestDate: Date | string
-  totalWeight: number
-  notes?: string | null
-  createdAt?: Date | string
-  landId: number
-  mandorId: string
-}
-
-export type HarvestCreateOrConnectWithoutPhotoEvidenceInput = {
-  where: Prisma.HarvestWhereUniqueInput
-  create: Prisma.XOR<Prisma.HarvestCreateWithoutPhotoEvidenceInput, Prisma.HarvestUncheckedCreateWithoutPhotoEvidenceInput>
-}
-
-export type HarvestCreateManyPhotoEvidenceInputEnvelope = {
-  data: Prisma.HarvestCreateManyPhotoEvidenceInput | Prisma.HarvestCreateManyPhotoEvidenceInput[]
-  skipDuplicates?: boolean
-}
-
-export type HarvestUpsertWithWhereUniqueWithoutPhotoEvidenceInput = {
-  where: Prisma.HarvestWhereUniqueInput
-  update: Prisma.XOR<Prisma.HarvestUpdateWithoutPhotoEvidenceInput, Prisma.HarvestUncheckedUpdateWithoutPhotoEvidenceInput>
-  create: Prisma.XOR<Prisma.HarvestCreateWithoutPhotoEvidenceInput, Prisma.HarvestUncheckedCreateWithoutPhotoEvidenceInput>
-}
-
-export type HarvestUpdateWithWhereUniqueWithoutPhotoEvidenceInput = {
-  where: Prisma.HarvestWhereUniqueInput
-  data: Prisma.XOR<Prisma.HarvestUpdateWithoutPhotoEvidenceInput, Prisma.HarvestUncheckedUpdateWithoutPhotoEvidenceInput>
-}
-
-export type HarvestUpdateManyWithWhereWithoutPhotoEvidenceInput = {
-  where: Prisma.HarvestScalarWhereInput
-  data: Prisma.XOR<Prisma.HarvestUpdateManyMutationInput, Prisma.HarvestUncheckedUpdateManyWithoutPhotoEvidenceInput>
-}
-
-export type HarvestCreateManyMandorInput = {
-  id?: number
-  harvestDate: Date | string
-  totalWeight: number
-  notes?: string | null
-  createdAt?: Date | string
-  landId: number
-  photoEvidenceId?: number | null
-}
-
-export type HarvestUpdateWithoutMandorInput = {
-  harvestDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  totalWeight?: Prisma.FloatFieldUpdateOperationsInput | number
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  land?: Prisma.LandUpdateOneRequiredWithoutHarvestsNestedInput
-  photoEvidence?: Prisma.TreatmentDocumentationUpdateOneWithoutHarvestsNestedInput
-}
-
-export type HarvestUncheckedUpdateWithoutMandorInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  harvestDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  totalWeight?: Prisma.FloatFieldUpdateOperationsInput | number
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  landId?: Prisma.IntFieldUpdateOperationsInput | number
-  photoEvidenceId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-}
-
-export type HarvestUncheckedUpdateManyWithoutMandorInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  harvestDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  totalWeight?: Prisma.FloatFieldUpdateOperationsInput | number
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  landId?: Prisma.IntFieldUpdateOperationsInput | number
-  photoEvidenceId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+export type HarvestScalarWhereInput = {
+  AND?: Prisma.HarvestScalarWhereInput | Prisma.HarvestScalarWhereInput[]
+  OR?: Prisma.HarvestScalarWhereInput[]
+  NOT?: Prisma.HarvestScalarWhereInput | Prisma.HarvestScalarWhereInput[]
+  id?: Prisma.StringFilter<"Harvest"> | string
+  harvestDate?: Prisma.DateTimeFilter<"Harvest"> | Date | string
+  totalWeight?: Prisma.FloatFilter<"Harvest"> | number
+  notes?: Prisma.StringNullableFilter<"Harvest"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Harvest"> | Date | string
+  landId?: Prisma.StringFilter<"Harvest"> | string
 }
 
 export type HarvestCreateManyLandInput = {
-  id?: number
+  id?: string
   harvestDate: Date | string
   totalWeight: number
   notes?: string | null
   createdAt?: Date | string
-  mandorId: string
-  photoEvidenceId?: number | null
 }
 
 export type HarvestUpdateWithoutLandInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   harvestDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalWeight?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  mandor?: Prisma.UserUpdateOneRequiredWithoutHarvestsNestedInput
-  photoEvidence?: Prisma.TreatmentDocumentationUpdateOneWithoutHarvestsNestedInput
 }
 
 export type HarvestUncheckedUpdateWithoutLandInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   harvestDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalWeight?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  mandorId?: Prisma.StringFieldUpdateOperationsInput | string
-  photoEvidenceId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type HarvestUncheckedUpdateManyWithoutLandInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   harvestDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalWeight?: Prisma.FloatFieldUpdateOperationsInput | number
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  mandorId?: Prisma.StringFieldUpdateOperationsInput | string
-  photoEvidenceId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-}
-
-export type HarvestCreateManyPhotoEvidenceInput = {
-  id?: number
-  harvestDate: Date | string
-  totalWeight: number
-  notes?: string | null
-  createdAt?: Date | string
-  landId: number
-  mandorId: string
-}
-
-export type HarvestUpdateWithoutPhotoEvidenceInput = {
-  harvestDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  totalWeight?: Prisma.FloatFieldUpdateOperationsInput | number
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  land?: Prisma.LandUpdateOneRequiredWithoutHarvestsNestedInput
-  mandor?: Prisma.UserUpdateOneRequiredWithoutHarvestsNestedInput
-}
-
-export type HarvestUncheckedUpdateWithoutPhotoEvidenceInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  harvestDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  totalWeight?: Prisma.FloatFieldUpdateOperationsInput | number
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  landId?: Prisma.IntFieldUpdateOperationsInput | number
-  mandorId?: Prisma.StringFieldUpdateOperationsInput | string
-}
-
-export type HarvestUncheckedUpdateManyWithoutPhotoEvidenceInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
-  harvestDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  totalWeight?: Prisma.FloatFieldUpdateOperationsInput | number
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  landId?: Prisma.IntFieldUpdateOperationsInput | number
-  mandorId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -855,11 +520,7 @@ export type HarvestSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   notes?: boolean
   createdAt?: boolean
   landId?: boolean
-  mandorId?: boolean
-  photoEvidenceId?: boolean
   land?: boolean | Prisma.LandDefaultArgs<ExtArgs>
-  mandor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  photoEvidence?: boolean | Prisma.Harvest$photoEvidenceArgs<ExtArgs>
 }, ExtArgs["result"]["harvest"]>
 
 export type HarvestSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -869,11 +530,7 @@ export type HarvestSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   notes?: boolean
   createdAt?: boolean
   landId?: boolean
-  mandorId?: boolean
-  photoEvidenceId?: boolean
   land?: boolean | Prisma.LandDefaultArgs<ExtArgs>
-  mandor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  photoEvidence?: boolean | Prisma.Harvest$photoEvidenceArgs<ExtArgs>
 }, ExtArgs["result"]["harvest"]>
 
 export type HarvestSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -883,11 +540,7 @@ export type HarvestSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   notes?: boolean
   createdAt?: boolean
   landId?: boolean
-  mandorId?: boolean
-  photoEvidenceId?: boolean
   land?: boolean | Prisma.LandDefaultArgs<ExtArgs>
-  mandor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  photoEvidence?: boolean | Prisma.Harvest$photoEvidenceArgs<ExtArgs>
 }, ExtArgs["result"]["harvest"]>
 
 export type HarvestSelectScalar = {
@@ -897,43 +550,31 @@ export type HarvestSelectScalar = {
   notes?: boolean
   createdAt?: boolean
   landId?: boolean
-  mandorId?: boolean
-  photoEvidenceId?: boolean
 }
 
-export type HarvestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "harvestDate" | "totalWeight" | "notes" | "createdAt" | "landId" | "mandorId" | "photoEvidenceId", ExtArgs["result"]["harvest"]>
+export type HarvestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "harvestDate" | "totalWeight" | "notes" | "createdAt" | "landId", ExtArgs["result"]["harvest"]>
 export type HarvestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   land?: boolean | Prisma.LandDefaultArgs<ExtArgs>
-  mandor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  photoEvidence?: boolean | Prisma.Harvest$photoEvidenceArgs<ExtArgs>
 }
 export type HarvestIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   land?: boolean | Prisma.LandDefaultArgs<ExtArgs>
-  mandor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  photoEvidence?: boolean | Prisma.Harvest$photoEvidenceArgs<ExtArgs>
 }
 export type HarvestIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   land?: boolean | Prisma.LandDefaultArgs<ExtArgs>
-  mandor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  photoEvidence?: boolean | Prisma.Harvest$photoEvidenceArgs<ExtArgs>
 }
 
 export type $HarvestPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Harvest"
   objects: {
     land: Prisma.$LandPayload<ExtArgs>
-    mandor: Prisma.$UserPayload<ExtArgs>
-    photoEvidence: Prisma.$TreatmentDocumentationPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: number
+    id: string
     harvestDate: Date
     totalWeight: number
     notes: string | null
     createdAt: Date
-    landId: number
-    mandorId: string
-    photoEvidenceId: number | null
+    landId: string
   }, ExtArgs["result"]["harvest"]>
   composites: {}
 }
@@ -1329,8 +970,6 @@ readonly fields: HarvestFieldRefs;
 export interface Prisma__HarvestClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   land<T extends Prisma.LandDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.LandDefaultArgs<ExtArgs>>): Prisma.Prisma__LandClient<runtime.Types.Result.GetResult<Prisma.$LandPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  mandor<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  photoEvidence<T extends Prisma.Harvest$photoEvidenceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Harvest$photoEvidenceArgs<ExtArgs>>): Prisma.Prisma__TreatmentDocumentationClient<runtime.Types.Result.GetResult<Prisma.$TreatmentDocumentationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1360,14 +999,12 @@ export interface Prisma__HarvestClient<T, Null = never, ExtArgs extends runtime.
  * Fields of the Harvest model
  */
 export interface HarvestFieldRefs {
-  readonly id: Prisma.FieldRef<"Harvest", 'Int'>
+  readonly id: Prisma.FieldRef<"Harvest", 'String'>
   readonly harvestDate: Prisma.FieldRef<"Harvest", 'DateTime'>
   readonly totalWeight: Prisma.FieldRef<"Harvest", 'Float'>
   readonly notes: Prisma.FieldRef<"Harvest", 'String'>
   readonly createdAt: Prisma.FieldRef<"Harvest", 'DateTime'>
-  readonly landId: Prisma.FieldRef<"Harvest", 'Int'>
-  readonly mandorId: Prisma.FieldRef<"Harvest", 'String'>
-  readonly photoEvidenceId: Prisma.FieldRef<"Harvest", 'Int'>
+  readonly landId: Prisma.FieldRef<"Harvest", 'String'>
 }
     
 
@@ -1766,25 +1403,6 @@ export type HarvestDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Harvests to delete.
    */
   limit?: number
-}
-
-/**
- * Harvest.photoEvidence
- */
-export type Harvest$photoEvidenceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the TreatmentDocumentation
-   */
-  select?: Prisma.TreatmentDocumentationSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the TreatmentDocumentation
-   */
-  omit?: Prisma.TreatmentDocumentationOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TreatmentDocumentationInclude<ExtArgs> | null
-  where?: Prisma.TreatmentDocumentationWhereInput
 }
 
 /**

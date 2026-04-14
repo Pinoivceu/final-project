@@ -27,34 +27,34 @@ export type AggregateLand = {
 }
 
 export type LandAvgAggregateOutputType = {
-  id: number | null
   areaSize: number | null
 }
 
 export type LandSumAggregateOutputType = {
-  id: number | null
   areaSize: number | null
 }
 
 export type LandMinAggregateOutputType = {
-  id: number | null
+  id: string | null
   landName: string | null
   areaSize: number | null
   locationAddress: string | null
   image: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  isActive: boolean | null
   mandorId: string | null
 }
 
 export type LandMaxAggregateOutputType = {
-  id: number | null
+  id: string | null
   landName: string | null
   areaSize: number | null
   locationAddress: string | null
   image: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  isActive: boolean | null
   mandorId: string | null
 }
 
@@ -67,18 +67,17 @@ export type LandCountAggregateOutputType = {
   image: number
   createdAt: number
   updatedAt: number
+  isActive: number
   mandorId: number
   _all: number
 }
 
 
 export type LandAvgAggregateInputType = {
-  id?: true
   areaSize?: true
 }
 
 export type LandSumAggregateInputType = {
-  id?: true
   areaSize?: true
 }
 
@@ -90,6 +89,7 @@ export type LandMinAggregateInputType = {
   image?: true
   createdAt?: true
   updatedAt?: true
+  isActive?: true
   mandorId?: true
 }
 
@@ -101,6 +101,7 @@ export type LandMaxAggregateInputType = {
   image?: true
   createdAt?: true
   updatedAt?: true
+  isActive?: true
   mandorId?: true
 }
 
@@ -113,6 +114,7 @@ export type LandCountAggregateInputType = {
   image?: true
   createdAt?: true
   updatedAt?: true
+  isActive?: true
   mandorId?: true
   _all?: true
 }
@@ -204,7 +206,7 @@ export type LandGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 }
 
 export type LandGroupByOutputType = {
-  id: number
+  id: string
   landName: string
   areaSize: number
   locationAddress: string | null
@@ -212,6 +214,7 @@ export type LandGroupByOutputType = {
   image: string | null
   createdAt: Date
   updatedAt: Date
+  isActive: boolean
   mandorId: string
   _count: LandCountAggregateOutputType | null
   _avg: LandAvgAggregateOutputType | null
@@ -239,7 +242,7 @@ export type LandWhereInput = {
   AND?: Prisma.LandWhereInput | Prisma.LandWhereInput[]
   OR?: Prisma.LandWhereInput[]
   NOT?: Prisma.LandWhereInput | Prisma.LandWhereInput[]
-  id?: Prisma.IntFilter<"Land"> | number
+  id?: Prisma.StringFilter<"Land"> | string
   landName?: Prisma.StringFilter<"Land"> | string
   areaSize?: Prisma.FloatFilter<"Land"> | number
   locationAddress?: Prisma.StringNullableFilter<"Land"> | string | null
@@ -247,6 +250,7 @@ export type LandWhereInput = {
   image?: Prisma.StringNullableFilter<"Land"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Land"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Land"> | Date | string
+  isActive?: Prisma.BoolFilter<"Land"> | boolean
   mandorId?: Prisma.StringFilter<"Land"> | string
   mandor?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   plants?: Prisma.PlantListRelationFilter
@@ -264,6 +268,7 @@ export type LandOrderByWithRelationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   mandorId?: Prisma.SortOrder
   mandor?: Prisma.UserOrderByWithRelationInput
   plants?: Prisma.PlantOrderByRelationAggregateInput
@@ -273,7 +278,7 @@ export type LandOrderByWithRelationInput = {
 }
 
 export type LandWhereUniqueInput = Prisma.AtLeast<{
-  id?: number
+  id?: string
   AND?: Prisma.LandWhereInput | Prisma.LandWhereInput[]
   OR?: Prisma.LandWhereInput[]
   NOT?: Prisma.LandWhereInput | Prisma.LandWhereInput[]
@@ -284,6 +289,7 @@ export type LandWhereUniqueInput = Prisma.AtLeast<{
   image?: Prisma.StringNullableFilter<"Land"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Land"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Land"> | Date | string
+  isActive?: Prisma.BoolFilter<"Land"> | boolean
   mandorId?: Prisma.StringFilter<"Land"> | string
   mandor?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   plants?: Prisma.PlantListRelationFilter
@@ -301,6 +307,7 @@ export type LandOrderByWithAggregationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   mandorId?: Prisma.SortOrder
   _count?: Prisma.LandCountOrderByAggregateInput
   _avg?: Prisma.LandAvgOrderByAggregateInput
@@ -313,7 +320,7 @@ export type LandScalarWhereWithAggregatesInput = {
   AND?: Prisma.LandScalarWhereWithAggregatesInput | Prisma.LandScalarWhereWithAggregatesInput[]
   OR?: Prisma.LandScalarWhereWithAggregatesInput[]
   NOT?: Prisma.LandScalarWhereWithAggregatesInput | Prisma.LandScalarWhereWithAggregatesInput[]
-  id?: Prisma.IntWithAggregatesFilter<"Land"> | number
+  id?: Prisma.StringWithAggregatesFilter<"Land"> | string
   landName?: Prisma.StringWithAggregatesFilter<"Land"> | string
   areaSize?: Prisma.FloatWithAggregatesFilter<"Land"> | number
   locationAddress?: Prisma.StringNullableWithAggregatesFilter<"Land"> | string | null
@@ -321,10 +328,12 @@ export type LandScalarWhereWithAggregatesInput = {
   image?: Prisma.StringNullableWithAggregatesFilter<"Land"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Land"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Land"> | Date | string
+  isActive?: Prisma.BoolWithAggregatesFilter<"Land"> | boolean
   mandorId?: Prisma.StringWithAggregatesFilter<"Land"> | string
 }
 
 export type LandCreateInput = {
+  id?: string
   landName: string
   areaSize: number
   locationAddress?: string | null
@@ -332,6 +341,7 @@ export type LandCreateInput = {
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  isActive?: boolean
   mandor: Prisma.UserCreateNestedOneWithoutLandsInput
   plants?: Prisma.PlantCreateNestedManyWithoutLandInput
   treatmentLogs?: Prisma.TreatmentLogCreateNestedManyWithoutLandInput
@@ -340,7 +350,7 @@ export type LandCreateInput = {
 }
 
 export type LandUncheckedCreateInput = {
-  id?: number
+  id?: string
   landName: string
   areaSize: number
   locationAddress?: string | null
@@ -348,6 +358,7 @@ export type LandUncheckedCreateInput = {
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  isActive?: boolean
   mandorId: string
   plants?: Prisma.PlantUncheckedCreateNestedManyWithoutLandInput
   treatmentLogs?: Prisma.TreatmentLogUncheckedCreateNestedManyWithoutLandInput
@@ -356,6 +367,7 @@ export type LandUncheckedCreateInput = {
 }
 
 export type LandUpdateInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   landName?: Prisma.StringFieldUpdateOperationsInput | string
   areaSize?: Prisma.FloatFieldUpdateOperationsInput | number
   locationAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -363,6 +375,7 @@ export type LandUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mandor?: Prisma.UserUpdateOneRequiredWithoutLandsNestedInput
   plants?: Prisma.PlantUpdateManyWithoutLandNestedInput
   treatmentLogs?: Prisma.TreatmentLogUpdateManyWithoutLandNestedInput
@@ -371,7 +384,7 @@ export type LandUpdateInput = {
 }
 
 export type LandUncheckedUpdateInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   landName?: Prisma.StringFieldUpdateOperationsInput | string
   areaSize?: Prisma.FloatFieldUpdateOperationsInput | number
   locationAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -379,6 +392,7 @@ export type LandUncheckedUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mandorId?: Prisma.StringFieldUpdateOperationsInput | string
   plants?: Prisma.PlantUncheckedUpdateManyWithoutLandNestedInput
   treatmentLogs?: Prisma.TreatmentLogUncheckedUpdateManyWithoutLandNestedInput
@@ -387,7 +401,7 @@ export type LandUncheckedUpdateInput = {
 }
 
 export type LandCreateManyInput = {
-  id?: number
+  id?: string
   landName: string
   areaSize: number
   locationAddress?: string | null
@@ -395,10 +409,12 @@ export type LandCreateManyInput = {
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  isActive?: boolean
   mandorId: string
 }
 
 export type LandUpdateManyMutationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   landName?: Prisma.StringFieldUpdateOperationsInput | string
   areaSize?: Prisma.FloatFieldUpdateOperationsInput | number
   locationAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -406,10 +422,11 @@ export type LandUpdateManyMutationInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type LandUncheckedUpdateManyInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   landName?: Prisma.StringFieldUpdateOperationsInput | string
   areaSize?: Prisma.FloatFieldUpdateOperationsInput | number
   locationAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -417,6 +434,7 @@ export type LandUncheckedUpdateManyInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mandorId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -439,11 +457,11 @@ export type LandCountOrderByAggregateInput = {
   image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   mandorId?: Prisma.SortOrder
 }
 
 export type LandAvgOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   areaSize?: Prisma.SortOrder
 }
 
@@ -455,6 +473,7 @@ export type LandMaxOrderByAggregateInput = {
   image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   mandorId?: Prisma.SortOrder
 }
 
@@ -466,11 +485,11 @@ export type LandMinOrderByAggregateInput = {
   image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   mandorId?: Prisma.SortOrder
 }
 
 export type LandSumOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   areaSize?: Prisma.SortOrder
 }
 
@@ -529,12 +548,8 @@ export type FloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 export type LandCreateNestedOneWithoutPlantsInput = {
@@ -594,6 +609,7 @@ export type LandUpdateOneRequiredWithoutTasksNestedInput = {
 }
 
 export type LandCreateWithoutMandorInput = {
+  id?: string
   landName: string
   areaSize: number
   locationAddress?: string | null
@@ -601,6 +617,7 @@ export type LandCreateWithoutMandorInput = {
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  isActive?: boolean
   plants?: Prisma.PlantCreateNestedManyWithoutLandInput
   treatmentLogs?: Prisma.TreatmentLogCreateNestedManyWithoutLandInput
   harvests?: Prisma.HarvestCreateNestedManyWithoutLandInput
@@ -608,7 +625,7 @@ export type LandCreateWithoutMandorInput = {
 }
 
 export type LandUncheckedCreateWithoutMandorInput = {
-  id?: number
+  id?: string
   landName: string
   areaSize: number
   locationAddress?: string | null
@@ -616,6 +633,7 @@ export type LandUncheckedCreateWithoutMandorInput = {
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  isActive?: boolean
   plants?: Prisma.PlantUncheckedCreateNestedManyWithoutLandInput
   treatmentLogs?: Prisma.TreatmentLogUncheckedCreateNestedManyWithoutLandInput
   harvests?: Prisma.HarvestUncheckedCreateNestedManyWithoutLandInput
@@ -652,7 +670,7 @@ export type LandScalarWhereInput = {
   AND?: Prisma.LandScalarWhereInput | Prisma.LandScalarWhereInput[]
   OR?: Prisma.LandScalarWhereInput[]
   NOT?: Prisma.LandScalarWhereInput | Prisma.LandScalarWhereInput[]
-  id?: Prisma.IntFilter<"Land"> | number
+  id?: Prisma.StringFilter<"Land"> | string
   landName?: Prisma.StringFilter<"Land"> | string
   areaSize?: Prisma.FloatFilter<"Land"> | number
   locationAddress?: Prisma.StringNullableFilter<"Land"> | string | null
@@ -660,10 +678,12 @@ export type LandScalarWhereInput = {
   image?: Prisma.StringNullableFilter<"Land"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Land"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Land"> | Date | string
+  isActive?: Prisma.BoolFilter<"Land"> | boolean
   mandorId?: Prisma.StringFilter<"Land"> | string
 }
 
 export type LandCreateWithoutPlantsInput = {
+  id?: string
   landName: string
   areaSize: number
   locationAddress?: string | null
@@ -671,6 +691,7 @@ export type LandCreateWithoutPlantsInput = {
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  isActive?: boolean
   mandor: Prisma.UserCreateNestedOneWithoutLandsInput
   treatmentLogs?: Prisma.TreatmentLogCreateNestedManyWithoutLandInput
   harvests?: Prisma.HarvestCreateNestedManyWithoutLandInput
@@ -678,7 +699,7 @@ export type LandCreateWithoutPlantsInput = {
 }
 
 export type LandUncheckedCreateWithoutPlantsInput = {
-  id?: number
+  id?: string
   landName: string
   areaSize: number
   locationAddress?: string | null
@@ -686,6 +707,7 @@ export type LandUncheckedCreateWithoutPlantsInput = {
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  isActive?: boolean
   mandorId: string
   treatmentLogs?: Prisma.TreatmentLogUncheckedCreateNestedManyWithoutLandInput
   harvests?: Prisma.HarvestUncheckedCreateNestedManyWithoutLandInput
@@ -709,6 +731,7 @@ export type LandUpdateToOneWithWhereWithoutPlantsInput = {
 }
 
 export type LandUpdateWithoutPlantsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   landName?: Prisma.StringFieldUpdateOperationsInput | string
   areaSize?: Prisma.FloatFieldUpdateOperationsInput | number
   locationAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -716,6 +739,7 @@ export type LandUpdateWithoutPlantsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mandor?: Prisma.UserUpdateOneRequiredWithoutLandsNestedInput
   treatmentLogs?: Prisma.TreatmentLogUpdateManyWithoutLandNestedInput
   harvests?: Prisma.HarvestUpdateManyWithoutLandNestedInput
@@ -723,7 +747,7 @@ export type LandUpdateWithoutPlantsInput = {
 }
 
 export type LandUncheckedUpdateWithoutPlantsInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   landName?: Prisma.StringFieldUpdateOperationsInput | string
   areaSize?: Prisma.FloatFieldUpdateOperationsInput | number
   locationAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -731,6 +755,7 @@ export type LandUncheckedUpdateWithoutPlantsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mandorId?: Prisma.StringFieldUpdateOperationsInput | string
   treatmentLogs?: Prisma.TreatmentLogUncheckedUpdateManyWithoutLandNestedInput
   harvests?: Prisma.HarvestUncheckedUpdateManyWithoutLandNestedInput
@@ -738,6 +763,7 @@ export type LandUncheckedUpdateWithoutPlantsInput = {
 }
 
 export type LandCreateWithoutTreatmentLogsInput = {
+  id?: string
   landName: string
   areaSize: number
   locationAddress?: string | null
@@ -745,6 +771,7 @@ export type LandCreateWithoutTreatmentLogsInput = {
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  isActive?: boolean
   mandor: Prisma.UserCreateNestedOneWithoutLandsInput
   plants?: Prisma.PlantCreateNestedManyWithoutLandInput
   harvests?: Prisma.HarvestCreateNestedManyWithoutLandInput
@@ -752,7 +779,7 @@ export type LandCreateWithoutTreatmentLogsInput = {
 }
 
 export type LandUncheckedCreateWithoutTreatmentLogsInput = {
-  id?: number
+  id?: string
   landName: string
   areaSize: number
   locationAddress?: string | null
@@ -760,6 +787,7 @@ export type LandUncheckedCreateWithoutTreatmentLogsInput = {
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  isActive?: boolean
   mandorId: string
   plants?: Prisma.PlantUncheckedCreateNestedManyWithoutLandInput
   harvests?: Prisma.HarvestUncheckedCreateNestedManyWithoutLandInput
@@ -783,6 +811,7 @@ export type LandUpdateToOneWithWhereWithoutTreatmentLogsInput = {
 }
 
 export type LandUpdateWithoutTreatmentLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   landName?: Prisma.StringFieldUpdateOperationsInput | string
   areaSize?: Prisma.FloatFieldUpdateOperationsInput | number
   locationAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -790,6 +819,7 @@ export type LandUpdateWithoutTreatmentLogsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mandor?: Prisma.UserUpdateOneRequiredWithoutLandsNestedInput
   plants?: Prisma.PlantUpdateManyWithoutLandNestedInput
   harvests?: Prisma.HarvestUpdateManyWithoutLandNestedInput
@@ -797,7 +827,7 @@ export type LandUpdateWithoutTreatmentLogsInput = {
 }
 
 export type LandUncheckedUpdateWithoutTreatmentLogsInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   landName?: Prisma.StringFieldUpdateOperationsInput | string
   areaSize?: Prisma.FloatFieldUpdateOperationsInput | number
   locationAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -805,6 +835,7 @@ export type LandUncheckedUpdateWithoutTreatmentLogsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mandorId?: Prisma.StringFieldUpdateOperationsInput | string
   plants?: Prisma.PlantUncheckedUpdateManyWithoutLandNestedInput
   harvests?: Prisma.HarvestUncheckedUpdateManyWithoutLandNestedInput
@@ -812,6 +843,7 @@ export type LandUncheckedUpdateWithoutTreatmentLogsInput = {
 }
 
 export type LandCreateWithoutHarvestsInput = {
+  id?: string
   landName: string
   areaSize: number
   locationAddress?: string | null
@@ -819,6 +851,7 @@ export type LandCreateWithoutHarvestsInput = {
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  isActive?: boolean
   mandor: Prisma.UserCreateNestedOneWithoutLandsInput
   plants?: Prisma.PlantCreateNestedManyWithoutLandInput
   treatmentLogs?: Prisma.TreatmentLogCreateNestedManyWithoutLandInput
@@ -826,7 +859,7 @@ export type LandCreateWithoutHarvestsInput = {
 }
 
 export type LandUncheckedCreateWithoutHarvestsInput = {
-  id?: number
+  id?: string
   landName: string
   areaSize: number
   locationAddress?: string | null
@@ -834,6 +867,7 @@ export type LandUncheckedCreateWithoutHarvestsInput = {
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  isActive?: boolean
   mandorId: string
   plants?: Prisma.PlantUncheckedCreateNestedManyWithoutLandInput
   treatmentLogs?: Prisma.TreatmentLogUncheckedCreateNestedManyWithoutLandInput
@@ -857,6 +891,7 @@ export type LandUpdateToOneWithWhereWithoutHarvestsInput = {
 }
 
 export type LandUpdateWithoutHarvestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   landName?: Prisma.StringFieldUpdateOperationsInput | string
   areaSize?: Prisma.FloatFieldUpdateOperationsInput | number
   locationAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -864,6 +899,7 @@ export type LandUpdateWithoutHarvestsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mandor?: Prisma.UserUpdateOneRequiredWithoutLandsNestedInput
   plants?: Prisma.PlantUpdateManyWithoutLandNestedInput
   treatmentLogs?: Prisma.TreatmentLogUpdateManyWithoutLandNestedInput
@@ -871,7 +907,7 @@ export type LandUpdateWithoutHarvestsInput = {
 }
 
 export type LandUncheckedUpdateWithoutHarvestsInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   landName?: Prisma.StringFieldUpdateOperationsInput | string
   areaSize?: Prisma.FloatFieldUpdateOperationsInput | number
   locationAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -879,6 +915,7 @@ export type LandUncheckedUpdateWithoutHarvestsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mandorId?: Prisma.StringFieldUpdateOperationsInput | string
   plants?: Prisma.PlantUncheckedUpdateManyWithoutLandNestedInput
   treatmentLogs?: Prisma.TreatmentLogUncheckedUpdateManyWithoutLandNestedInput
@@ -886,6 +923,7 @@ export type LandUncheckedUpdateWithoutHarvestsInput = {
 }
 
 export type LandCreateWithoutTasksInput = {
+  id?: string
   landName: string
   areaSize: number
   locationAddress?: string | null
@@ -893,6 +931,7 @@ export type LandCreateWithoutTasksInput = {
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  isActive?: boolean
   mandor: Prisma.UserCreateNestedOneWithoutLandsInput
   plants?: Prisma.PlantCreateNestedManyWithoutLandInput
   treatmentLogs?: Prisma.TreatmentLogCreateNestedManyWithoutLandInput
@@ -900,7 +939,7 @@ export type LandCreateWithoutTasksInput = {
 }
 
 export type LandUncheckedCreateWithoutTasksInput = {
-  id?: number
+  id?: string
   landName: string
   areaSize: number
   locationAddress?: string | null
@@ -908,6 +947,7 @@ export type LandUncheckedCreateWithoutTasksInput = {
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  isActive?: boolean
   mandorId: string
   plants?: Prisma.PlantUncheckedCreateNestedManyWithoutLandInput
   treatmentLogs?: Prisma.TreatmentLogUncheckedCreateNestedManyWithoutLandInput
@@ -931,6 +971,7 @@ export type LandUpdateToOneWithWhereWithoutTasksInput = {
 }
 
 export type LandUpdateWithoutTasksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   landName?: Prisma.StringFieldUpdateOperationsInput | string
   areaSize?: Prisma.FloatFieldUpdateOperationsInput | number
   locationAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -938,6 +979,7 @@ export type LandUpdateWithoutTasksInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mandor?: Prisma.UserUpdateOneRequiredWithoutLandsNestedInput
   plants?: Prisma.PlantUpdateManyWithoutLandNestedInput
   treatmentLogs?: Prisma.TreatmentLogUpdateManyWithoutLandNestedInput
@@ -945,7 +987,7 @@ export type LandUpdateWithoutTasksInput = {
 }
 
 export type LandUncheckedUpdateWithoutTasksInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   landName?: Prisma.StringFieldUpdateOperationsInput | string
   areaSize?: Prisma.FloatFieldUpdateOperationsInput | number
   locationAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -953,6 +995,7 @@ export type LandUncheckedUpdateWithoutTasksInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mandorId?: Prisma.StringFieldUpdateOperationsInput | string
   plants?: Prisma.PlantUncheckedUpdateManyWithoutLandNestedInput
   treatmentLogs?: Prisma.TreatmentLogUncheckedUpdateManyWithoutLandNestedInput
@@ -960,7 +1003,7 @@ export type LandUncheckedUpdateWithoutTasksInput = {
 }
 
 export type LandCreateManyMandorInput = {
-  id?: number
+  id?: string
   landName: string
   areaSize: number
   locationAddress?: string | null
@@ -968,9 +1011,11 @@ export type LandCreateManyMandorInput = {
   image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  isActive?: boolean
 }
 
 export type LandUpdateWithoutMandorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   landName?: Prisma.StringFieldUpdateOperationsInput | string
   areaSize?: Prisma.FloatFieldUpdateOperationsInput | number
   locationAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -978,6 +1023,7 @@ export type LandUpdateWithoutMandorInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plants?: Prisma.PlantUpdateManyWithoutLandNestedInput
   treatmentLogs?: Prisma.TreatmentLogUpdateManyWithoutLandNestedInput
   harvests?: Prisma.HarvestUpdateManyWithoutLandNestedInput
@@ -985,7 +1031,7 @@ export type LandUpdateWithoutMandorInput = {
 }
 
 export type LandUncheckedUpdateWithoutMandorInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   landName?: Prisma.StringFieldUpdateOperationsInput | string
   areaSize?: Prisma.FloatFieldUpdateOperationsInput | number
   locationAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -993,6 +1039,7 @@ export type LandUncheckedUpdateWithoutMandorInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   plants?: Prisma.PlantUncheckedUpdateManyWithoutLandNestedInput
   treatmentLogs?: Prisma.TreatmentLogUncheckedUpdateManyWithoutLandNestedInput
   harvests?: Prisma.HarvestUncheckedUpdateManyWithoutLandNestedInput
@@ -1000,7 +1047,7 @@ export type LandUncheckedUpdateWithoutMandorInput = {
 }
 
 export type LandUncheckedUpdateManyWithoutMandorInput = {
-  id?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   landName?: Prisma.StringFieldUpdateOperationsInput | string
   areaSize?: Prisma.FloatFieldUpdateOperationsInput | number
   locationAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1008,6 +1055,7 @@ export type LandUncheckedUpdateManyWithoutMandorInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
@@ -1077,6 +1125,7 @@ export type LandSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   image?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isActive?: boolean
   mandorId?: boolean
   mandor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   plants?: boolean | Prisma.Land$plantsArgs<ExtArgs>
@@ -1095,6 +1144,7 @@ export type LandSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   image?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isActive?: boolean
   mandorId?: boolean
   mandor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["land"]>
@@ -1108,6 +1158,7 @@ export type LandSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   image?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isActive?: boolean
   mandorId?: boolean
   mandor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["land"]>
@@ -1121,10 +1172,11 @@ export type LandSelectScalar = {
   image?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  isActive?: boolean
   mandorId?: boolean
 }
 
-export type LandOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "landName" | "areaSize" | "locationAddress" | "coordinates" | "image" | "createdAt" | "updatedAt" | "mandorId", ExtArgs["result"]["land"]>
+export type LandOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "landName" | "areaSize" | "locationAddress" | "coordinates" | "image" | "createdAt" | "updatedAt" | "isActive" | "mandorId", ExtArgs["result"]["land"]>
 export type LandInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   mandor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   plants?: boolean | Prisma.Land$plantsArgs<ExtArgs>
@@ -1150,7 +1202,7 @@ export type $LandPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     tasks: Prisma.$TaskPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: number
+    id: string
     landName: string
     areaSize: number
     locationAddress: string | null
@@ -1158,6 +1210,7 @@ export type $LandPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     image: string | null
     createdAt: Date
     updatedAt: Date
+    isActive: boolean
     mandorId: string
   }, ExtArgs["result"]["land"]>
   composites: {}
@@ -1587,7 +1640,7 @@ export interface Prisma__LandClient<T, Null = never, ExtArgs extends runtime.Typ
  * Fields of the Land model
  */
 export interface LandFieldRefs {
-  readonly id: Prisma.FieldRef<"Land", 'Int'>
+  readonly id: Prisma.FieldRef<"Land", 'String'>
   readonly landName: Prisma.FieldRef<"Land", 'String'>
   readonly areaSize: Prisma.FieldRef<"Land", 'Float'>
   readonly locationAddress: Prisma.FieldRef<"Land", 'String'>
@@ -1595,6 +1648,7 @@ export interface LandFieldRefs {
   readonly image: Prisma.FieldRef<"Land", 'String'>
   readonly createdAt: Prisma.FieldRef<"Land", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Land", 'DateTime'>
+  readonly isActive: Prisma.FieldRef<"Land", 'Boolean'>
   readonly mandorId: Prisma.FieldRef<"Land", 'String'>
 }
     

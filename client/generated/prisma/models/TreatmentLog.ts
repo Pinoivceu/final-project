@@ -28,12 +28,10 @@ export type AggregateTreatmentLog = {
 
 export type TreatmentLogAvgAggregateOutputType = {
   id: number | null
-  landId: number | null
 }
 
 export type TreatmentLogSumAggregateOutputType = {
   id: number | null
-  landId: number | null
 }
 
 export type TreatmentLogMinAggregateOutputType = {
@@ -41,7 +39,7 @@ export type TreatmentLogMinAggregateOutputType = {
   activityType: string | null
   description: string | null
   executionDate: Date | null
-  landId: number | null
+  landId: string | null
   mandorId: string | null
 }
 
@@ -50,7 +48,7 @@ export type TreatmentLogMaxAggregateOutputType = {
   activityType: string | null
   description: string | null
   executionDate: Date | null
-  landId: number | null
+  landId: string | null
   mandorId: string | null
 }
 
@@ -67,12 +65,10 @@ export type TreatmentLogCountAggregateOutputType = {
 
 export type TreatmentLogAvgAggregateInputType = {
   id?: true
-  landId?: true
 }
 
 export type TreatmentLogSumAggregateInputType = {
   id?: true
-  landId?: true
 }
 
 export type TreatmentLogMinAggregateInputType = {
@@ -194,7 +190,7 @@ export type TreatmentLogGroupByOutputType = {
   activityType: string
   description: string | null
   executionDate: Date
-  landId: number
+  landId: string
   mandorId: string
   _count: TreatmentLogCountAggregateOutputType | null
   _avg: TreatmentLogAvgAggregateOutputType | null
@@ -226,7 +222,7 @@ export type TreatmentLogWhereInput = {
   activityType?: Prisma.StringFilter<"TreatmentLog"> | string
   description?: Prisma.StringNullableFilter<"TreatmentLog"> | string | null
   executionDate?: Prisma.DateTimeFilter<"TreatmentLog"> | Date | string
-  landId?: Prisma.IntFilter<"TreatmentLog"> | number
+  landId?: Prisma.StringFilter<"TreatmentLog"> | string
   mandorId?: Prisma.StringFilter<"TreatmentLog"> | string
   land?: Prisma.XOR<Prisma.LandScalarRelationFilter, Prisma.LandWhereInput>
   mandor?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -253,7 +249,7 @@ export type TreatmentLogWhereUniqueInput = Prisma.AtLeast<{
   activityType?: Prisma.StringFilter<"TreatmentLog"> | string
   description?: Prisma.StringNullableFilter<"TreatmentLog"> | string | null
   executionDate?: Prisma.DateTimeFilter<"TreatmentLog"> | Date | string
-  landId?: Prisma.IntFilter<"TreatmentLog"> | number
+  landId?: Prisma.StringFilter<"TreatmentLog"> | string
   mandorId?: Prisma.StringFilter<"TreatmentLog"> | string
   land?: Prisma.XOR<Prisma.LandScalarRelationFilter, Prisma.LandWhereInput>
   mandor?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -282,7 +278,7 @@ export type TreatmentLogScalarWhereWithAggregatesInput = {
   activityType?: Prisma.StringWithAggregatesFilter<"TreatmentLog"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"TreatmentLog"> | string | null
   executionDate?: Prisma.DateTimeWithAggregatesFilter<"TreatmentLog"> | Date | string
-  landId?: Prisma.IntWithAggregatesFilter<"TreatmentLog"> | number
+  landId?: Prisma.StringWithAggregatesFilter<"TreatmentLog"> | string
   mandorId?: Prisma.StringWithAggregatesFilter<"TreatmentLog"> | string
 }
 
@@ -300,7 +296,7 @@ export type TreatmentLogUncheckedCreateInput = {
   activityType: string
   description?: string | null
   executionDate: Date | string
-  landId: number
+  landId: string
   mandorId: string
   documentations?: Prisma.TreatmentDocumentationUncheckedCreateNestedManyWithoutTreatmentLogInput
 }
@@ -319,7 +315,7 @@ export type TreatmentLogUncheckedUpdateInput = {
   activityType?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   executionDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  landId?: Prisma.IntFieldUpdateOperationsInput | number
+  landId?: Prisma.StringFieldUpdateOperationsInput | string
   mandorId?: Prisma.StringFieldUpdateOperationsInput | string
   documentations?: Prisma.TreatmentDocumentationUncheckedUpdateManyWithoutTreatmentLogNestedInput
 }
@@ -329,7 +325,7 @@ export type TreatmentLogCreateManyInput = {
   activityType: string
   description?: string | null
   executionDate: Date | string
-  landId: number
+  landId: string
   mandorId: string
 }
 
@@ -344,7 +340,7 @@ export type TreatmentLogUncheckedUpdateManyInput = {
   activityType?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   executionDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  landId?: Prisma.IntFieldUpdateOperationsInput | number
+  landId?: Prisma.StringFieldUpdateOperationsInput | string
   mandorId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -369,7 +365,6 @@ export type TreatmentLogCountOrderByAggregateInput = {
 
 export type TreatmentLogAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  landId?: Prisma.SortOrder
 }
 
 export type TreatmentLogMaxOrderByAggregateInput = {
@@ -392,7 +387,6 @@ export type TreatmentLogMinOrderByAggregateInput = {
 
 export type TreatmentLogSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  landId?: Prisma.SortOrder
 }
 
 export type TreatmentLogScalarRelationFilter = {
@@ -511,7 +505,7 @@ export type TreatmentLogUncheckedCreateWithoutMandorInput = {
   activityType: string
   description?: string | null
   executionDate: Date | string
-  landId: number
+  landId: string
   documentations?: Prisma.TreatmentDocumentationUncheckedCreateNestedManyWithoutTreatmentLogInput
 }
 
@@ -549,7 +543,7 @@ export type TreatmentLogScalarWhereInput = {
   activityType?: Prisma.StringFilter<"TreatmentLog"> | string
   description?: Prisma.StringNullableFilter<"TreatmentLog"> | string | null
   executionDate?: Prisma.DateTimeFilter<"TreatmentLog"> | Date | string
-  landId?: Prisma.IntFilter<"TreatmentLog"> | number
+  landId?: Prisma.StringFilter<"TreatmentLog"> | string
   mandorId?: Prisma.StringFilter<"TreatmentLog"> | string
 }
 
@@ -609,7 +603,7 @@ export type TreatmentLogUncheckedCreateWithoutDocumentationsInput = {
   activityType: string
   description?: string | null
   executionDate: Date | string
-  landId: number
+  landId: string
   mandorId: string
 }
 
@@ -642,7 +636,7 @@ export type TreatmentLogUncheckedUpdateWithoutDocumentationsInput = {
   activityType?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   executionDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  landId?: Prisma.IntFieldUpdateOperationsInput | number
+  landId?: Prisma.StringFieldUpdateOperationsInput | string
   mandorId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -651,7 +645,7 @@ export type TreatmentLogCreateManyMandorInput = {
   activityType: string
   description?: string | null
   executionDate: Date | string
-  landId: number
+  landId: string
 }
 
 export type TreatmentLogUpdateWithoutMandorInput = {
@@ -667,7 +661,7 @@ export type TreatmentLogUncheckedUpdateWithoutMandorInput = {
   activityType?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   executionDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  landId?: Prisma.IntFieldUpdateOperationsInput | number
+  landId?: Prisma.StringFieldUpdateOperationsInput | string
   documentations?: Prisma.TreatmentDocumentationUncheckedUpdateManyWithoutTreatmentLogNestedInput
 }
 
@@ -676,7 +670,7 @@ export type TreatmentLogUncheckedUpdateManyWithoutMandorInput = {
   activityType?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   executionDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  landId?: Prisma.IntFieldUpdateOperationsInput | number
+  landId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type TreatmentLogCreateManyLandInput = {
@@ -815,7 +809,7 @@ export type $TreatmentLogPayload<ExtArgs extends runtime.Types.Extensions.Intern
     activityType: string
     description: string | null
     executionDate: Date
-    landId: number
+    landId: string
     mandorId: string
   }, ExtArgs["result"]["treatmentLog"]>
   composites: {}
@@ -1247,7 +1241,7 @@ export interface TreatmentLogFieldRefs {
   readonly activityType: Prisma.FieldRef<"TreatmentLog", 'String'>
   readonly description: Prisma.FieldRef<"TreatmentLog", 'String'>
   readonly executionDate: Prisma.FieldRef<"TreatmentLog", 'DateTime'>
-  readonly landId: Prisma.FieldRef<"TreatmentLog", 'Int'>
+  readonly landId: Prisma.FieldRef<"TreatmentLog", 'String'>
   readonly mandorId: Prisma.FieldRef<"TreatmentLog", 'String'>
 }
     

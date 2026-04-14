@@ -1,9 +1,18 @@
 import { stats } from "@/data/dummydata"
 import SummaryCard from "@/components/summaryCard";
-import FieldsCard from "@/components/fields-card";
-import WeatherWidget from "@/components/weather-widget";
+import FieldsCard from "@/app/owner/dashboard/fields-card";
+import { LahanAddForm } from "./add-land-fom";
 import { Button } from "@/components/ui/button";
+import { formatAreaDisplay } from "@/lib/definitions";
 import prisma from "@/lib/prisma";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
 export default async function OwnerHome() {
 
@@ -17,6 +26,19 @@ export default async function OwnerHome() {
       }
     }
   })
+  
+
+
+const mandors = await prisma.user.findMany({
+    where: {
+      role: "mandor"
+    },
+    select: {
+      id: true,
+      fullName: true,
+    }
+  })
+
   return (
     <div className=" size-full bg-background flex flex-col gap-10 p-6">
 
@@ -35,9 +57,21 @@ export default async function OwnerHome() {
       <div className="flex flex-col gap-6 w-full ">
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-bold">My Fields</h2>
-          <Button>
-            + Add New Fields
-          </Button>
+          <Dialog>
+            <DialogTrigger
+              render={<Button>+ Tambah User</Button>}
+            />
+            <DialogContent >
+              <DialogHeader>
+                <DialogTitle>Tambah User Baru</DialogTitle>
+                <DialogDescription>
+                  Lengkapi data di bawah untuk membuat akun baru.
+                </DialogDescription>
+              </DialogHeader>
+
+              <LahanAddForm mandors={mandors} />
+            </DialogContent>
+          </Dialog>
         </div>
 
         {/* Grid Lahan - Melebar penuh di bawah */}
@@ -48,7 +82,7 @@ export default async function OwnerHome() {
               key={field.id}
               image={field.image || "/default-kebun.jpg"} // Handle null image
               name={field.landName}                        // landName -> name
-              area={`${field.areaSize} Ha`}               // areaSize -> area
+              area={formatAreaDisplay(field.areaSize)}               // areaSize -> area
               foreman={field.mandor?.fullName || "No Mandor"} // Ambil nama dari relasi mandor
             />
           ))}

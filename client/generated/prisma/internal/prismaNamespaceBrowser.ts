@@ -102,6 +102,7 @@ export const LandScalarFieldEnum = {
   image: 'image',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
+  isActive: 'isActive',
   mandorId: 'mandorId'
 } as const
 
@@ -154,9 +155,7 @@ export const HarvestScalarFieldEnum = {
   totalWeight: 'totalWeight',
   notes: 'notes',
   createdAt: 'createdAt',
-  landId: 'landId',
-  mandorId: 'mandorId',
-  photoEvidenceId: 'photoEvidenceId'
+  landId: 'landId'
 } as const
 
 export type HarvestScalarFieldEnum = (typeof HarvestScalarFieldEnum)[keyof typeof HarvestScalarFieldEnum]
@@ -176,8 +175,7 @@ export const TaskScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   landId: 'landId',
-  mandorId: 'mandorId',
-  ownerId: 'ownerId'
+  mandorId: 'mandorId'
 } as const
 
 export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
