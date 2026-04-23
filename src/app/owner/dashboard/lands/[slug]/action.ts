@@ -128,7 +128,7 @@ export async function createPlant(values: any) {
             },
         })
 
-     
+
         revalidatePath(`/owner/dashboard/lands/${landId}`)
 
         return { success: true, data: newPlant }
@@ -208,5 +208,119 @@ export async function deleteProduction(productionId: any) {
         return { success: true }
     } catch (error: any) {
         throw new Error(error.message || "Gagal menghapus user");
+    }
+}
+
+export async function deleteTask(taskId: any) {
+
+
+    try {
+        await prisma.task.delete({ where: { id: taskId }, })
+
+        revalidatePath("/owner/dashboard/land")
+
+        return { success: true }
+    } catch (error: any) {
+        throw new Error(error.message || "Gagal menghapus user");
+    }
+}
+
+export async function updateTask(values: any) {
+    try {
+        const { id, title, description, activityType, dueDate, status } = values;
+
+        await prisma.task.update({
+            where: { id: Number(id) }, // Pastikan dikonversi ke Number
+            data: {
+                title,
+                description,
+                activityType,
+                status,
+                dueDate: dueDate ? new Date(dueDate) : null,
+            },
+        });
+
+        revalidatePath("/owner/dashboard/lands/[slug]");
+        return { success: true };
+    } catch (error: any) {
+        throw new Error("Gagal memperbarui tugas.");
+    }
+}
+
+export async function approveTask(task: any) {
+    try {
+        await prisma.task.update({
+            where: { id: task.id },
+            data: {
+                status: "completed",
+                verifiedAt: new Date(), // Mencatat waktu verifikasi oleh owner
+                completedAt: new Date(), // Memastikan waktu selesai tercatat jika belum
+            },
+        })
+
+        revalidatePath("/owner/dashboard/lands/[slug]")
+        return { success: true }
+    } catch (error) {
+        throw new Error("Gagal menyetujui tugas.")
+    }
+}
+
+export async function rejectTask(taskId: number, reason: string) {
+    try {
+        if (!reason || reason.trim() === "") {
+            throw new Error("Alasan penolakan wajib diisi.")
+        }
+
+        await prisma.task.update({
+            where: { id: taskId },
+            data: {
+                status: "pending",       // Status balik ke awal agar dikerjakan lagi
+                rejectionReason: reason, // Simpan alasan kenapa ditolak sebelumnya
+                completedAt: null,       // Hapus tanggal selesai sebelumnya
+                startedAt: null,         // Reset agar mandor harus menekan "Mulai" lagi
+                verifiedAt: null,        // Pastikan verifikasi kosong
+            },
+        })
+
+        revalidatePath("/owner/dashboard/lands/[slug]")
+        return { success: true }
+    } catch (error: any) {
+        console.error("REJECT_TASK_ERROR:", error)
+        throw new Error(error.message || "Gagal menolak tugas.")
+    }
+}
+
+export async function editLand(values: any) {
+    try {
+        const { id, landName, areaSize, locationAddress, mandorId, image } = values;
+
+        if (!id || !landName || !areaSize || !mandorId) {
+            throw new Error("Data wajib tidak lengkap.");
+        }
+
+        const dataToUpdate: any = {
+            landName,
+            areaSize: parseFloat(areaSize),
+            locationAddress,
+            mandorId
+        };
+
+        // Only update image if a new one was uploaded
+        if (image !== undefined) {
+            dataToUpdate.image = image;
+        }
+
+        const updatedLand = await prisma.land.update({
+            where: { id },
+            data: dataToUpdate
+        });
+
+        revalidatePath(`/owner/dashboard/lands/${id}`);
+        revalidatePath("/owner/maps");
+
+        return { success: true, data: updatedLand };
+    } catch (error: any) {
+        console.error("EDIT_LAND_ERROR:", error);
+        return { success: false, error: error.message || "Gagal memperbarui lahan." };
     }
 }

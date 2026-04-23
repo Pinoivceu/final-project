@@ -1,14 +1,14 @@
 "use client"
 
 import { useForm, Controller } from "react-hook-form"
-import { createHarvest, createPlant, createTask } from "./action" // Pastikan action ini sudah dibuat
+import { createHarvest, createPlant, createTask, updateTask } from "./action" // Pastikan action ini sudah dibuat
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { DialogClose } from "@/components/ui/dialog"
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { toast } from "sonner"
-import { CalendarIcon, ClipboardList, NotebookPen, Scale } from "lucide-react"
+import { CalendarIcon, ClipboardList, NotebookPen, Save, Scale } from "lucide-react"
 import { Textarea } from "@/components/ui/textarea"
 import { Sprout, MapPin } from "lucide-react"
 
@@ -257,7 +257,7 @@ export function AddProductionForm({ landId }: { landId: string }) {
       position: "top-right"
     })
 
-    
+
   }
 
   return (
@@ -319,6 +319,126 @@ export function AddProductionForm({ landId }: { landId: string }) {
         <Button type="submit" className="gap-2 bg-green-600 hover:bg-green-700 text-white">
           <NotebookPen className="size-4" />
           Simpan Produksi
+        </Button>
+      </div>
+    </form>
+  )
+}
+
+
+export function EditTaskForm({ task, onSuccess }: { task: any; onSuccess: () => void }) {
+  const form = useForm({
+    defaultValues: {
+      id: task.id,
+      title: task.title,
+      description: task.description || "",
+      activityType: task.activityType,
+      status: task.status,
+      dueDate: task.dueDate ? new Date(task.dueDate).toISOString().split('T')[0] : "",
+    },
+  })
+
+  const onSubmit = async (values: any) => {
+    toast.promise(updateTask(values), {
+      loading: "Memperbarui tugas...",
+      success: () => {
+        onSuccess();
+        return "Tugas berhasil diperbarui!";
+      },
+      error: (err) => err.message || "Gagal memperbarui tugas",
+    })
+  }
+
+  return (
+    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+      <FieldGroup className="flex flex-col gap-4">
+
+        {/* Judul */}
+        <Controller
+          name="title"
+          control={form.control}
+          rules={{ required: "Judul wajib diisi" }}
+          render={({ field }) => (
+            <Field>
+              <FieldLabel>Judul Tugas</FieldLabel>
+              <Input {...field} />
+            </Field>
+          )}
+        />
+
+        {/* Tipe & Status dalam satu baris */}
+        <div className="grid grid-cols-2 gap-4">
+          <Controller
+            name="activityType"
+            control={form.control}
+            render={({ field }) => (
+              <Field>
+                <FieldLabel>Tipe Aktivitas</FieldLabel>
+                <Select onValueChange={field.onChange} value={field.value}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Pemupukan">Pemupukan</SelectItem>
+                    <SelectItem value="Pemangkasan">Pemangkasan</SelectItem>
+                    <SelectItem value="Penyemprotan">Penyemprotan</SelectItem>
+                    <SelectItem value="Panen">Panen</SelectItem>
+                  </SelectContent>
+                </Select>
+              </Field>
+            )}
+          />
+
+          <Controller
+            name="status"
+            control={form.control}
+            render={({ field }) => (
+              <Field>
+                <FieldLabel>Status</FieldLabel>
+                <Select onValueChange={field.onChange} value={field.value}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="pending">Pending</SelectItem>
+                    <SelectItem value="in_progress">In Progress</SelectItem>
+                    <SelectItem value="on_approval">On Approval</SelectItem>
+                  </SelectContent>
+                </Select>
+              </Field>
+            )}
+          />
+        </div>
+
+        {/* Tanggal */}
+        <Controller
+          name="dueDate"
+          control={form.control}
+          render={({ field }) => (
+            <Field>
+              <FieldLabel>Batas Waktu</FieldLabel>
+              <Input {...field} type="date" />
+            </Field>
+          )}
+        />
+
+        {/* Deskripsi */}
+        <Controller
+          name="description"
+          control={form.control}
+          render={({ field }) => (
+            <Field>
+              <FieldLabel>Deskripsi</FieldLabel>
+              <Textarea {...field} rows={3} placeholder="Instruksi tugas..." />
+            </Field>
+          )}
+        />
+      </FieldGroup>
+
+      <div className="flex justify-end gap-3 pt-4 border-t">
+        <Button type="submit" className="w-full gap-2 bg-primary">
+          <Save className="size-4" />
+          Simpan Perubahan
         </Button>
       </div>
     </form>
