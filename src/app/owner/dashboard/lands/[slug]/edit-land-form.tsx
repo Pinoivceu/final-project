@@ -167,7 +167,7 @@ export default function EditLandForm({
 
       <div className="flex justify-end pt-2">
         {saved ? (
-          <p className="flex items-center gap-2 text-sm text-green-600 font-medium">
+          <p className="flex items-center gap-2 text-sm text-primary font-medium">
             <CheckCircle2 className="h-4 w-4" /> Perubahan tersimpan!
           </p>
         ) : (

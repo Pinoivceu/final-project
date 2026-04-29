@@ -30,7 +30,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function ProductionChart({ data }: { data: HarvestData[] }) {
+export function ProductionLineChart({ data }: { data: HarvestData[] }) {
   // Get unique years from the data for the filter
   const availableYears = useMemo(() => {
     const years = new Set(data.map((d) => new Date(d.harvestDate).getFullYear()))
@@ -64,7 +64,7 @@ export function ProductionChart({ data }: { data: HarvestData[] }) {
   }, [filteredData, selectedYear])
 
   return (
-    <Card className="col-span-4">
+    <Card>
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
           <CardTitle>Grafik Produksi</CardTitle>
@@ -94,7 +94,7 @@ export function ProductionChart({ data }: { data: HarvestData[] }) {
       <CardContent className="px-2 sm:p-6">
         <ChartContainer
           config={chartConfig}
-          className="aspect-auto h-[300px] w-full"
+          className="aspect-auto h-[250px] w-full"
         >
           {chartData.length > 0 ? (
             <LineChart

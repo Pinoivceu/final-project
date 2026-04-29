@@ -26,34 +26,39 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { LayoutGrid, LogOut, MapIcon, PieChart, UserCircle, Leaf } from "lucide-react"
-import { logout } from "@/app/owner/action"
+import { LayoutGrid, LogOut, Sprout, ClipboardList, Factory, UserCircle, Leaf } from "lucide-react"
+import { logout } from "@/app/mandor/action"
 import { ThemeToggle } from "@/components/theme-toggle"
 
 const navItems = [
     {
         title: "Dashboard",
-        url: "/owner/dashboard",
+        url: "/mandor/dashboard",
         icon: LayoutGrid,
     },
     {
-        title: "Maps",
-        url: "/owner/maps",
-        icon: MapIcon,
+        title: "Tasks",
+        url: "/mandor/tasks",
+        icon: ClipboardList,
     },
     {
-        title: "Analytics",
-        url: "/owner/analytics",
-        icon: PieChart,
+        title: "Plants",
+        url: "/mandor/plants",
+        icon: Sprout,
     },
     {
-        title: "User Management",
-        url: "/owner/users",
+        title: "Production",
+        url: "/mandor/production",
+        icon: Factory,
+    },
+    {
+        title: "User Profile",
+        url: "/mandor/users",
         icon: UserCircle,
     },
 ];
 
-export function AppSidebar() {
+export function MandorSidebar() {
     const pathname = usePathname()
     const [isLoggingOut, setIsLoggingOut] = useState(false)
 
@@ -71,7 +76,7 @@ export function AppSidebar() {
                     </div>
                     <div className="flex flex-col gap-0.5 leading-none overflow-hidden transition-all">
                         <span className="font-bold text-sm tracking-tight text-foreground truncate">AgriManage</span>
-                        <span className="text-[10px] font-medium text-muted-foreground truncate">Owner Portal</span>
+                        <span className="text-[10px] font-medium text-muted-foreground truncate">Mandor Portal</span>
                     </div>
                 </div>
                 <SidebarTrigger className="shrink-0 text-muted-foreground hover:text-foreground" />

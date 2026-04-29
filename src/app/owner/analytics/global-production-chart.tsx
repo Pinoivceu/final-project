@@ -1,74 +1,159 @@
 "use client"
 
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts"
+import { useState, useMemo } from "react"
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
-export interface AggregatedHarvest {
-  period: string; // e.g. "Jan 2024"
-  sortKey: string; // "2024-01" for sorting
-  totalWeight: number;
+interface HarvestData {
+  id: string
+  totalWeight: number
+  harvestDate: Date
 }
 
-export default function GlobalProductionChart({ data }: { data: AggregatedHarvest[] }) {
-  // We want to sort chronologically for the chart
-  const chartData = [...data].sort((a, b) => a.sortKey.localeCompare(b.sortKey));
+const chartConfig = {
+  total: {
+    label: "Total Panen Global (Kg)",
+    color: "var(--primary)",
+  },
+} satisfies ChartConfig
+
+export function GlobalProductionChart({ data }: { data: HarvestData[] }) {
+  // Get unique years from the data for the filter
+  const availableYears = useMemo(() => {
+    const years = new Set(data.map((d) => new Date(d.harvestDate).getFullYear()))
+    return Array.from(years).sort((a, b) => b - a)
+  }, [data])
+
+  const [selectedYear, setSelectedYear] = useState<string>("all")
+
+  // Filter data based on selected year
+  const filteredData = useMemo(() => {
+    if (selectedYear === "all") return data
+    return data.filter((d) => new Date(d.harvestDate).getFullYear().toString() === selectedYear)
+  }, [data, selectedYear])
+
+  // Group by month
+  const chartData = useMemo(() => {
+    const grouped = filteredData?.reduce((acc: any, curr) => {
+      const date = new Date(curr.harvestDate)
+      // Format like "Jan 2024" or just "Jan" if a specific year is selected
+      const key = selectedYear === "all" 
+        ? date.toLocaleString("id-ID", { month: "short", year: "numeric" })
+        : date.toLocaleString("id-ID", { month: "long" })
+      
+      if (!acc[key]) acc[key] = { month: key, total: 0, _date: date.getTime() }
+      acc[key].total += curr.totalWeight
+      return acc
+    }, {})
+
+    // Sort by actual date
+    return Object.values(grouped || {}).sort((a: any, b: any) => a._date - b._date)
+  }, [filteredData, selectedYear])
 
   return (
-    <Card className="col-span-1 xl:col-span-2">
-      <CardHeader>
-        <CardTitle>Tren Produksi Global</CardTitle>
-        <CardDescription>Total akumulasi hasil panen kopi (Kg) dari seluruh lahan per bulan</CardDescription>
+    <Card>
+      <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
+        <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
+          <CardTitle>Tren Produksi Global</CardTitle>
+          <CardDescription>
+            Total akumulasi hasil panen dari seluruh lahan {selectedYear === "all" ? "sepanjang waktu" : `pada tahun ${selectedYear}`}
+          </CardDescription>
+        </div>
+        <div className="flex items-center px-6 py-4 sm:py-6 sm:border-l">
+          <div className="flex flex-col gap-1.5 w-full sm:w-[150px]">
+            <label className="text-xs text-muted-foreground font-medium">Filter Tahun</label>
+            <Select value={selectedYear} onValueChange={setSelectedYear}>
+              <SelectTrigger className="h-8">
+                <SelectValue placeholder="Pilih Tahun" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Semua Waktu</SelectItem>
+                {availableYears.map((year) => (
+                  <SelectItem key={year} value={year.toString()}>
+                    {year}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
       </CardHeader>
-      <CardContent>
-        <div className="h-[350px] w-full">
+      <CardContent className="px-2 sm:p-6">
+        <ChartContainer
+          config={chartConfig}
+          className="aspect-auto h-[350px] w-full"
+        >
           {chartData.length > 0 ? (
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={chartData} margin={{ top: 20, right: 10, left: -10, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-                <XAxis 
-                  dataKey="period" 
-                  tickLine={false}
-                  axisLine={false}
-                  tick={{ fill: "#64748b", fontSize: 12, fontWeight: 500 }}
-                  tickFormatter={(value) => {
-                    // Split "Jan 2024" -> "Jan"
-                    return value.split(' ')[0] || value;
-                  }}
-                />
-                <YAxis 
-                  tickLine={false}
-                  axisLine={false}
-                  tick={{ fill: "#64748b", fontSize: 12, fontWeight: 500 }}
-                  tickFormatter={(value) => `${value.toLocaleString()}`}
-                />
-                <Tooltip 
-                  cursor={{ fill: 'rgba(100, 116, 139, 0.1)' }}
-                  content={({ active, payload }) => {
-                    if (active && payload && payload.length) {
-                      return (
-                        <div className="bg-card text-card-foreground border rounded-lg shadow-sm p-3">
-                          <p className="font-semibold text-sm mb-1">{payload[0].payload.period}</p>
-                          <p className="text-primary font-bold">{Number(payload[0].value).toLocaleString()} Kg</p>
-                        </div>
-                      )
-                    }
-                    return null;
-                  }}
-                />
-                <Bar 
-                  dataKey="totalWeight" 
-                  fill="hsl(142.1, 76.2%, 36.3%)" // green-600 equivalent
-                  radius={[4, 4, 0, 0]} 
-                  barSize={50}
-                />
-              </BarChart>
-            </ResponsiveContainer>
+            <LineChart
+              data={chartData}
+              margin={{
+                left: 12,
+                right: 12,
+                top: 12,
+                bottom: 12,
+              }}
+            >
+              <CartesianGrid vertical={false} strokeDasharray="3 3" />
+              <XAxis
+                dataKey="month"
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+                minTickGap={32}
+              />
+              <YAxis
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+                tickFormatter={(value) => `${value} Kg`}
+                width={60}
+              />
+              <ChartTooltip
+                cursor={false}
+                content={
+                  <ChartTooltipContent
+                    hideLabel={false}
+                    formatter={(value) => (
+                      <div className="flex items-center gap-2">
+                        <span className="font-medium">{value}</span>
+                        <span className="text-muted-foreground">Kg</span>
+                      </div>
+                    )}
+                  />
+                }
+              />
+              <Line
+                dataKey="total"
+                type="monotone"
+                stroke="var(--color-total)"
+                strokeWidth={2}
+                dot={{
+                  fill: "var(--color-total)",
+                }}
+                activeDot={{
+                  r: 6,
+                }}
+              />
+            </LineChart>
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-muted-foreground border-2 border-dashed rounded-lg">
+            <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
               Belum ada data panen untuk ditampilkan.
             </div>
           )}
-        </div>
+        </ChartContainer>
       </CardContent>
     </Card>
   )

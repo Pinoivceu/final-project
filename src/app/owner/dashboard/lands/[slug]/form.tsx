@@ -316,7 +316,7 @@ export function AddProductionForm({ landId }: { landId: string }) {
         }>
         </DialogClose>
 
-        <Button type="submit" className="gap-2 bg-green-600 hover:bg-green-700 text-white">
+        <Button type="submit" className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground">
           <NotebookPen className="size-4" />
           Simpan Produksi
         </Button>

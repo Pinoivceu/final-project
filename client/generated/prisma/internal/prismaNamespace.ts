@@ -1003,7 +1003,6 @@ export type LandScalarFieldEnum = (typeof LandScalarFieldEnum)[keyof typeof Land
 export const PlantScalarFieldEnum = {
   id: 'id',
   variety: 'variety',
-  activeBranches: 'activeBranches',
   plantedAt: 'plantedAt',
   locationCoordinate: 'locationCoordinate',
   status: 'status',

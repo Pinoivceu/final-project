@@ -68,7 +68,6 @@ model Land {
 model Plant {
   id                 Int       @id @default(autoincrement())
   variety            String
-  activeBranches     Int
   plantedAt          DateTime?
   locationCoordinate Json?
   status             String    @default("active")

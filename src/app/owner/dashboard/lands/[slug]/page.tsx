@@ -18,6 +18,8 @@ import { getProduction, getTask } from "./action"
 import { AddPlantForm, AddProductionForm, AddTaskForm } from "./form"
 import { productionColumns } from "./column-production"
 import { ProductionTable } from "./table-productions"
+import { treatmentLogsColumns } from "./column-treatment-logs"
+import { TreatmentLogsTable } from "./table-treatment-logs"
 import DensityMap from "@/components/map-wrapper"
 import { ProductionChart } from "./production-chart"
 import EditLandForm from "./edit-land-form"
@@ -85,6 +87,8 @@ export default async function Lands({ params }: { params: Promise<{ slug: string
     ? (totalProductionThisMonth / activePlantsCount).toFixed(2)
     : "0";
 
+  const completedTasks = task.tasks?.filter((t: any) => t.status === "completed") || [];
+
   return (
     <div className="size-full p-6 flex flex-col gap-6">
 
@@ -98,10 +102,10 @@ export default async function Lands({ params }: { params: Promise<{ slug: string
           </p>
         </div>
         <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="outline" size="sm" className="flex items-center gap-2 shrink-0">
-              <Pencil className="h-4 w-4" /> Edit Lahan
-            </Button>
+          <DialogTrigger render={<Button variant="outline" size="sm" className="flex items-center gap-2 shrink-0">
+            <Pencil className="h-4 w-4" /> Edit Lahan
+          </Button>}>
+
           </DialogTrigger>
           <DialogContent className="max-w-lg">
             <DialogHeader>
@@ -226,35 +230,12 @@ export default async function Lands({ params }: { params: Promise<{ slug: string
         </TabsContent>
 
         <TabsContent value="logs">
-          <Card className="mt-4">
-            <CardHeader>
-              <CardTitle>Riwayat Perawatan Lahan (Treatment Logs)</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {land?.treatmentLogs && land.treatmentLogs.length > 0 ? (
-                <div className="space-y-4">
-                  {land.treatmentLogs.map((log) => (
-                    <div key={log.id} className="p-4 border rounded-lg flex flex-col md:flex-row gap-4">
-                      <div className="flex-1">
-                        <div className="flex justify-between items-center mb-2">
-                          <h4 className="font-bold text-lg">{log.activityType}</h4>
-                          <span className="text-sm text-muted-foreground">
-                            {new Date(log.executionDate).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
-                          </span>
-                        </div>
-                        <p className="text-muted-foreground">{log.description || "Tidak ada deskripsi."}</p>
-                        <p className="text-sm mt-2 font-medium">Dikerjakan oleh: {(log as any).mandor?.fullName || "Anonim"}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-8 text-muted-foreground">
-                  Belum ada riwayat perawatan untuk lahan ini.
-                </div>
-              )}
-            </CardContent>
-          </Card>
+          <div className="p-6 rounded-lg flex flex-col gap-6 bg-card mt-4 border shadow-sm">
+            <div className="flex flex-row justify-between size-full items-center">
+              <h2 className="text-2xl font-bold">Treatment Logs</h2>
+            </div>
+            <TreatmentLogsTable columns={treatmentLogsColumns} data={completedTasks} />
+          </div>
         </TabsContent>
 
       </Tabs >

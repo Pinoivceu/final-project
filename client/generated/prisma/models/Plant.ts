@@ -28,18 +28,15 @@ export type AggregatePlant = {
 
 export type PlantAvgAggregateOutputType = {
   id: number | null
-  activeBranches: number | null
 }
 
 export type PlantSumAggregateOutputType = {
   id: number | null
-  activeBranches: number | null
 }
 
 export type PlantMinAggregateOutputType = {
   id: number | null
   variety: string | null
-  activeBranches: number | null
   plantedAt: Date | null
   status: string | null
   createdAt: Date | null
@@ -50,7 +47,6 @@ export type PlantMinAggregateOutputType = {
 export type PlantMaxAggregateOutputType = {
   id: number | null
   variety: string | null
-  activeBranches: number | null
   plantedAt: Date | null
   status: string | null
   createdAt: Date | null
@@ -61,7 +57,6 @@ export type PlantMaxAggregateOutputType = {
 export type PlantCountAggregateOutputType = {
   id: number
   variety: number
-  activeBranches: number
   plantedAt: number
   locationCoordinate: number
   status: number
@@ -74,18 +69,15 @@ export type PlantCountAggregateOutputType = {
 
 export type PlantAvgAggregateInputType = {
   id?: true
-  activeBranches?: true
 }
 
 export type PlantSumAggregateInputType = {
   id?: true
-  activeBranches?: true
 }
 
 export type PlantMinAggregateInputType = {
   id?: true
   variety?: true
-  activeBranches?: true
   plantedAt?: true
   status?: true
   createdAt?: true
@@ -96,7 +88,6 @@ export type PlantMinAggregateInputType = {
 export type PlantMaxAggregateInputType = {
   id?: true
   variety?: true
-  activeBranches?: true
   plantedAt?: true
   status?: true
   createdAt?: true
@@ -107,7 +98,6 @@ export type PlantMaxAggregateInputType = {
 export type PlantCountAggregateInputType = {
   id?: true
   variety?: true
-  activeBranches?: true
   plantedAt?: true
   locationCoordinate?: true
   status?: true
@@ -206,7 +196,6 @@ export type PlantGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type PlantGroupByOutputType = {
   id: number
   variety: string
-  activeBranches: number
   plantedAt: Date | null
   locationCoordinate: runtime.JsonValue | null
   status: string
@@ -241,7 +230,6 @@ export type PlantWhereInput = {
   NOT?: Prisma.PlantWhereInput | Prisma.PlantWhereInput[]
   id?: Prisma.IntFilter<"Plant"> | number
   variety?: Prisma.StringFilter<"Plant"> | string
-  activeBranches?: Prisma.IntFilter<"Plant"> | number
   plantedAt?: Prisma.DateTimeNullableFilter<"Plant"> | Date | string | null
   locationCoordinate?: Prisma.JsonNullableFilter<"Plant">
   status?: Prisma.StringFilter<"Plant"> | string
@@ -254,7 +242,6 @@ export type PlantWhereInput = {
 export type PlantOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   variety?: Prisma.SortOrder
-  activeBranches?: Prisma.SortOrder
   plantedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   locationCoordinate?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -270,7 +257,6 @@ export type PlantWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.PlantWhereInput[]
   NOT?: Prisma.PlantWhereInput | Prisma.PlantWhereInput[]
   variety?: Prisma.StringFilter<"Plant"> | string
-  activeBranches?: Prisma.IntFilter<"Plant"> | number
   plantedAt?: Prisma.DateTimeNullableFilter<"Plant"> | Date | string | null
   locationCoordinate?: Prisma.JsonNullableFilter<"Plant">
   status?: Prisma.StringFilter<"Plant"> | string
@@ -283,7 +269,6 @@ export type PlantWhereUniqueInput = Prisma.AtLeast<{
 export type PlantOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   variety?: Prisma.SortOrder
-  activeBranches?: Prisma.SortOrder
   plantedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   locationCoordinate?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -303,7 +288,6 @@ export type PlantScalarWhereWithAggregatesInput = {
   NOT?: Prisma.PlantScalarWhereWithAggregatesInput | Prisma.PlantScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Plant"> | number
   variety?: Prisma.StringWithAggregatesFilter<"Plant"> | string
-  activeBranches?: Prisma.IntWithAggregatesFilter<"Plant"> | number
   plantedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Plant"> | Date | string | null
   locationCoordinate?: Prisma.JsonNullableWithAggregatesFilter<"Plant">
   status?: Prisma.StringWithAggregatesFilter<"Plant"> | string
@@ -314,7 +298,6 @@ export type PlantScalarWhereWithAggregatesInput = {
 
 export type PlantCreateInput = {
   variety: string
-  activeBranches: number
   plantedAt?: Date | string | null
   locationCoordinate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: string
@@ -326,7 +309,6 @@ export type PlantCreateInput = {
 export type PlantUncheckedCreateInput = {
   id?: number
   variety: string
-  activeBranches: number
   plantedAt?: Date | string | null
   locationCoordinate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: string
@@ -337,7 +319,6 @@ export type PlantUncheckedCreateInput = {
 
 export type PlantUpdateInput = {
   variety?: Prisma.StringFieldUpdateOperationsInput | string
-  activeBranches?: Prisma.IntFieldUpdateOperationsInput | number
   plantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   locationCoordinate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -349,7 +330,6 @@ export type PlantUpdateInput = {
 export type PlantUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   variety?: Prisma.StringFieldUpdateOperationsInput | string
-  activeBranches?: Prisma.IntFieldUpdateOperationsInput | number
   plantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   locationCoordinate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -361,7 +341,6 @@ export type PlantUncheckedUpdateInput = {
 export type PlantCreateManyInput = {
   id?: number
   variety: string
-  activeBranches: number
   plantedAt?: Date | string | null
   locationCoordinate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: string
@@ -372,7 +351,6 @@ export type PlantCreateManyInput = {
 
 export type PlantUpdateManyMutationInput = {
   variety?: Prisma.StringFieldUpdateOperationsInput | string
-  activeBranches?: Prisma.IntFieldUpdateOperationsInput | number
   plantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   locationCoordinate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -383,7 +361,6 @@ export type PlantUpdateManyMutationInput = {
 export type PlantUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   variety?: Prisma.StringFieldUpdateOperationsInput | string
-  activeBranches?: Prisma.IntFieldUpdateOperationsInput | number
   plantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   locationCoordinate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -405,7 +382,6 @@ export type PlantOrderByRelationAggregateInput = {
 export type PlantCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   variety?: Prisma.SortOrder
-  activeBranches?: Prisma.SortOrder
   plantedAt?: Prisma.SortOrder
   locationCoordinate?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -416,13 +392,11 @@ export type PlantCountOrderByAggregateInput = {
 
 export type PlantAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  activeBranches?: Prisma.SortOrder
 }
 
 export type PlantMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   variety?: Prisma.SortOrder
-  activeBranches?: Prisma.SortOrder
   plantedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -433,7 +407,6 @@ export type PlantMaxOrderByAggregateInput = {
 export type PlantMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   variety?: Prisma.SortOrder
-  activeBranches?: Prisma.SortOrder
   plantedAt?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -443,7 +416,6 @@ export type PlantMinOrderByAggregateInput = {
 
 export type PlantSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  activeBranches?: Prisma.SortOrder
 }
 
 export type PlantCreateNestedManyWithoutLandInput = {
@@ -498,7 +470,6 @@ export type IntFieldUpdateOperationsInput = {
 
 export type PlantCreateWithoutLandInput = {
   variety: string
-  activeBranches: number
   plantedAt?: Date | string | null
   locationCoordinate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: string
@@ -509,7 +480,6 @@ export type PlantCreateWithoutLandInput = {
 export type PlantUncheckedCreateWithoutLandInput = {
   id?: number
   variety: string
-  activeBranches: number
   plantedAt?: Date | string | null
   locationCoordinate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: string
@@ -549,7 +519,6 @@ export type PlantScalarWhereInput = {
   NOT?: Prisma.PlantScalarWhereInput | Prisma.PlantScalarWhereInput[]
   id?: Prisma.IntFilter<"Plant"> | number
   variety?: Prisma.StringFilter<"Plant"> | string
-  activeBranches?: Prisma.IntFilter<"Plant"> | number
   plantedAt?: Prisma.DateTimeNullableFilter<"Plant"> | Date | string | null
   locationCoordinate?: Prisma.JsonNullableFilter<"Plant">
   status?: Prisma.StringFilter<"Plant"> | string
@@ -561,7 +530,6 @@ export type PlantScalarWhereInput = {
 export type PlantCreateManyLandInput = {
   id?: number
   variety: string
-  activeBranches: number
   plantedAt?: Date | string | null
   locationCoordinate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: string
@@ -571,7 +539,6 @@ export type PlantCreateManyLandInput = {
 
 export type PlantUpdateWithoutLandInput = {
   variety?: Prisma.StringFieldUpdateOperationsInput | string
-  activeBranches?: Prisma.IntFieldUpdateOperationsInput | number
   plantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   locationCoordinate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -582,7 +549,6 @@ export type PlantUpdateWithoutLandInput = {
 export type PlantUncheckedUpdateWithoutLandInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   variety?: Prisma.StringFieldUpdateOperationsInput | string
-  activeBranches?: Prisma.IntFieldUpdateOperationsInput | number
   plantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   locationCoordinate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -593,7 +559,6 @@ export type PlantUncheckedUpdateWithoutLandInput = {
 export type PlantUncheckedUpdateManyWithoutLandInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   variety?: Prisma.StringFieldUpdateOperationsInput | string
-  activeBranches?: Prisma.IntFieldUpdateOperationsInput | number
   plantedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   locationCoordinate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -606,7 +571,6 @@ export type PlantUncheckedUpdateManyWithoutLandInput = {
 export type PlantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   variety?: boolean
-  activeBranches?: boolean
   plantedAt?: boolean
   locationCoordinate?: boolean
   status?: boolean
@@ -619,7 +583,6 @@ export type PlantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type PlantSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   variety?: boolean
-  activeBranches?: boolean
   plantedAt?: boolean
   locationCoordinate?: boolean
   status?: boolean
@@ -632,7 +595,6 @@ export type PlantSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type PlantSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   variety?: boolean
-  activeBranches?: boolean
   plantedAt?: boolean
   locationCoordinate?: boolean
   status?: boolean
@@ -645,7 +607,6 @@ export type PlantSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type PlantSelectScalar = {
   id?: boolean
   variety?: boolean
-  activeBranches?: boolean
   plantedAt?: boolean
   locationCoordinate?: boolean
   status?: boolean
@@ -654,7 +615,7 @@ export type PlantSelectScalar = {
   landId?: boolean
 }
 
-export type PlantOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "variety" | "activeBranches" | "plantedAt" | "locationCoordinate" | "status" | "createdAt" | "updatedAt" | "landId", ExtArgs["result"]["plant"]>
+export type PlantOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "variety" | "plantedAt" | "locationCoordinate" | "status" | "createdAt" | "updatedAt" | "landId", ExtArgs["result"]["plant"]>
 export type PlantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   land?: boolean | Prisma.LandDefaultArgs<ExtArgs>
 }
@@ -673,7 +634,6 @@ export type $PlantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     variety: string
-    activeBranches: number
     plantedAt: Date | null
     locationCoordinate: runtime.JsonValue | null
     status: string
@@ -1106,7 +1066,6 @@ export interface Prisma__PlantClient<T, Null = never, ExtArgs extends runtime.Ty
 export interface PlantFieldRefs {
   readonly id: Prisma.FieldRef<"Plant", 'Int'>
   readonly variety: Prisma.FieldRef<"Plant", 'String'>
-  readonly activeBranches: Prisma.FieldRef<"Plant", 'Int'>
   readonly plantedAt: Prisma.FieldRef<"Plant", 'DateTime'>
   readonly locationCoordinate: Prisma.FieldRef<"Plant", 'Json'>
   readonly status: Prisma.FieldRef<"Plant", 'String'>
