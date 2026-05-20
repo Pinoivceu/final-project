@@ -37,8 +37,7 @@ export function ProductionLineChart({ data }: { data: HarvestData[] }) {
     return Array.from(years).sort((a, b) => b - a)
   }, [data])
 
-  const [selectedYear, setSelectedYear] = useState<string>("all")
-
+  const [selectedYear, setSelectedYear] = useState<string | null>("2026");
   // Filter data based on selected year
   const filteredData = useMemo(() => {
     if (selectedYear === "all") return data
@@ -50,10 +49,10 @@ export function ProductionLineChart({ data }: { data: HarvestData[] }) {
     const grouped = filteredData?.reduce((acc: any, curr) => {
       const date = new Date(curr.harvestDate)
       // Format like "Jan 2024" or just "Jan" if a specific year is selected
-      const key = selectedYear === "all" 
+      const key = selectedYear === "all"
         ? date.toLocaleString("id-ID", { month: "short", year: "numeric" })
         : date.toLocaleString("id-ID", { month: "long" })
-      
+
       if (!acc[key]) acc[key] = { month: key, total: 0, _date: date.getTime() }
       acc[key].total += curr.totalWeight
       return acc

@@ -3,9 +3,9 @@
 import { MapContainer, TileLayer, Polygon, CircleMarker, Popup, useMap } from "react-leaflet"
 import L from "leaflet"
 import "@geoman-io/leaflet-geoman-free"
+import { Plant, Land } from "../../../../../../client/generated/prisma/client"
 import "leaflet/dist/leaflet.css"
 import "@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css";
-import { Plant, Land } from "@prisma/client"
 import { useEffect, useMemo } from "react";
 
 function MapFitBounds({ coords }: { coords: [number, number][] }) {

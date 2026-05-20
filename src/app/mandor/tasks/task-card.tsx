@@ -199,15 +199,15 @@ export function TaskCard({
                             ✅ Selesai & diverifikasi owner
                         </div>
                         <AlertDialog>
-                            <AlertDialogTrigger asChild>
-                                <Button
+                            <AlertDialogTrigger render={<Button
                                     variant="ghost"
                                     size="icon"
                                     className="shrink-0 h-9 w-9 text-muted-foreground hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30"
                                     onClick={(e) => e.stopPropagation()}
                                 >
                                     <Trash2 className="size-4" />
-                                </Button>
+                                </Button>}>
+                                
                             </AlertDialogTrigger>
                             <AlertDialogContent>
                                 <AlertDialogHeader>

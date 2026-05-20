@@ -75,7 +75,7 @@ export function ProductionChart({ data }: { data: HarvestData[] }) {
         <div className="flex items-center px-6 py-4 sm:py-6 sm:border-l">
           <div className="flex flex-col gap-1.5 w-full sm:w-[150px]">
             <label className="text-xs text-muted-foreground font-medium">Filter Tahun</label>
-            <Select value={selectedYear} onValueChange={setSelectedYear}>
+            <Select value={selectedYear} onValueChange={(val) => setSelectedYear(val ?? "all")}>
               <SelectTrigger className="h-8">
                 <SelectValue placeholder="Pilih Tahun" />
               </SelectTrigger>

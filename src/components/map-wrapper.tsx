@@ -1,6 +1,6 @@
 "use client"
 import dynamic from 'next/dynamic';
-import { Plant, Land } from '@prisma/client';
+import { Plant, Land } from '../../client/generated/prisma/client';
 
 const MapDensity = dynamic(() => import('@/app/owner/dashboard/lands/[slug]/map-plant-density'), {
   ssr: false,
