@@ -26,33 +26,56 @@ export async function proxy(request: NextRequest) {
   const isMandor = user?.role === 'mandor'
   const pathname = request.nextUrl.pathname
 
+  // --- Root page "/" ---
+  // Redirect logged-in users to their dashboard, otherwise to login
+  if (pathname === '/') {
+    if (isOwner) {
+      return NextResponse.redirect(new URL('/owner/dashboard', request.url))
+    }
+    if (isMandor) {
+      return NextResponse.redirect(new URL('/mandor/dashboard', request.url))
+    }
+    return NextResponse.redirect(new URL('/login', request.url))
+  }
+
+  // --- Login page ---
   // Logged-in users visiting /login → redirect to their dashboard
   if (pathname.startsWith('/login')) {
-    if (user) {
-      if (isOwner) {
-        return NextResponse.redirect(new URL('/owner', request.url))
-      }
-      if (isMandor) {
-        return NextResponse.redirect(new URL('/mandor', request.url))
-      }
+    if (isOwner) {
+      return NextResponse.redirect(new URL('/owner/dashboard', request.url))
+    }
+    if (isMandor) {
+      return NextResponse.redirect(new URL('/mandor/dashboard', request.url))
     }
     // Not logged in, let them see the login page
     return NextResponse.next()
   }
 
-  // Protected owner routes
+  // --- Protected owner routes ---
   if (pathname.startsWith('/owner')) {
-    if (!user || !isOwner) {
+    if (!user) {
+      // Not logged in → go to login
       return NextResponse.redirect(new URL('/login', request.url))
     }
+    if (isMandor) {
+      // Mandor trying to access owner pages → redirect to mandor dashboard
+      return NextResponse.redirect(new URL('/mandor/dashboard', request.url))
+    }
+    // User is owner → allow access
     return NextResponse.next()
   }
 
-  // Protected mandor routes
+  // --- Protected mandor routes ---
   if (pathname.startsWith('/mandor')) {
-    if (!user || !isMandor) {
+    if (!user) {
+      // Not logged in → go to login
       return NextResponse.redirect(new URL('/login', request.url))
     }
+    if (isOwner) {
+      // Owner trying to access mandor pages → redirect to owner dashboard
+      return NextResponse.redirect(new URL('/owner/dashboard', request.url))
+    }
+    // User is mandor → allow access
     return NextResponse.next()
   }
 
