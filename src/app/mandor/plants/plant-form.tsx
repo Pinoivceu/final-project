@@ -47,7 +47,15 @@ export function AddPlantForm({ landId, onSuccess }: { landId: string; onSuccess?
                     render={({ field, fieldState }) => (
                         <Field>
                             <FieldLabel htmlFor="variety">Varietas / Jenis Tanaman</FieldLabel>
-                            <Input {...field} id="variety" placeholder="Contoh: Robusta, Arabica, Gayo" />
+                            <Select onValueChange={field.onChange} value={field.value ?? ""}>
+                                <SelectTrigger id="variety">
+                                    <SelectValue placeholder="Pilih varietas tanaman" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="Arabica">Arabica</SelectItem>
+                                    <SelectItem value="Robusta">Robusta</SelectItem>
+                                </SelectContent>
+                            </Select>
                             {fieldState.error && (
                                 <p className="text-xs text-destructive mt-1">{fieldState.error.message}</p>
                             )}
@@ -61,7 +69,7 @@ export function AddPlantForm({ landId, onSuccess }: { landId: string; onSuccess?
                     control={form.control}
                     render={({ field }) => (
                         <Field>
-                            <FieldLabel htmlFor="plantedAt">Tanggal Tanam (Opsional)</FieldLabel>
+                            <FieldLabel htmlFor="plantedAt">Tanggal Tanam </FieldLabel>
                             <Input {...field} id="plantedAt" type="date" />
                         </Field>
                     )}
@@ -153,7 +161,15 @@ export function EditPlantForm({ plant, onSuccess }: { plant: any; onSuccess?: ()
                     render={({ field, fieldState }) => (
                         <Field>
                             <FieldLabel>Varietas / Jenis Tanaman</FieldLabel>
-                            <Input {...field} placeholder="Contoh: Robusta" />
+                            <Select onValueChange={field.onChange} value={field.value ?? ""}>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Pilih varietas tanaman" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="Arabica">Arabica</SelectItem>
+                                    <SelectItem value="Robusta">Robusta</SelectItem>
+                                </SelectContent>
+                            </Select>
                             {fieldState.error && (
                                 <p className="text-xs text-destructive mt-1">{fieldState.error.message}</p>
                             )}

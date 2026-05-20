@@ -172,7 +172,15 @@ export function AddPlantForm({ landId }: { landId: string }) {
           render={({ field }) => (
             <Field>
               <FieldLabel htmlFor="variety">Varietas / Jenis Tanaman</FieldLabel>
-              <Input {...field} id="variety" placeholder="Contoh: Robusta, Arabica, atau Gayo" />
+              <Select onValueChange={field.onChange} value={field.value ?? ""}>
+                <SelectTrigger id="variety">
+                  <SelectValue placeholder="Pilih varietas tanaman" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Arabica">Arabica</SelectItem>
+                  <SelectItem value="Robusta">Robusta</SelectItem>
+                </SelectContent>
+              </Select>
             </Field>
           )}
         />
@@ -312,7 +320,15 @@ export function AddProductionForm({ landId }: { landId: string }) {
             render={({ field }) => (
                 <Field>
                     <FieldLabel htmlFor="variety">Varietas (Opsional)</FieldLabel>
-                    <Input {...field} id="variety" placeholder="Contoh: Arabica, Robusta" />
+                    <Select onValueChange={field.onChange} value={field.value ?? ""}>
+                        <SelectTrigger id="variety">
+                            <SelectValue placeholder="Pilih varietas (opsional)" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="Arabica">Arabica</SelectItem>
+                            <SelectItem value="Robusta">Robusta</SelectItem>
+                        </SelectContent>
+                    </Select>
                 </Field>
             )}
         />

@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { DialogClose } from "@/components/ui/dialog"
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { toast } from "sonner"
 import { Scale, Save, NotebookPen } from "lucide-react"
 import { createHarvest, updateHarvest } from "./action"
@@ -86,7 +87,15 @@ export function AddProductionForm({ landId, onSuccess }: { landId: string; onSuc
                     render={({ field }) => (
                         <Field>
                             <FieldLabel htmlFor="variety">Varietas (Opsional)</FieldLabel>
-                            <Input {...field} id="variety" placeholder="Contoh: Arabica, Robusta" />
+                            <Select onValueChange={field.onChange} value={field.value ?? ""}>
+                                <SelectTrigger id="variety">
+                                    <SelectValue placeholder="Pilih varietas " />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="Arabica">Arabica</SelectItem>
+                                    <SelectItem value="Robusta">Robusta</SelectItem>
+                                </SelectContent>
+                            </Select>
                         </Field>
                     )}
                 />
@@ -189,7 +198,15 @@ export function EditProductionForm({ harvest, onSuccess }: { harvest: any; onSuc
                     render={({ field }) => (
                         <Field>
                             <FieldLabel>Varietas (Opsional)</FieldLabel>
-                            <Input {...field} placeholder="Contoh: Arabica, Robusta" />
+                            <Select onValueChange={field.onChange} value={field.value ?? ""}>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Pilih varietas (opsional)" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="Arabica">Arabica</SelectItem>
+                                    <SelectItem value="Robusta">Robusta</SelectItem>
+                                </SelectContent>
+                            </Select>
                         </Field>
                     )}
                 />
