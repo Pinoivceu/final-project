@@ -27,7 +27,7 @@ export default function EditLandForm({
 
   const [formData, setFormData] = useState({
     landName: land?.landName ?? "",
-    areaSize: land?.areaSize?.toString() ?? "",
+    areaSize: land?.areaSize ?? "",
     locationAddress: land?.locationAddress ?? "",
     mandorId: land?.mandorId ?? ""
   })
@@ -90,7 +90,7 @@ export default function EditLandForm({
       {/* Cover image preview */}
       <div className="w-full h-36 rounded-lg border overflow-hidden bg-muted relative group cursor-pointer">
         {previewUrl ? (
-          <Image src={previewUrl} alt="Preview" fill className="object-cover" />
+          <img src={previewUrl} alt="Preview" className="w-full h-full object-cover" />
         ) : (
           <div className="flex flex-col items-center justify-center h-full gap-2 text-muted-foreground">
             <UploadCloud className="h-8 w-8" />
@@ -121,7 +121,7 @@ export default function EditLandForm({
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="areaSize">Luas Lahan (Ha)</Label>
+          <Label htmlFor="areaSize">Luas Lahan </Label>
           <Input
             id="areaSize"
             type="number"
@@ -140,7 +140,9 @@ export default function EditLandForm({
             onValueChange={(val) => setFormData({ ...formData, mandorId: val })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Pilih Mandor" />
+              <SelectValue placeholder="Pilih Mandor">
+                {formData.mandorId ? mandors.find((m) => m.id === formData.mandorId)?.fullName : undefined}
+              </SelectValue>
             </SelectTrigger>
             <SelectContent>
               {mandors.map((m) => (

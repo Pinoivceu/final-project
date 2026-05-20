@@ -1043,6 +1043,7 @@ export const HarvestScalarFieldEnum = {
   id: 'id',
   harvestDate: 'harvestDate',
   totalWeight: 'totalWeight',
+  variety: 'variety',
   notes: 'notes',
   createdAt: 'createdAt',
   landId: 'landId'

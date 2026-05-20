@@ -4,6 +4,7 @@ import GlobalMapWrapper, { GlobalMapLand } from "./global-map-wrapper"
 export default async function MapsPage() {
   // Fetch all lands with their plants and harvests
   const lands = await prisma.land.findMany({
+    where: { isActive: true },
     include: {
       plants: {
         where: { status: 'active' } // Only count active plants for density
@@ -12,15 +13,23 @@ export default async function MapsPage() {
     }
   });
 
+  const today = new Date();
+  const currentYear = today.getFullYear();
+  // Use the last fully completed year if the current year is not over (not December)
+  const targetYear = today.getMonth() === 11 ? currentYear : currentYear - 1;
+
   // Calculate metrics for each land
   const mapData: GlobalMapLand[] = lands.map(land => {
     const activePlantCount = land.plants.length;
     
     // Density: Trees per Hectare
-    const density = land.areaSize > 0 ? (activePlantCount / land.areaSize) : 0;
+    const areaInHa = land.areaSize / 10000;
+    const density = areaInHa > 0 ? (activePlantCount / areaInHa) : 0;
 
-    // Total Production: Sum of all harvests for this land
-    const totalProduction = land.harvests.reduce((sum, h) => sum + h.totalWeight, 0);
+    // Total Production: Sum of harvests for the target year
+    const totalProduction = land.harvests
+      .filter(h => new Date(h.harvestDate).getFullYear() === targetYear)
+      .reduce((sum, h) => sum + h.totalWeight, 0);
 
     // Productivity: Kg per Tree (or Kg per Hectare if preferred, we use Kg/Tree based on previous cards)
     const productivity = activePlantCount > 0 ? (totalProduction / activePlantCount) : 0;

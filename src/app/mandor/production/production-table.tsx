@@ -76,6 +76,7 @@ export type HarvestRow = {
     id: string
     totalWeight: number
     harvestDate: Date
+    variety: string | null
     notes: string | null
     createdAt: Date
 }
@@ -201,6 +202,15 @@ export const harvestColumns: ColumnDef<HarvestRow>[] = [
             </span>
         ),
         sortingFn: "basic",
+    },
+    {
+        accessorKey: "variety",
+        header: "Varietas",
+        cell: ({ row }) => (
+            <span className="text-sm">
+                {row.original.variety || "-"}
+            </span>
+        ),
     },
     {
         accessorKey: "notes",

@@ -83,14 +83,14 @@ export default function MapDensity({ plants, land }: { plants: Plant[], land: La
         style={{ height: "100%", width: "100%", zIndex: 1 }}
       >
         <TileLayer
-          url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+          url="https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
           maxNativeZoom={19}
           maxZoom={30}
         />
 
         {polygonCoords.length > 0 && (
           <>
-            <Polygon positions={polygonCoords} pathOptions={{ color: 'green', fillColor: 'green', fillOpacity: 0.2 }} />
+            <Polygon positions={polygonCoords} pathOptions={{ color: '#ffffff', fillColor: '#10b981', fillOpacity: 0.5, weight: 2 }} />
             <MapFitBounds coords={polygonCoords} />
           </>
         )}
@@ -103,8 +103,8 @@ export default function MapDensity({ plants, land }: { plants: Plant[], land: La
                 <CircleMarker
                   key={plant.id}
                   center={[loc.lat, loc.lng]}
-                  radius={0.5}
-                  pathOptions={{ color: 'red', fillColor: 'red', fillOpacity: 0.8, weight: 2 }}
+                  radius={3}
+                  pathOptions={{ color: '#ffffff', fillColor: '#f59e0b', fillOpacity: 1, weight: 1 }}
                 >
                   <Popup>
                     <div className="text-sm">

@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache"
 
 export async function createHarvest(values: any) {
     try {
-        const { totalWeight, harvestDate, notes, landId } = values
+        const { totalWeight, harvestDate, notes, variety, landId } = values
 
         if (!totalWeight || !landId) throw new Error("Berat dan Lahan wajib diisi.")
 
@@ -13,6 +13,7 @@ export async function createHarvest(values: any) {
             data: {
                 totalWeight: parseFloat(totalWeight),
                 harvestDate: harvestDate ? new Date(harvestDate) : new Date(),
+                variety: variety || null,
                 notes: notes || null,
                 landId,
             },
@@ -27,7 +28,7 @@ export async function createHarvest(values: any) {
 
 export async function updateHarvest(values: any) {
     try {
-        const { id, totalWeight, harvestDate, notes } = values
+        const { id, totalWeight, harvestDate, notes, variety } = values
 
         if (!id) throw new Error("ID panen tidak ditemukan.")
 
@@ -36,6 +37,7 @@ export async function updateHarvest(values: any) {
             data: {
                 totalWeight: parseFloat(totalWeight),
                 harvestDate: harvestDate ? new Date(harvestDate) : undefined,
+                variety: variety || null,
                 notes: notes || null,
             },
         })

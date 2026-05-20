@@ -17,6 +17,7 @@ export function AddProductionForm({ landId, onSuccess }: { landId: string; onSuc
         defaultValues: {
             totalWeight: "",
             harvestDate: new Date().toISOString().split("T")[0],
+            variety: "",
             notes: "",
             landId,
         },
@@ -78,6 +79,18 @@ export function AddProductionForm({ landId, onSuccess }: { landId: string; onSuc
                     )}
                 />
 
+                {/* Varietas */}
+                <Controller
+                    name="variety"
+                    control={form.control}
+                    render={({ field }) => (
+                        <Field>
+                            <FieldLabel htmlFor="variety">Varietas (Opsional)</FieldLabel>
+                            <Input {...field} id="variety" placeholder="Contoh: Arabica, Robusta" />
+                        </Field>
+                    )}
+                />
+
                 {/* Catatan */}
                 <Controller
                     name="notes"
@@ -117,6 +130,7 @@ export function EditProductionForm({ harvest, onSuccess }: { harvest: any; onSuc
             harvestDate: harvest.harvestDate
                 ? new Date(harvest.harvestDate).toISOString().split("T")[0]
                 : "",
+            variety: harvest.variety ?? "",
             notes: harvest.notes ?? "",
         },
     })
@@ -164,6 +178,18 @@ export function EditProductionForm({ harvest, onSuccess }: { harvest: any; onSuc
                         <Field>
                             <FieldLabel>Tanggal Panen</FieldLabel>
                             <Input {...field} type="date" />
+                        </Field>
+                    )}
+                />
+
+                {/* Varietas */}
+                <Controller
+                    name="variety"
+                    control={form.control}
+                    render={({ field }) => (
+                        <Field>
+                            <FieldLabel>Varietas (Opsional)</FieldLabel>
+                            <Input {...field} placeholder="Contoh: Arabica, Robusta" />
                         </Field>
                     )}
                 />

@@ -4,7 +4,7 @@ import { cookies } from "next/headers"
 import { Sprout } from "lucide-react"
 import { PlantMap } from "./plant-map"
 import { PlantsTable } from "./plants-table"
-import SummaryCard from "@/components/summaryCard"
+
 
 export default async function MandorPlantsPage() {
     const cookieStore = await cookies()
@@ -26,16 +26,7 @@ export default async function MandorPlantsPage() {
         })
         : []
 
-    const activeCount = plants.filter((p) => p.status === "active").length
-    const inactiveCount = plants.filter((p) => p.status !== "active").length
-    const mappedCount = plants.filter((p) => p.locationCoordinate !== null).length
 
-    const summaryStats = [
-        { id: 1, label: "Total Tanaman", value: plants.length, unit: "Pohon", iconEmoji: "🌳" },
-        { id: 2, label: "Tanaman Aktif", value: activeCount, unit: "Pohon", iconEmoji: "🟢" },
-        { id: 3, label: "Tidak Aktif", value: inactiveCount, unit: "Pohon", iconEmoji: "🔴" },
-        { id: 4, label: "Sudah Dipetakan", value: mappedCount, unit: "Pohon", iconEmoji: "📍" },
-    ]
 
     return (
         <div className="size-full bg-background flex flex-col gap-8 p-6 lg:p-8">
@@ -53,12 +44,7 @@ export default async function MandorPlantsPage() {
                 </p>
             </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {summaryStats.map((s) => (
-                    <SummaryCard key={s.id} {...s} />
-                ))}
-            </div>
+
 
             {/* Map */}
             <div className="flex flex-col gap-3">

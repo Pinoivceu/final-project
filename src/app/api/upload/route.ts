@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { writeFile } from 'fs/promises';
+import { writeFile, mkdir } from 'fs/promises';
 import { join } from 'path';
 
 // This API route handles multipart/form-data uploads
@@ -31,6 +31,9 @@ export async function POST(request: Request) {
     // process.cwd() points to the root of the frontend project
     const uploadDir = join(process.cwd(), 'public', 'uploads', category);
     const filePath = join(uploadDir, filename);
+
+    // Ensure the directory exists
+    await mkdir(uploadDir, { recursive: true });
 
     // Save the file
     await writeFile(filePath, buffer);

@@ -4,7 +4,7 @@ import { cookies } from "next/headers"
 import { Scale } from "lucide-react"
 import { ProductionLineChart } from "./production-chart"
 import { ProductionTable } from "./production-table"
-import SummaryCard from "@/components/summaryCard"
+
 
 export default async function MandorProductionPage() {
     const cookieStore = await cookies()
@@ -27,34 +27,7 @@ export default async function MandorProductionPage() {
         : []
 
     // Stats calculations
-    const now = new Date()
-    const currentMonth = now.getMonth()
-    const currentYear = now.getFullYear()
-    const lastMonth = currentMonth === 0 ? 11 : currentMonth - 1
-    const lastMonthYear = currentMonth === 0 ? currentYear - 1 : currentYear
 
-    const totalAll = harvests.reduce((s, h) => s + h.totalWeight, 0)
-
-    const thisMonthHarvests = harvests.filter((h) => {
-        const d = new Date(h.harvestDate)
-        return d.getMonth() === currentMonth && d.getFullYear() === currentYear
-    })
-    const totalThisMonth = thisMonthHarvests.reduce((s, h) => s + h.totalWeight, 0)
-
-    const lastMonthHarvests = harvests.filter((h) => {
-        const d = new Date(h.harvestDate)
-        return d.getMonth() === lastMonth && d.getFullYear() === lastMonthYear
-    })
-    const totalLastMonth = lastMonthHarvests.reduce((s, h) => s + h.totalWeight, 0)
-
-    const avgPerHarvest = harvests.length > 0 ? (totalAll / harvests.length) : 0
-
-    const summaryStats = [
-        { id: 1, label: "Total Produksi",     value: totalAll.toFixed(1),          unit: "Kg", iconEmoji: "⚖️" },
-        { id: 2, label: "Panen Bulan Ini",    value: totalThisMonth.toFixed(1),    unit: "Kg", iconEmoji: "🌾" },
-        { id: 3, label: "Panen Bulan Lalu",   value: totalLastMonth.toFixed(1),    unit: "Kg", iconEmoji: "📅" },
-        { id: 4, label: "Rata-rata per Panen", value: avgPerHarvest.toFixed(1),    unit: "Kg", iconEmoji: "📊" },
-    ]
 
     return (
         <div className="size-full bg-background flex flex-col gap-8 p-6 lg:p-8">
@@ -72,12 +45,7 @@ export default async function MandorProductionPage() {
                 </p>
             </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {summaryStats.map((s) => (
-                    <SummaryCard key={s.id} {...s} />
-                ))}
-            </div>
+
 
             {/* Line Chart */}
             <ProductionLineChart data={harvests as any} />

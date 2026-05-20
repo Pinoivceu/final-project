@@ -73,7 +73,7 @@ export async function createTask(values: any) {
 }
 export async function createHarvest(values: any) {
     try {
-        const { totalWeight, landId, harvestDate, notes } = values
+        const { totalWeight, landId, harvestDate, variety, notes } = values
 
         if (!totalWeight || totalWeight <= 0) {
             throw new Error("Berat panen tidak valid.")
@@ -84,6 +84,7 @@ export async function createHarvest(values: any) {
             data: {
                 totalWeight: parseFloat(totalWeight),
                 harvestDate: harvestDate || new Date(),
+                variety: variety || null,
                 notes: notes || "",
                 landId: landId,
             },
@@ -121,7 +122,6 @@ export async function createPlant(values: any) {
         const newPlant = await prisma.plant.create({
             data: {
                 variety,
-                activeBranches: activeBranches ? parseInt(activeBranches) : 0,
                 locationCoordinate, // Ini akan tersimpan sebagai JSON di Postgres
                 status: "active",    // Status default
                 landId: landId,

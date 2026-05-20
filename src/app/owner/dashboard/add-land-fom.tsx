@@ -34,6 +34,7 @@ export function LahanAddForm({ mandors }: { mandors: Mandor[] }) {
       mandorId: "",
       luas: 0,
       polygon: null,
+      image: null,
     },
   })
 
@@ -87,6 +88,34 @@ export function LahanAddForm({ mandors }: { mandors: Mandor[] }) {
           )}
         />
 
+        {/* Gambar Lahan */}
+        <Controller
+          name="image"
+          control={form.control}
+          render={({ field }) => (
+            <Field>
+              <FieldLabel htmlFor="image">Gambar Lahan (Opsional)</FieldLabel>
+              <Input 
+                id="image" 
+                type="file" 
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                      field.onChange(reader.result as string);
+                    };
+                    reader.readAsDataURL(file);
+                  } else {
+                    field.onChange(null);
+                  }
+                }}
+              />
+            </Field>
+          )}
+        />
+
         {/* Dropdown Mandor */}
         <Controller
           name="mandorId"
@@ -96,7 +125,9 @@ export function LahanAddForm({ mandors }: { mandors: Mandor[] }) {
               <FieldLabel htmlFor="mandor">Pilih Mandor</FieldLabel>
               <Select onValueChange={field.onChange} value={field.value ?? ""}>
                 <SelectTrigger id="mandor">
-                  <SelectValue placeholder="Pilih Mandor Penanggung Jawab" />
+                  <SelectValue placeholder="Pilih Mandor Penanggung Jawab">
+                    {field.value ? mandors.find((m) => m.id === field.value)?.fullName : undefined}
+                  </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   {mandors.map((m) => (

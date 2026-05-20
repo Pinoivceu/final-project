@@ -38,6 +38,7 @@ export type HarvestMinAggregateOutputType = {
   id: string | null
   harvestDate: Date | null
   totalWeight: number | null
+  variety: string | null
   notes: string | null
   createdAt: Date | null
   landId: string | null
@@ -47,6 +48,7 @@ export type HarvestMaxAggregateOutputType = {
   id: string | null
   harvestDate: Date | null
   totalWeight: number | null
+  variety: string | null
   notes: string | null
   createdAt: Date | null
   landId: string | null
@@ -56,6 +58,7 @@ export type HarvestCountAggregateOutputType = {
   id: number
   harvestDate: number
   totalWeight: number
+  variety: number
   notes: number
   createdAt: number
   landId: number
@@ -75,6 +78,7 @@ export type HarvestMinAggregateInputType = {
   id?: true
   harvestDate?: true
   totalWeight?: true
+  variety?: true
   notes?: true
   createdAt?: true
   landId?: true
@@ -84,6 +88,7 @@ export type HarvestMaxAggregateInputType = {
   id?: true
   harvestDate?: true
   totalWeight?: true
+  variety?: true
   notes?: true
   createdAt?: true
   landId?: true
@@ -93,6 +98,7 @@ export type HarvestCountAggregateInputType = {
   id?: true
   harvestDate?: true
   totalWeight?: true
+  variety?: true
   notes?: true
   createdAt?: true
   landId?: true
@@ -189,6 +195,7 @@ export type HarvestGroupByOutputType = {
   id: string
   harvestDate: Date
   totalWeight: number
+  variety: string | null
   notes: string | null
   createdAt: Date
   landId: string
@@ -221,6 +228,7 @@ export type HarvestWhereInput = {
   id?: Prisma.StringFilter<"Harvest"> | string
   harvestDate?: Prisma.DateTimeFilter<"Harvest"> | Date | string
   totalWeight?: Prisma.FloatFilter<"Harvest"> | number
+  variety?: Prisma.StringNullableFilter<"Harvest"> | string | null
   notes?: Prisma.StringNullableFilter<"Harvest"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Harvest"> | Date | string
   landId?: Prisma.StringFilter<"Harvest"> | string
@@ -231,6 +239,7 @@ export type HarvestOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   harvestDate?: Prisma.SortOrder
   totalWeight?: Prisma.SortOrder
+  variety?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   landId?: Prisma.SortOrder
@@ -244,6 +253,7 @@ export type HarvestWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.HarvestWhereInput | Prisma.HarvestWhereInput[]
   harvestDate?: Prisma.DateTimeFilter<"Harvest"> | Date | string
   totalWeight?: Prisma.FloatFilter<"Harvest"> | number
+  variety?: Prisma.StringNullableFilter<"Harvest"> | string | null
   notes?: Prisma.StringNullableFilter<"Harvest"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Harvest"> | Date | string
   landId?: Prisma.StringFilter<"Harvest"> | string
@@ -254,6 +264,7 @@ export type HarvestOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   harvestDate?: Prisma.SortOrder
   totalWeight?: Prisma.SortOrder
+  variety?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   landId?: Prisma.SortOrder
@@ -271,6 +282,7 @@ export type HarvestScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Harvest"> | string
   harvestDate?: Prisma.DateTimeWithAggregatesFilter<"Harvest"> | Date | string
   totalWeight?: Prisma.FloatWithAggregatesFilter<"Harvest"> | number
+  variety?: Prisma.StringNullableWithAggregatesFilter<"Harvest"> | string | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"Harvest"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Harvest"> | Date | string
   landId?: Prisma.StringWithAggregatesFilter<"Harvest"> | string
@@ -280,6 +292,7 @@ export type HarvestCreateInput = {
   id?: string
   harvestDate: Date | string
   totalWeight: number
+  variety?: string | null
   notes?: string | null
   createdAt?: Date | string
   land: Prisma.LandCreateNestedOneWithoutHarvestsInput
@@ -289,6 +302,7 @@ export type HarvestUncheckedCreateInput = {
   id?: string
   harvestDate: Date | string
   totalWeight: number
+  variety?: string | null
   notes?: string | null
   createdAt?: Date | string
   landId: string
@@ -298,6 +312,7 @@ export type HarvestUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   harvestDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalWeight?: Prisma.FloatFieldUpdateOperationsInput | number
+  variety?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   land?: Prisma.LandUpdateOneRequiredWithoutHarvestsNestedInput
@@ -307,6 +322,7 @@ export type HarvestUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   harvestDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalWeight?: Prisma.FloatFieldUpdateOperationsInput | number
+  variety?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   landId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -316,6 +332,7 @@ export type HarvestCreateManyInput = {
   id?: string
   harvestDate: Date | string
   totalWeight: number
+  variety?: string | null
   notes?: string | null
   createdAt?: Date | string
   landId: string
@@ -325,6 +342,7 @@ export type HarvestUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   harvestDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalWeight?: Prisma.FloatFieldUpdateOperationsInput | number
+  variety?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -333,6 +351,7 @@ export type HarvestUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   harvestDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalWeight?: Prisma.FloatFieldUpdateOperationsInput | number
+  variety?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   landId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -352,6 +371,7 @@ export type HarvestCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   harvestDate?: Prisma.SortOrder
   totalWeight?: Prisma.SortOrder
+  variety?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   landId?: Prisma.SortOrder
@@ -365,6 +385,7 @@ export type HarvestMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   harvestDate?: Prisma.SortOrder
   totalWeight?: Prisma.SortOrder
+  variety?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   landId?: Prisma.SortOrder
@@ -374,6 +395,7 @@ export type HarvestMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   harvestDate?: Prisma.SortOrder
   totalWeight?: Prisma.SortOrder
+  variety?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   landId?: Prisma.SortOrder
@@ -429,6 +451,7 @@ export type HarvestCreateWithoutLandInput = {
   id?: string
   harvestDate: Date | string
   totalWeight: number
+  variety?: string | null
   notes?: string | null
   createdAt?: Date | string
 }
@@ -437,6 +460,7 @@ export type HarvestUncheckedCreateWithoutLandInput = {
   id?: string
   harvestDate: Date | string
   totalWeight: number
+  variety?: string | null
   notes?: string | null
   createdAt?: Date | string
 }
@@ -474,6 +498,7 @@ export type HarvestScalarWhereInput = {
   id?: Prisma.StringFilter<"Harvest"> | string
   harvestDate?: Prisma.DateTimeFilter<"Harvest"> | Date | string
   totalWeight?: Prisma.FloatFilter<"Harvest"> | number
+  variety?: Prisma.StringNullableFilter<"Harvest"> | string | null
   notes?: Prisma.StringNullableFilter<"Harvest"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Harvest"> | Date | string
   landId?: Prisma.StringFilter<"Harvest"> | string
@@ -483,6 +508,7 @@ export type HarvestCreateManyLandInput = {
   id?: string
   harvestDate: Date | string
   totalWeight: number
+  variety?: string | null
   notes?: string | null
   createdAt?: Date | string
 }
@@ -491,6 +517,7 @@ export type HarvestUpdateWithoutLandInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   harvestDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalWeight?: Prisma.FloatFieldUpdateOperationsInput | number
+  variety?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -499,6 +526,7 @@ export type HarvestUncheckedUpdateWithoutLandInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   harvestDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalWeight?: Prisma.FloatFieldUpdateOperationsInput | number
+  variety?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -507,6 +535,7 @@ export type HarvestUncheckedUpdateManyWithoutLandInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   harvestDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalWeight?: Prisma.FloatFieldUpdateOperationsInput | number
+  variety?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -517,6 +546,7 @@ export type HarvestSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   id?: boolean
   harvestDate?: boolean
   totalWeight?: boolean
+  variety?: boolean
   notes?: boolean
   createdAt?: boolean
   landId?: boolean
@@ -527,6 +557,7 @@ export type HarvestSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   harvestDate?: boolean
   totalWeight?: boolean
+  variety?: boolean
   notes?: boolean
   createdAt?: boolean
   landId?: boolean
@@ -537,6 +568,7 @@ export type HarvestSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   harvestDate?: boolean
   totalWeight?: boolean
+  variety?: boolean
   notes?: boolean
   createdAt?: boolean
   landId?: boolean
@@ -547,12 +579,13 @@ export type HarvestSelectScalar = {
   id?: boolean
   harvestDate?: boolean
   totalWeight?: boolean
+  variety?: boolean
   notes?: boolean
   createdAt?: boolean
   landId?: boolean
 }
 
-export type HarvestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "harvestDate" | "totalWeight" | "notes" | "createdAt" | "landId", ExtArgs["result"]["harvest"]>
+export type HarvestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "harvestDate" | "totalWeight" | "variety" | "notes" | "createdAt" | "landId", ExtArgs["result"]["harvest"]>
 export type HarvestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   land?: boolean | Prisma.LandDefaultArgs<ExtArgs>
 }
@@ -572,6 +605,7 @@ export type $HarvestPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     id: string
     harvestDate: Date
     totalWeight: number
+    variety: string | null
     notes: string | null
     createdAt: Date
     landId: string
@@ -1002,6 +1036,7 @@ export interface HarvestFieldRefs {
   readonly id: Prisma.FieldRef<"Harvest", 'String'>
   readonly harvestDate: Prisma.FieldRef<"Harvest", 'DateTime'>
   readonly totalWeight: Prisma.FieldRef<"Harvest", 'Float'>
+  readonly variety: Prisma.FieldRef<"Harvest", 'String'>
   readonly notes: Prisma.FieldRef<"Harvest", 'String'>
   readonly createdAt: Prisma.FieldRef<"Harvest", 'DateTime'>
   readonly landId: Prisma.FieldRef<"Harvest", 'String'>

@@ -1,18 +1,5 @@
-"use client"
-import dynamic from 'next/dynamic';
+import { redirect } from "next/navigation";
 
-export default function Home() {
-
-  const MapView = dynamic(() => import('@/components/map'), {
-    ssr: false,
-    loading: () => <p>Loading Map...</p>
-  })
-
-  return (
-    <main>
-      <div >
-        <MapView />
-      </div>
-    </main>
-  );
+export default function ownerPage() {
+  redirect('/owner/dashboard');
 }

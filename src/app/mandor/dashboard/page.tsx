@@ -42,21 +42,18 @@ export default async function MandorDashboard() {
             { dueDate: "asc" },
             { createdAt: "asc" }
         ],
-        take: 10,
+        take: 3,
     })
 
     // Calculate land stats
     const activePlants = land?.plants.filter(p => p.status === "active").length ?? 0
     const totalPlants = land?.plants.length ?? 0
 
-    const currentMonth = new Date().getMonth()
-    const currentYear = new Date().getFullYear()
+    const today = new Date()
+    const currentYear = today.getFullYear()
 
-    const harvestThisMonth = (land?.harvests ?? [])
-        .filter(h => {
-            const d = new Date(h.harvestDate)
-            return d.getMonth() === currentMonth && d.getFullYear() === currentYear
-        })
+    const harvestThisYear = (land?.harvests ?? [])
+        .filter(h => new Date(h.harvestDate).getFullYear() === currentYear)
         .reduce((sum, h) => sum + h.totalWeight, 0)
 
     const totalHarvest = (land?.harvests ?? []).reduce((sum, h) => sum + h.totalWeight, 0)
@@ -82,8 +79,8 @@ export default async function MandorDashboard() {
         },
         {
             id: 3,
-            label: "Panen Bulan Ini",
-            value: harvestThisMonth.toLocaleString("id-ID"),
+            label: `Panen (${currentYear})`,
+            value: harvestThisYear.toLocaleString("id-ID"),
             unit: "Kg",
             iconEmoji: "⚖️"
         },
@@ -147,7 +144,7 @@ export default async function MandorDashboard() {
             <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-2">
                     <CalendarClock className="size-5 text-muted-foreground" />
-                    <h2 className="text-lg font-semibold text-foreground">Tugas Mendatang</h2>
+                    <h2 className="text-lg font-semibold text-foreground">Tugas Mendesak</h2>
                 </div>
                 <DashboardTasks tasks={tasks as any} />
             </div>

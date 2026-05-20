@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useMemo } from "react"
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import {
@@ -9,13 +9,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 
 interface HarvestData {
   id: string
@@ -31,67 +24,32 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export function GlobalProductionChart({ data }: { data: HarvestData[] }) {
-  // Get unique years from the data for the filter
-  const availableYears = useMemo(() => {
-    const years = new Set(data.map((d) => new Date(d.harvestDate).getFullYear()))
-    return Array.from(years).sort((a, b) => b - a)
-  }, [data])
-
-  const [selectedYear, setSelectedYear] = useState<string>("all")
-
-  // Filter data based on selected year
-  const filteredData = useMemo(() => {
-    if (selectedYear === "all") return data
-    return data.filter((d) => new Date(d.harvestDate).getFullYear().toString() === selectedYear)
-  }, [data, selectedYear])
-
-  // Group by month
+  // Group by year
   const chartData = useMemo(() => {
-    const grouped = filteredData?.reduce((acc: any, curr) => {
+    const grouped = data?.reduce((acc: any, curr) => {
       const date = new Date(curr.harvestDate)
-      // Format like "Jan 2024" or just "Jan" if a specific year is selected
-      const key = selectedYear === "all" 
-        ? date.toLocaleString("id-ID", { month: "short", year: "numeric" })
-        : date.toLocaleString("id-ID", { month: "long" })
+      const key = date.getFullYear().toString()
       
-      if (!acc[key]) acc[key] = { month: key, total: 0, _date: date.getTime() }
+      if (!acc[key]) acc[key] = { year: key, total: 0, _date: date.getFullYear() }
       acc[key].total += curr.totalWeight
       return acc
     }, {})
 
     // Sort by actual date
     return Object.values(grouped || {}).sort((a: any, b: any) => a._date - b._date)
-  }, [filteredData, selectedYear])
+  }, [data])
 
   return (
     <Card>
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-          <CardTitle>Tren Produksi Global</CardTitle>
+          <CardTitle>Tren Produksi Global Tahunan</CardTitle>
           <CardDescription>
-            Total akumulasi hasil panen dari seluruh lahan {selectedYear === "all" ? "sepanjang waktu" : `pada tahun ${selectedYear}`}
+            Total akumulasi hasil panen dari seluruh lahan per tahun
           </CardDescription>
         </div>
-        <div className="flex items-center px-6 py-4 sm:py-6 sm:border-l">
-          <div className="flex flex-col gap-1.5 w-full sm:w-[150px]">
-            <label className="text-xs text-muted-foreground font-medium">Filter Tahun</label>
-            <Select value={selectedYear} onValueChange={setSelectedYear}>
-              <SelectTrigger className="h-8">
-                <SelectValue placeholder="Pilih Tahun" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">Semua Waktu</SelectItem>
-                {availableYears.map((year) => (
-                  <SelectItem key={year} value={year.toString()}>
-                    {year}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
       </CardHeader>
-      <CardContent className="px-2 sm:p-6">
+      <CardContent className="px-2 sm:p-6 mt-4">
         <ChartContainer
           config={chartConfig}
           className="aspect-auto h-[350px] w-full"
@@ -108,7 +66,7 @@ export function GlobalProductionChart({ data }: { data: HarvestData[] }) {
             >
               <CartesianGrid vertical={false} strokeDasharray="3 3" />
               <XAxis
-                dataKey="month"
+                dataKey="year"
                 tickLine={false}
                 axisLine={false}
                 tickMargin={8}
@@ -119,7 +77,7 @@ export function GlobalProductionChart({ data }: { data: HarvestData[] }) {
                 axisLine={false}
                 tickMargin={8}
                 tickFormatter={(value) => `${value} Kg`}
-                width={60}
+                width={80}
               />
               <ChartTooltip
                 cursor={false}
@@ -128,7 +86,7 @@ export function GlobalProductionChart({ data }: { data: HarvestData[] }) {
                     hideLabel={false}
                     formatter={(value) => (
                       <div className="flex items-center gap-2">
-                        <span className="font-medium">{value}</span>
+                        <span className="font-medium">{Number(value).toFixed(1)}</span>
                         <span className="text-muted-foreground">Kg</span>
                       </div>
                     )}

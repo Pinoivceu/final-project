@@ -116,6 +116,7 @@ model Harvest {
   id              String    @id @default(cuid())
   harvestDate     DateTime
   totalWeight     Float
+  variety         String?
   notes           String?   @db.Text
   createdAt       DateTime  @default(now())
 

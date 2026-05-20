@@ -28,6 +28,7 @@ export type Production = {
     id: any
     harvestDate: any
     totalWeight: any
+    variety: any
     notes: any
     landId: any
 }
@@ -53,6 +54,13 @@ export const productionColumns: ColumnDef<Production>[] = [
             const weight = parseFloat(row.getValue("totalWeight"))
             return <div className="font-medium">{weight.toFixed(2)} Kg</div>
         }
+    },
+    {
+        accessorKey: "variety",
+        header: "Varietas",
+        cell: ({ row }) => (
+            <div>{row.getValue("variety") || "-"}</div>
+        )
     },
     {
         accessorKey: "notes",

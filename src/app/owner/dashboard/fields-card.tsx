@@ -8,7 +8,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { deleteLand } from "./action";
+import { toggleLandStatus } from "./action";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -29,6 +29,7 @@ export interface FieldsCardProps {
     foreman: any;
     area: any;
     image: any;
+    isActive: boolean;
 }
 
 export default function FieldsCard({
@@ -37,29 +38,27 @@ export default function FieldsCard({
     foreman,
     area,
     image,
+    isActive,
 }: FieldsCardProps) {
-    const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);
-
-    const handleDelete = (id: any) => {
-        toast.promise(deleteLand(id), {
-            loading: 'Sedang menghapus lahan...',
-            success: (data) => {
-                setShowDeleteDialog(false);
-                return 'Lahan berhasil dihapus!';
-            },
-            error: (err:any) => {
-                return 'Gagal menghapus lahan: ' + (err.message || 'Terjadi kesalahan');
-            },
+    const handleToggleStatus = (id: any, currentStatus: boolean) => {
+        const newStatus = !currentStatus;
+        const actionWord = newStatus ? "mengaktifkan" : "menonaktifkan";
+        
+        toast.promise(toggleLandStatus(id, newStatus), {
+            loading: `Sedang ${actionWord} lahan...`,
+            success: `Lahan berhasil di${newStatus ? "aktifkan" : "nonaktifkan"}!`,
+            error: `Gagal ${actionWord} lahan`,
             position: "top-right"
         });
     }
 
-    function handleDisable(id: any): void {
-        throw new Error("Function not implemented.");
-    }
-
     return (
-        <div className="border bg-card rounded-2xl p-3 flex flex-col gap-3 hover:border-neutral-700 transition-all cursor-pointer group">
+        <div className={`border bg-card rounded-2xl p-3 flex flex-col gap-3 hover:border-neutral-700 transition-all cursor-pointer group relative ${!isActive ? 'opacity-60 grayscale' : ''}`}>
+            {!isActive && (
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 bg-black/70 text-white px-4 py-2 rounded-lg font-bold">
+                    TIDAK AKTIF
+                </div>
+            )}
             <div className="flex flex-row justify-between">
                 <h2 className=" text-base font-bold ">
                     {name}
@@ -86,44 +85,11 @@ export default function FieldsCard({
                         </DropdownMenuGroup>
 
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem
-                            className="text-destructive cursor-pointer"
-                            onClick={() => setShowDeleteDialog(true)}
-                        >
-                            Delete Land
-                        </DropdownMenuItem>
-
-                        <DropdownMenuItem onClick={() => handleDisable(id)}>
-                            Nonaktifkan
+                        <DropdownMenuItem onClick={() => handleToggleStatus(id, isActive)}>
+                            {isActive ? "Nonaktifkan Lahan" : "Aktifkan Lahan"}
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-                <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
-                    <DialogContent>
-                        <DialogHeader>
-                            <DialogTitle>Hapus User</DialogTitle>
-                            <DialogDescription>
-                                Apakah Anda yakin ingin menghapus?
-                                Tindakan ini tidak dapat dibatalkan.
-                            </DialogDescription>
-                        </DialogHeader>
-                        <div className="flex justify-end gap-3 pt-4">
-                            <Button variant={"default"}
-                                onClick={() => setShowDeleteDialog(false)}
-                            >
-                                Batal
-                            </Button>
-                            <Button variant={"destructive"}
-                                onClick={() => {
-                                    handleDelete(id)
-                                    setShowDeleteDialog(false);
-                                }}
-                            >
-                                Delete
-                            </Button>
-                        </div>
-                    </DialogContent>
-                </Dialog>
             </div>
             <Link href={`/owner/dashboard/lands/${id}`} className="w-full aspect-4/3 overflow-hidden rounded-xl ">
                 <img

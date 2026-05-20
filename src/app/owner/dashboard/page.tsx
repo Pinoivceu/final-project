@@ -20,17 +20,22 @@ export default async function OwnerHome() {
       mandor: {
         select: {
           fullName: true
-
         }
       }
-    }
+    },
+    orderBy: [
+      { isActive: 'desc' },
+      { createdAt: 'desc' }
+    ]
   })
   
 
 
 const mandors = await prisma.user.findMany({
     where: {
-      role: "mandor"
+      role: "mandor",
+      status: "active",
+      lands: { none: {} } // Only mandors without assigned lands
     },
     select: {
       id: true,
@@ -41,47 +46,62 @@ const mandors = await prisma.user.findMany({
   const plants = await prisma.plant.findMany()
   const harvests = await prisma.harvest.findMany()
 
-  const totalArea = fieldData.reduce((sum, f) => sum + f.areaSize, 0);
+  const totalArea = fieldData.filter(f => f.isActive).reduce((sum, f) => sum + f.areaSize, 0);
+  const totalAreaHa = totalArea / 10000;
   const activePlantsCount = plants.filter(p => p.status === 'active').length;
   
-  const currentMonth = new Date().getMonth();
-  const currentYear = new Date().getFullYear();
+  const today = new Date();
+  const currentYear = today.getFullYear();
+  const lastYear = currentYear - 1;
+  const twoYearsAgo = currentYear - 2;
 
-  const totalProductionThisMonth = harvests.filter(h => {
-    const d = new Date(h.harvestDate);
-    return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
-  }).reduce((sum, h) => sum + h.totalWeight, 0);
+  const getYearlyProduction = (year: number) => harvests
+    .filter(h => new Date(h.harvestDate).getFullYear() === year)
+    .reduce((sum, h) => sum + h.totalWeight, 0);
 
-  const plantDensity = totalArea > 0 ? (activePlantsCount / totalArea).toFixed(0) : "0";
+  const totalProductionThisYear = getYearlyProduction(currentYear);
+  const totalProductionLastYear = getYearlyProduction(lastYear);
+  const totalProductionTwoYearsAgo = getYearlyProduction(twoYearsAgo);
 
-  const lastMonth = currentMonth === 0 ? 11 : currentMonth - 1;
-  const yearOfLastMonth = currentMonth === 0 ? currentYear - 1 : currentYear;
+  const plantDensity = totalAreaHa > 0 ? (activePlantsCount / totalAreaHa).toFixed(0) : "0";
 
-  const totalProductionLastMonth = harvests.filter(h => {
-    const d = new Date(h.harvestDate);
-    return d.getMonth() === lastMonth && d.getFullYear() === yearOfLastMonth;
-  }).reduce((sum, h) => sum + h.totalWeight, 0);
+  // If we are not in December, the current year is incomplete.
+  // Comparing incomplete year data creates an artificial drop.
+  const isYearEnded = today.getMonth() === 11;
+
+  const growthCurrent = isYearEnded ? totalProductionThisYear : totalProductionLastYear;
+  const growthPrevious = isYearEnded ? totalProductionLastYear : totalProductionTwoYearsAgo;
 
   let productionGrowth = 0;
-  if (totalProductionLastMonth > 0) {
-    productionGrowth = ((totalProductionThisMonth - totalProductionLastMonth) / totalProductionLastMonth) * 100;
-  } else if (totalProductionThisMonth > 0) {
+  if (growthPrevious > 0) {
+    productionGrowth = ((growthCurrent - growthPrevious) / growthPrevious) * 100;
+  } else if (growthCurrent > 0) {
     productionGrowth = 100;
   }
   
   const productionGrowthText = productionGrowth > 0 ? `+${productionGrowth.toFixed(1)}%` : `${productionGrowth.toFixed(1)}%`;
+  const growthLabel = isYearEnded 
+    ? `Pertumbuhan (${lastYear}-${currentYear})`
+    : `Pertumbuhan (${twoYearsAgo}-${lastYear})`;
+
+  const productivityProduction = isYearEnded ? totalProductionThisYear : totalProductionLastYear;
+  const productivityLabel = isYearEnded 
+    ? `Produktivitas (${currentYear})`
+    : `Produktivitas (${lastYear})`;
 
   const avgProductivity = activePlantsCount > 0 
-    ? (totalProductionThisMonth / activePlantsCount).toFixed(2) 
+    ? (productivityProduction / activePlantsCount).toFixed(2) 
     : "0";
 
+  const [totalAreaValue, totalAreaUnit] = formatAreaDisplay(totalArea).split(" ");
+
   const dynamicStats = [
-    { id: 1, label: "Total Luas Lahan", value: totalArea.toFixed(1), unit: "Ha", iconEmoji: "🗺️" },
+    { id: 1, label: "Total Luas Lahan", value: totalAreaValue, unit: totalAreaUnit, iconEmoji: "🗺️" },
     { id: 2, label: "Tanaman Aktif", value: activePlantsCount, unit: "Pohon", iconEmoji: "🌳" },
-    { id: 3, label: "Panen Bulan Ini", value: totalProductionThisMonth, unit: "Kg", iconEmoji: "⚖️" },
+    { id: 3, label: `Panen (${currentYear})`, value: totalProductionThisYear.toFixed(1), unit: "Kg", iconEmoji: "⚖️" },
     { id: 4, label: "Kepadatan Lahan", value: plantDensity, unit: "Phn/Ha", iconEmoji: "🌱" },
-    { id: 5, label: "Pertumbuhan Panen", value: productionGrowthText, unit: "", iconEmoji: productionGrowth >= 0 ? "📈" : "📉" },
-    { id: 6, label: "Rata-rata Produktivitas", value: avgProductivity, unit: "Kg/Phn", iconEmoji: "📊" },
+    { id: 5, label: growthLabel, value: productionGrowthText, unit: "", iconEmoji: productionGrowth >= 0 ? "📈" : "📉" },
+    { id: 6, label: productivityLabel, value: avgProductivity, unit: "Kg/Phn", iconEmoji: "📊" },
   ];
 
   return (
@@ -134,6 +154,7 @@ const mandors = await prisma.user.findMany({
               name={field.landName}
               area={formatAreaDisplay(field.areaSize)}
               foreman={field.mandor?.fullName || "No Mandor"}
+              isActive={field.isActive}
             />
           ))}
         </div>

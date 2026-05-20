@@ -63,7 +63,7 @@ export function AppSidebar() {
     }
 
     return (
-        <Sidebar variant="floating" collapsible="icon">
+        <Sidebar collapsible="icon">
             <SidebarHeader className="flex flex-row items-center p-3 border-b border-sidebar-border group-data-[collapsible=icon]:p-2 group-data-[collapsible=icon]:justify-center">
                 <div className="flex items-center gap-3 overflow-hidden flex-1 group-data-[collapsible=icon]:hidden">
                     <div className="flex aspect-square size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm">

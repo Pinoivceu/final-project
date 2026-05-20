@@ -11,7 +11,7 @@ export async function createLahan(land: any) {
       coordinates: land.polygon,
       areaSize: land.luas, 
       locationAddress: land.lokasi,
-      image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1000&auto=format&fit=crop"
+      image: land.image || "/default-land.jpg"
     }
     })
     return { success: true }
@@ -20,16 +20,12 @@ export async function createLahan(land: any) {
   }
 }
 
-export async function deleteLand(landId: any) {
-
-
+export async function toggleLandStatus(landId: string, isActive: boolean) {
     try {
-        await prisma.land.delete({ where: { id: landId }, })
-
+        await prisma.land.update({ where: { id: landId }, data: { isActive } })
         revalidatePath("/owner/dashboard")
-
         return { success: true }
     } catch (error) {
-        return { success: false, error: "Gagal menghapus user" }
+        return { success: false, error: "Gagal mengubah status lahan" }
     }
 }

@@ -233,6 +233,8 @@ export function AddProductionForm({ landId }: { landId: string }) {
   const form = useForm({
     defaultValues: {
       totalWeight: "",
+      harvestDate: new Date().toISOString().split("T")[0],
+      variety: "",
       notes: "", // Field baru untuk catatan
       landId: landId,
     },
@@ -242,7 +244,7 @@ export function AddProductionForm({ landId }: { landId: string }) {
     const payload = {
       ...values,
       totalWeight: parseFloat(values.totalWeight),
-      harvestDate: new Date(),
+      harvestDate: values.harvestDate ? new Date(values.harvestDate) : new Date(),
     }
 
     toast.promise(createHarvest(payload), {
@@ -288,6 +290,31 @@ export function AddProductionForm({ landId }: { landId: string }) {
               </div>
             </Field>
           )}
+        />
+
+        {/* Tanggal */}
+        <Controller
+            name="harvestDate"
+            control={form.control}
+            rules={{ required: "Tanggal wajib diisi" }}
+            render={({ field }) => (
+                <Field>
+                    <FieldLabel htmlFor="harvestDate">Tanggal Panen</FieldLabel>
+                    <Input {...field} id="harvestDate" type="date" />
+                </Field>
+            )}
+        />
+
+        {/* Varietas */}
+        <Controller
+            name="variety"
+            control={form.control}
+            render={({ field }) => (
+                <Field>
+                    <FieldLabel htmlFor="variety">Varietas (Opsional)</FieldLabel>
+                    <Input {...field} id="variety" placeholder="Contoh: Arabica, Robusta" />
+                </Field>
+            )}
         />
 
         {/* Input Catatan (Notes) */}

@@ -5,6 +5,7 @@ import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import { GlobalMapLand } from './global-map-wrapper'
 import { Layers, Sprout, Activity, Map as MapIcon } from 'lucide-react'
+import { formatAreaDisplay } from "@/lib/definitions"
 
 // Fix standard Leaflet icon issues in Next.js
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -25,10 +26,10 @@ const parseCoordinates = (land: GlobalMapLand) => {
     if (validCoords.length > 0) {
       return validCoords.map(c => [c.lat, c.lng] as [number, number]);
     }
-    
+
     // If it's an array of [lng, lat]
     if (land.coordinates.length > 0 && Array.isArray(land.coordinates[0])) {
-        return land.coordinates.map(c => [c[1], c[0]] as [number, number]);
+      return land.coordinates.map(c => [c[1], c[0]] as [number, number]);
     }
   }
   return [];
@@ -39,7 +40,7 @@ function ZoomController({ lands, selectedLandId }: { lands: GlobalMapLand[], sel
   const map = useMap();
   useEffect(() => {
     if (lands.length === 0) return;
-    
+
     if (selectedLandId === 'all') {
       const allCoords: [number, number][] = [];
       lands.forEach(land => {
@@ -73,17 +74,17 @@ export default function GlobalMap({ lands }: { lands: GlobalMapLand[] }) {
 
   const getPolygonColor = (land: GlobalMapLand) => {
     if (layerMode === 'density') {
-      // Scale from light green to dark green based on density
+      // Scale from Red (0) to Green (120) based on density
       const ratio = land.density / maxDensity;
-      const lightness = 90 - (ratio * 60); // 90% (light) to 30% (dark)
-      return `hsl(120, 70%, ${lightness}%)`;
-    } 
-    
+      const hue = ratio * 120;
+      return `hsl(${hue}, 90%, 45%)`;
+    }
+
     if (layerMode === 'productivity') {
-      // Scale from yellow to dark orange/red based on productivity
+      // Scale from Red (0) to Green (120) based on productivity
       const ratio = land.productivity / maxProductivity;
-      const hue = 60 - (ratio * 60); // 60 (yellow) to 0 (red)
-      return `hsl(${hue}, 90%, 50%)`;
+      const hue = ratio * 120;
+      return `hsl(${hue}, 90%, 45%)`;
     }
 
     return '#3b82f6'; // Default blue
@@ -97,22 +98,22 @@ export default function GlobalMap({ lands }: { lands: GlobalMapLand[] }) {
           <Layers className="w-5 h-5 text-muted-foreground" />
           <h3 className="font-semibold text-sm">Layer Options</h3>
         </div>
-        
-        <button 
+
+        <button
           onClick={() => setLayerMode('default')}
           className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors ${layerMode === 'default' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200 font-medium' : 'hover:bg-accent hover:text-accent-foreground'}`}
         >
           <MapIcon className="w-4 h-4" /> Default
         </button>
-        
-        <button 
+
+        <button
           onClick={() => setLayerMode('density')}
           className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors ${layerMode === 'density' ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200 font-medium' : 'hover:bg-accent hover:text-accent-foreground'}`}
         >
           <Sprout className="w-4 h-4" /> Kepadatan Tanaman
         </button>
 
-        <button 
+        <button
           onClick={() => setLayerMode('productivity')}
           className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors ${layerMode === 'productivity' ? 'bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-200 font-medium' : 'hover:bg-accent hover:text-accent-foreground'}`}
         >
@@ -121,7 +122,7 @@ export default function GlobalMap({ lands }: { lands: GlobalMapLand[] }) {
 
         <div className="flex flex-col gap-1 mt-3 pt-3 border-t">
           <label className="text-xs font-semibold text-muted-foreground">Fokus Lokasi:</label>
-          <select 
+          <select
             value={selectedLandId}
             onChange={(e) => setSelectedLandId(e.target.value)}
             className="w-full text-sm border rounded-md p-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-background text-foreground"
@@ -142,16 +143,16 @@ export default function GlobalMap({ lands }: { lands: GlobalMapLand[] }) {
           </div>
           <div className="flex items-center gap-2">
             <span>Rendah</span>
-            <div className={`w-24 h-3 rounded-full bg-gradient-to-r ${layerMode === 'density' ? 'from-[hsl(120,70%,90%)] to-[hsl(120,70%,30%)]' : 'from-[hsl(60,90%,50%)] to-[hsl(0,90%,50%)]'}`}></div>
+            <div className="w-24 h-3 rounded-full bg-gradient-to-r from-[hsl(0,90%,45%)] to-[hsl(120,90%,45%)]"></div>
             <span>Tinggi</span>
           </div>
         </div>
       )}
 
-      <MapContainer 
+      <MapContainer
         center={[-3.7295, 102.6314]} // Default center (Bengkulu roughly)
-        zoom={13} 
-        scrollWheelZoom={true} 
+        zoom={13}
+        scrollWheelZoom={true}
         style={{ height: '100%', width: '100%', zIndex: 10 }}
       >
         <TileLayer
@@ -167,13 +168,13 @@ export default function GlobalMap({ lands }: { lands: GlobalMapLand[] }) {
           const color = getPolygonColor(land);
 
           return (
-            <Polygon 
+            <Polygon
               key={land.id}
               positions={polyCoords}
-              pathOptions={{ 
-                color: color, 
-                fillColor: color, 
-                fillOpacity: layerMode === 'default' ? 0.3 : 0.7,
+              pathOptions={{
+                color: '#ffffff',
+                fillColor: color,
+                fillOpacity: layerMode === 'default' ? 0.5 : 0.8,
                 weight: 2
               }}
             >
@@ -183,7 +184,7 @@ export default function GlobalMap({ lands }: { lands: GlobalMapLand[] }) {
                   <div className="flex flex-col gap-1 text-sm">
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Luas:</span>
-                      <span className="font-medium">{land.areaSize} Ha</span>
+                      <span className="font-medium">{formatAreaDisplay(land.areaSize)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Pohon:</span>

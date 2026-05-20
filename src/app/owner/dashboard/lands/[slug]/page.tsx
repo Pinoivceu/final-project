@@ -24,6 +24,7 @@ import DensityMap from "@/components/map-wrapper"
 import { ProductionChart } from "./production-chart"
 import EditLandForm from "./edit-land-form"
 import Image from "next/image"
+import { formatAreaDisplay } from "@/lib/definitions"
 
 export default async function Lands({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -41,7 +42,14 @@ export default async function Lands({ params }: { params: Promise<{ slug: string
 
   // Fetch all mandors for the edit form dropdown
   const mandors = await prisma.user.findMany({
-    where: { role: 'mandor', status: 'active' },
+    where: { 
+      role: 'mandor', 
+      status: 'active',
+      OR: [
+        { lands: { none: {} } },
+        { id: land?.mandorId } // Allow the currently assigned mandor
+      ]
+    },
     select: { id: true, fullName: true }
   });
 
@@ -63,7 +71,7 @@ export default async function Lands({ params }: { params: Promise<{ slug: string
   const AprrovalTasksCount = task.tasks?.filter((t: any) => t.status === 'on_approval').length || 0;
 
   // New Calculations
-  const plantDensity = land?.areaSize ? (activePlantsCount / land.areaSize).toFixed(0) : 0;
+  const plantDensity = land?.areaSize ? (activePlantsCount / (land.areaSize / 10000)).toFixed(0) : 0;
 
   const lastMonth = currentMonth === 0 ? 11 : currentMonth - 1;
   const yearOfLastMonth = currentMonth === 0 ? currentYear - 1 : currentYear;
@@ -127,7 +135,7 @@ export default async function Lands({ params }: { params: Promise<{ slug: string
             <MapPin className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>TasksCount
-            <div className="text-2xl font-bold">{land?.areaSize} Ha</div>
+            <div className="text-2xl font-bold">{formatAreaDisplay(land?.areaSize || 0)}</div>
           </CardContent>
         </Card>
         <Card>
@@ -205,7 +213,7 @@ export default async function Lands({ params }: { params: Promise<{ slug: string
                 </DialogContent>
               </Dialog>
             </div>
-            <DensityMap plants={Plants} land={land} />
+            <DensityMap plants={Plants.filter((p: any) => p.status === 'active')} land={land} />
             <DataTable columns={columns} data={Plants} />
           </div>
         </TabsContent>
