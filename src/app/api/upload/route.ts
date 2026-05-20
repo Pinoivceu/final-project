@@ -1,13 +1,12 @@
 import { NextResponse } from 'next/server';
-import { writeFile, mkdir } from 'fs/promises';
-import { join } from 'path';
+import { put } from '@vercel/blob';
 
-// This API route handles multipart/form-data uploads
+// This API route handles multipart/form-data uploads using Vercel Blob Storage
 export async function POST(request: Request) {
   try {
     const data = await request.formData();
     const file: File | null = data.get('file') as unknown as File;
-    // Category determines which folder it goes into (users, lands, tasks)
+    // Category determines the folder prefix (users, lands, tasks, profiles)
     const category = data.get('category') as string || 'tasks'; 
 
     if (!file) {
@@ -19,32 +18,19 @@ export async function POST(request: Request) {
        return NextResponse.json({ error: 'Hanya file gambar yang diperbolehkan.' }, { status: 400 });
     }
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-
-    // Generate unique filename to avoid overwriting (e.g. 1678123456_myphoto.jpg)
-    // Remove spaces and special characters from original name for safety
+    // Generate unique filename to avoid overwriting
     const safeOriginalName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
-    const filename = `${Date.now()}_${safeOriginalName}`;
+    const filename = `${category}/${Date.now()}_${safeOriginalName}`;
     
-    // Construct the absolute path where the file will be saved
-    // process.cwd() points to the root of the frontend project
-    const uploadDir = join(process.cwd(), 'public', 'uploads', category);
-    const filePath = join(uploadDir, filename);
-
-    // Ensure the directory exists
-    await mkdir(uploadDir, { recursive: true });
-
-    // Save the file
-    await writeFile(filePath, buffer);
-
-    // The URL that will be saved in the database
-    const fileUrl = `/uploads/${category}/${filename}`;
+    // Upload to Vercel Blob Storage
+    const blob = await put(filename, file, {
+      access: 'public',
+    });
 
     return NextResponse.json({ 
         success: true, 
         message: 'File berhasil diunggah',
-        url: fileUrl 
+        url: blob.url 
     }, { status: 201 });
 
   } catch (error) {

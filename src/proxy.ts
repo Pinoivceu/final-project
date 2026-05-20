@@ -5,15 +5,22 @@ import { jwtVerify } from 'jose'
 // Inline the decrypt logic here because session.ts imports 'server-only'
 // which is incompatible with the Edge Runtime that middleware runs in.
 const secretKey = process.env.SESSION_SECRET
-const encodedKey = new TextEncoder().encode(secretKey)
+const encodedKey = secretKey
+  ? new TextEncoder().encode(secretKey)
+  : null
 
 async function decryptSession(session: string) {
+  if (!encodedKey) {
+    console.error('[proxy] SESSION_SECRET is not set — cannot verify session')
+    return null
+  }
   try {
     const { payload } = await jwtVerify(session, encodedKey, {
       algorithms: ['HS256'],
     })
     return payload
-  } catch {
+  } catch (error) {
+    console.error('[proxy] JWT verification failed:', error)
     return null
   }
 }

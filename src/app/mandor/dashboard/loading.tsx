@@ -6,11 +6,12 @@ export default function Loading() {
 
       {/* Page Header */}
       <div className="flex flex-col gap-1">
+        <Skeleton className="h-4 w-32" />
         <Skeleton className="h-9 w-48" />
-        <Skeleton className="h-4 w-80" />
+        <Skeleton className="h-4 w-64" />
       </div>
 
-      {/* Summary Section */}
+      {/* Summary Cards */}
       <div className="flex flex-col gap-4">
         <Skeleton className="h-6 w-40" />
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -27,24 +28,23 @@ export default function Loading() {
         </div>
       </div>
 
-      {/* Fields Section */}
+      {/* Task Priority Section */}
       <div className="flex flex-col gap-4">
-        <div className="flex justify-between items-center">
-          <div className="flex flex-col gap-1">
-            <Skeleton className="h-6 w-32" />
-            <Skeleton className="h-4 w-40" />
-          </div>
-          <Skeleton className="h-9 w-32 rounded-md" />
+        <div className="flex items-center gap-2">
+          <Skeleton className="h-5 w-5 rounded" />
+          <Skeleton className="h-6 w-40" />
         </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="rounded-xl border bg-card overflow-hidden">
-              <Skeleton className="h-40 w-full rounded-none" />
-              <div className="p-4 flex flex-col gap-2">
-                <Skeleton className="h-5 w-32" />
-                <Skeleton className="h-4 w-24" />
-                <Skeleton className="h-4 w-28" />
+        <div className="flex flex-col gap-3">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="rounded-xl border bg-card p-4 flex flex-col gap-3">
+              <div className="flex items-center justify-between">
+                <Skeleton className="h-5 w-40" />
+                <Skeleton className="h-5 w-20 rounded-full" />
+              </div>
+              <Skeleton className="h-4 w-full" />
+              <div className="flex items-center gap-4">
+                <Skeleton className="h-3 w-24" />
+                <Skeleton className="h-3 w-20" />
               </div>
             </div>
           ))}
