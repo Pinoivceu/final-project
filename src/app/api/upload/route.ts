@@ -33,8 +33,23 @@ export async function POST(request: Request) {
         url: blob.url 
     }, { status: 201 });
 
-  } catch (error) {
-    console.error("Error uploading file:", error);
-    return NextResponse.json({ error: 'Terjadi kesalahan saat menyimpan gambar.' }, { status: 500 });
+  } catch (error: any) {
+    const errorMessage = error?.message || String(error);
+    const errorName = error?.name || 'UnknownError';
+    
+    console.error('[upload] Upload failed:', {
+      name: errorName,
+      message: errorMessage,
+      stack: error?.stack,
+    });
+
+    return NextResponse.json({ 
+      error: `Upload gagal: ${errorMessage}`,
+      debug: {
+        name: errorName,
+        message: errorMessage,
+        hasBlobToken: !!process.env.BLOB_READ_WRITE_TOKEN,
+      }
+    }, { status: 500 });
   }
 }
