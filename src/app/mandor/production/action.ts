@@ -20,6 +20,7 @@ export async function createHarvest(values: any) {
         })
 
         revalidatePath("/mandor/production")
+        revalidatePath("/mandor/dashboard")
         return { success: true }
     } catch (error: any) {
         throw new Error(error.message || "Gagal mencatat hasil panen.")
@@ -43,6 +44,7 @@ export async function updateHarvest(values: any) {
         })
 
         revalidatePath("/mandor/production")
+        revalidatePath("/mandor/dashboard")
         return { success: true }
     } catch (error: any) {
         throw new Error(error.message || "Gagal memperbarui data panen.")
@@ -53,6 +55,7 @@ export async function deleteHarvest(id: string) {
     try {
         await prisma.harvest.delete({ where: { id } })
         revalidatePath("/mandor/production")
+        revalidatePath("/mandor/dashboard")
         return { success: true }
     } catch (error: any) {
         throw new Error(error.message || "Gagal menghapus data panen.")

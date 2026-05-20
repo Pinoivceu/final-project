@@ -25,6 +25,7 @@ export async function createPlant(values: any) {
         })
 
         revalidatePath("/mandor/plants")
+        revalidatePath("/mandor/dashboard")
         return { success: true, data: newPlant }
     } catch (error: any) {
         throw new Error(error.message || "Gagal menambahkan tanaman.")
@@ -50,6 +51,7 @@ export async function updatePlant(values: any) {
         })
 
         revalidatePath("/mandor/plants")
+        revalidatePath("/mandor/dashboard")
         return { success: true, data: updated }
     } catch (error: any) {
         throw new Error(error.message || "Gagal memperbarui tanaman.")
@@ -60,6 +62,7 @@ export async function deletePlant(plantId: number) {
     try {
         await prisma.plant.delete({ where: { id: plantId } })
         revalidatePath("/mandor/plants")
+        revalidatePath("/mandor/dashboard")
         return { success: true }
     } catch (error: any) {
         throw new Error(error.message || "Gagal menghapus tanaman.")
@@ -74,6 +77,7 @@ export async function togglePlantStatus(plantId: number, currentStatus: string) 
             data: { status: newStatus },
         })
         revalidatePath("/mandor/plants")
+        revalidatePath("/mandor/dashboard")
         return { success: true, newStatus }
     } catch (error: any) {
         throw new Error(error.message || "Gagal mengubah status tanaman.")

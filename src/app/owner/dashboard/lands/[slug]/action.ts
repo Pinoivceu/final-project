@@ -59,7 +59,10 @@ export async function createTask(values: any) {
             },
         })
 
-        revalidatePath(`/owner/land/${landId}`)
+        revalidatePath(`/owner/dashboard/lands/${landId}`)
+        revalidatePath("/owner/dashboard")
+        revalidatePath("/owner/maps")
+        revalidatePath("/owner/analytics")
 
         return { success: true, data: newTask }
 
@@ -91,6 +94,9 @@ export async function createHarvest(values: any) {
         })
 
         revalidatePath(`/owner/dashboard/lands/${landId}`)
+        revalidatePath("/owner/dashboard")
+        revalidatePath("/owner/maps")
+        revalidatePath("/owner/analytics")
         return { success: true, data: newHarvest }
 
     } catch (error: any) {
@@ -130,6 +136,9 @@ export async function createPlant(values: any) {
 
 
         revalidatePath(`/owner/dashboard/lands/${landId}`)
+        revalidatePath("/owner/dashboard")
+        revalidatePath("/owner/maps")
+        revalidatePath("/owner/analytics")
 
         return { success: true, data: newPlant }
 
@@ -163,13 +172,22 @@ export async function deletePlant(plantId: any) {
 
 
     try {
-        await prisma.plant.delete({ where: { id: plantId }, })
+        const plant = await prisma.plant.findUnique({
+            where: { id: Number(plantId) },
+            select: { landId: true }
+        })
+        await prisma.plant.delete({ where: { id: Number(plantId) }, })
 
-        revalidatePath("/owner/dashboard/land")
+        if (plant?.landId) {
+            revalidatePath(`/owner/dashboard/lands/${plant.landId}`)
+        }
+        revalidatePath("/owner/dashboard")
+        revalidatePath("/owner/maps")
+        revalidatePath("/owner/analytics")
 
         return { success: true }
     } catch (error: any) {
-        throw new Error(error.message || "Gagal menghapus user");
+        throw new Error(error.message || "Gagal menghapus tanaman");
     }
 }
 
@@ -177,20 +195,27 @@ export async function updateplantStatus(plantId: any) {
 
 
     try {
-
-        const user = await prisma.user.findUnique({ where: { id: plantId }, select: { status: true } })
+        const plant = await prisma.plant.findUnique({
+            where: { id: Number(plantId) },
+            select: { status: true, landId: true }
+        })
         let newStatus = "";
-        if (user?.status === "active") {
+        if (plant?.status === "active") {
             newStatus = "inactive";
         } else {
             newStatus = "active";
         }
 
-        await prisma.user.update({
-            where: { id: plantId },
+        await prisma.plant.update({
+            where: { id: Number(plantId) },
             data: { status: newStatus }
         })
-        revalidatePath("/owner/dashboard/lands/")
+        if (plant?.landId) {
+            revalidatePath(`/owner/dashboard/lands/${plant.landId}`)
+        }
+        revalidatePath("/owner/dashboard")
+        revalidatePath("/owner/maps")
+        revalidatePath("/owner/analytics")
         return { success: true, }
     } catch (error) {
         return { success: false, error: "Terjadi kesalahan" }
@@ -201,13 +226,22 @@ export async function deleteProduction(productionId: any) {
 
 
     try {
+        const harvest = await prisma.harvest.findUnique({
+            where: { id: productionId },
+            select: { landId: true }
+        })
         await prisma.harvest.delete({ where: { id: productionId }, })
 
-        revalidatePath("/owner/dashboard/land")
+        if (harvest?.landId) {
+            revalidatePath(`/owner/dashboard/lands/${harvest.landId}`)
+        }
+        revalidatePath("/owner/dashboard")
+        revalidatePath("/owner/maps")
+        revalidatePath("/owner/analytics")
 
         return { success: true }
     } catch (error: any) {
-        throw new Error(error.message || "Gagal menghapus user");
+        throw new Error(error.message || "Gagal menghapus data panen");
     }
 }
 
@@ -215,13 +249,22 @@ export async function deleteTask(taskId: any) {
 
 
     try {
-        await prisma.task.delete({ where: { id: taskId }, })
+        const task = await prisma.task.findUnique({
+            where: { id: Number(taskId) },
+            select: { landId: true }
+        })
+        await prisma.task.delete({ where: { id: Number(taskId) }, })
 
-        revalidatePath("/owner/dashboard/land")
+        if (task?.landId) {
+            revalidatePath(`/owner/dashboard/lands/${task.landId}`)
+        }
+        revalidatePath("/owner/dashboard")
+        revalidatePath("/owner/maps")
+        revalidatePath("/owner/analytics")
 
         return { success: true }
     } catch (error: any) {
-        throw new Error(error.message || "Gagal menghapus user");
+        throw new Error(error.message || "Gagal menghapus tugas");
     }
 }
 
@@ -229,7 +272,7 @@ export async function updateTask(values: any) {
     try {
         const { id, title, description, activityType, dueDate, status } = values;
 
-        await prisma.task.update({
+        const updatedTask = await prisma.task.update({
             where: { id: Number(id) }, // Pastikan dikonversi ke Number
             data: {
                 title,
@@ -240,7 +283,12 @@ export async function updateTask(values: any) {
             },
         });
 
-        revalidatePath("/owner/dashboard/lands/[slug]");
+        if (updatedTask.landId) {
+            revalidatePath(`/owner/dashboard/lands/${updatedTask.landId}`)
+        }
+        revalidatePath("/owner/dashboard")
+        revalidatePath("/owner/maps")
+        revalidatePath("/owner/analytics")
         return { success: true };
     } catch (error: any) {
         throw new Error("Gagal memperbarui tugas.");
@@ -249,7 +297,7 @@ export async function updateTask(values: any) {
 
 export async function approveTask(task: any) {
     try {
-        await prisma.task.update({
+        const updatedTask = await prisma.task.update({
             where: { id: task.id },
             data: {
                 status: "completed",
@@ -258,7 +306,12 @@ export async function approveTask(task: any) {
             },
         })
 
-        revalidatePath("/owner/dashboard/lands/[slug]")
+        if (updatedTask.landId) {
+            revalidatePath(`/owner/dashboard/lands/${updatedTask.landId}`)
+        }
+        revalidatePath("/owner/dashboard")
+        revalidatePath("/owner/maps")
+        revalidatePath("/owner/analytics")
         return { success: true }
     } catch (error) {
         throw new Error("Gagal menyetujui tugas.")
@@ -271,7 +324,7 @@ export async function rejectTask(taskId: number, reason: string) {
             throw new Error("Alasan penolakan wajib diisi.")
         }
 
-        await prisma.task.update({
+        const updatedTask = await prisma.task.update({
             where: { id: taskId },
             data: {
                 status: "pending",       // Status balik ke awal agar dikerjakan lagi
@@ -282,7 +335,12 @@ export async function rejectTask(taskId: number, reason: string) {
             },
         })
 
-        revalidatePath("/owner/dashboard/lands/[slug]")
+        if (updatedTask.landId) {
+            revalidatePath(`/owner/dashboard/lands/${updatedTask.landId}`)
+        }
+        revalidatePath("/owner/dashboard")
+        revalidatePath("/owner/maps")
+        revalidatePath("/owner/analytics")
         return { success: true }
     } catch (error: any) {
         console.error("REJECT_TASK_ERROR:", error)
@@ -316,7 +374,9 @@ export async function editLand(values: any) {
         });
 
         revalidatePath(`/owner/dashboard/lands/${id}`);
+        revalidatePath("/owner/dashboard");
         revalidatePath("/owner/maps");
+        revalidatePath("/owner/analytics");
 
         return { success: true, data: updatedLand };
     } catch (error: any) {

@@ -19,7 +19,8 @@ export async function updateProfile(values: any) {
             },
         })
 
-        revalidatePath("/mandor/user")
+        revalidatePath("/mandor/users")
+        revalidatePath("/mandor/dashboard")
         return { success: true }
     } catch (error: any) {
         throw new Error(error.message || "Gagal memperbarui profil.")
@@ -45,7 +46,8 @@ export async function changePassword(values: any) {
             data: { password: hashedPassword },
         })
 
-        revalidatePath("/mandor/user")
+        revalidatePath("/mandor/users")
+        revalidatePath("/mandor/dashboard")
         return { success: true }
     } catch (error: any) {
         throw new Error(error.message || "Gagal mengubah password.")

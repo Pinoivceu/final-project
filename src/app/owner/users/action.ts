@@ -20,7 +20,9 @@ export async function createUser(formData: any) {
             },
         })
 
-        revalidatePath("/owner/user")
+        revalidatePath("/owner/users")
+        revalidatePath("/owner/dashboard")
+        revalidatePath("/owner/maps")
 
         return { success: true }
     } catch (error) {
@@ -34,7 +36,9 @@ export async function deleteUser(userId: any) {
     try {
         await prisma.user.delete({ where: { id: userId }, })
 
-        revalidatePath("/owner/user")
+        revalidatePath("/owner/users")
+        revalidatePath("/owner/dashboard")
+        revalidatePath("/owner/maps")
 
         return { success: true }
     } catch (error :any) {
@@ -72,7 +76,9 @@ export async function updateUserStatus(userId: any) {
             where: { id: userId },
             data: { status: newStatus }
         })
-        revalidatePath("/owner/user")
+        revalidatePath("/owner/users")
+        revalidatePath("/owner/dashboard")
+        revalidatePath("/owner/maps")
         return { success: true, }
     } catch (error) {
         return { success: false, error: "Terjadi kesalahan" }

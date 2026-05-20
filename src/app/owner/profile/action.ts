@@ -31,6 +31,8 @@ export async function updateProfile(values: any) {
         })
 
         revalidatePath("/owner/profile")
+        revalidatePath("/owner/dashboard")
+        revalidatePath("/owner/maps")
         return { success: true }
     } catch (error: any) {
         console.error("UPDATE_PROFILE_ERROR:", error)
