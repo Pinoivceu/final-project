@@ -83,11 +83,20 @@ export function SubmitTaskDialog({
                     body: formData,
                 })
 
-                const uploadData = await uploadRes.json()
-                if (!uploadRes.ok) {
-                    throw new Error(uploadData.error || "Gagal mengunggah foto.")
+                let errorMessage = "Gagal mengunggah foto."
+                const contentType = uploadRes.headers.get("content-type")
+                if (contentType && contentType.includes("application/json")) {
+                    const uploadData = await uploadRes.json()
+                    if (uploadRes.ok) {
+                        return uploadData.url
+                    }
+                    errorMessage = uploadData.error || errorMessage
+                } else {
+                    const errorText = await uploadRes.text()
+                    errorMessage = errorText || `HTTP Error ${uploadRes.status}`
                 }
-                return uploadData.url
+
+                throw new Error(errorMessage)
             })
 
             const imageUrls = await Promise.all(uploadPromises)
