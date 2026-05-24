@@ -176,6 +176,47 @@ export function TaskDetailSheet({
                         </div>
                     </div>
 
+                    {/* Bukti Foto Hasil Kerja */}
+                    {task.image && (
+                        <div className="space-y-2 border-t pt-4">
+                            <p className="text-xs font-semibold uppercase text-muted-foreground">Bukti Foto Hasil Kerja</p>
+                            {(() => {
+                                let images: string[] = [];
+                                try {
+                                    if (task.image.startsWith("[") && task.image.endsWith("]")) {
+                                        images = JSON.parse(task.image);
+                                    } else {
+                                        images = [task.image];
+                                    }
+                                } catch (e) {
+                                    images = [task.image];
+                                }
+
+                                return (
+                                    <div className="grid grid-cols-2 gap-3">
+                                        {images.map((imgUrl: string, idx: number) => (
+                                            <div
+                                                key={idx}
+                                                className="relative rounded-lg overflow-hidden border bg-muted aspect-video shadow-sm group cursor-pointer hover:border-primary transition-colors"
+                                                onClick={() => window.open(imgUrl, "_blank")}
+                                                title="Klik untuk membuka gambar penuh"
+                                            >
+                                                <img
+                                                    src={imgUrl}
+                                                    alt={`Bukti Hasil Kerja ${idx + 1}`}
+                                                    className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-200"
+                                                />
+                                                <div className="absolute bottom-2 left-2 bg-black/60 text-white text-[9px] px-1.5 py-0.5 rounded font-mono">
+                                                    Foto #{idx + 1}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                );
+                            })()}
+                        </div>
+                    )}
+
                     {/* System Log */}
                     <div className="pt-4 border-t">
                         <div className="flex items-center gap-2 mb-2 text-muted-foreground">
