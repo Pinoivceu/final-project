@@ -85,9 +85,10 @@ export function TaskDetailSheet({
                             <Badge className={
                                 task.status === "completed" ? "bg-green-600" :
                                     task.status === "on_approval" ? "bg-yellow-500 text-white" :
-                                        task.status === "in_progress" ? "bg-blue-600" : "bg-gray-500"
+                                        task.status === "in_progress" ? "bg-blue-600" :
+                                            task.status === "rejected_by_mandor" ? "bg-red-600 text-white" : "bg-gray-500"
                             }>
-                                {task.status.replace("_", " ")}
+                                {task.status === "rejected_by_mandor" ? "Ditolak Mandor" : task.status.replace("_", " ")}
                             </Badge>
                         </div>
 
@@ -121,6 +122,27 @@ export function TaskDetailSheet({
                                 </div>
                             </div>
                         </div>
+
+                        {/* Alasan Penolakan Mandor */}
+                        {task.status === "rejected_by_mandor" && task.rejectionReason && (
+                            <div className="flex items-start gap-3 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800 rounded-lg p-4 text-red-700 dark:text-red-400">
+                                <XCircle className="size-5 shrink-0 mt-0.5" />
+                                <div>
+                                    <p className="text-xs font-bold uppercase tracking-wide mb-1">Ditolak oleh Mandor</p>
+                                    <p className="text-sm leading-relaxed">{task.rejectionReason}</p>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Bukti Foto Hasil Kerja Mandor */}
+                        {task.image && (
+                            <div className="space-y-2 border-t pt-4">
+                                <p className="text-xs font-semibold uppercase text-muted-foreground">Bukti Foto Hasil Kerja</p>
+                                <div className="relative rounded-lg overflow-hidden border bg-muted aspect-video max-w-full shadow-sm">
+                                    <img src={task.image} alt="Bukti Hasil Kerja" className="object-cover w-full h-full" />
+                                </div>
+                            </div>
+                        )}
 
                         {/* Log Sistem */}
                         <div className="pt-6 border-t">

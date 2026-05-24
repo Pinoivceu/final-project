@@ -34,6 +34,7 @@ export type TaskItem = {
     description: string | null
     activityType: string
     status: string
+    image: string | null
     dueDate: Date | null
     startedAt: Date | null
     completedAt: Date | null
@@ -93,6 +94,10 @@ function urgencyStrip(daysLeft: number | null, status: string): string {
 
 // ─── Kanban Task Card ─────────────────────────────────────────────────────────
 
+import { useState } from "react"
+import { SubmitTaskDialog } from "./submit-task-dialog"
+import { RejectTaskDialog } from "./reject-task-dialog"
+
 export function TaskCard({
     task,
     onOpenDetail,
@@ -100,6 +105,9 @@ export function TaskCard({
     task: TaskItem
     onOpenDetail: (task: TaskItem) => void
 }) {
+    const [isSubmitDialogOpen, setIsSubmitDialogOpen] = useState(false)
+    const [isRejectDialogOpen, setIsRejectDialogOpen] = useState(false)
+
     const daysLeft = getDaysLeft(task.dueDate)
     const strip = urgencyStrip(daysLeft, task.status)
     const activityColor =
@@ -115,128 +123,153 @@ export function TaskCard({
         })
     }
 
-    async function handleSubmit(e: React.MouseEvent) {
+    function handleSubmitClick(e: React.MouseEvent) {
         e.stopPropagation()
-        toast.promise(submitTask(task.id), {
-            loading: "Mengajukan ke owner...",
-            success: "Berhasil diajukan untuk persetujuan!",
-            error: (err) => err.message,
-        })
+        setIsSubmitDialogOpen(true)
+    }
+
+    function handleRejectClick(e: React.MouseEvent) {
+        e.stopPropagation()
+        setIsRejectDialogOpen(true)
     }
 
     return (
-        <div
-            onClick={() => onOpenDetail(task)}
-            className="group relative flex rounded-xl border bg-card shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer overflow-hidden"
-        >
-            {/* Left urgency strip */}
-            <div className={`w-1.5 shrink-0 ${strip} rounded-l-xl`} />
+        <>
+            <div
+                onClick={() => onOpenDetail(task)}
+                className="group relative flex rounded-xl border bg-card shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer overflow-hidden"
+            >
+                {/* Left urgency strip */}
+                <div className={`w-1.5 shrink-0 ${strip} rounded-l-xl`} />
 
-            <div className="flex-1 p-4 flex flex-col gap-3 min-w-0">
-                {/* Rejection banner */}
-                {task.rejectionReason && (
-                    <div className="flex items-start gap-2 text-[11px] bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg px-3 py-2 text-red-700 dark:text-red-400">
-                        <AlertTriangle className="size-3.5 shrink-0 mt-0.5" />
-                        <span className="leading-relaxed"><b>Dikembalikan:</b> {task.rejectionReason}</span>
-                    </div>
-                )}
+                <div className="flex-1 p-4 flex flex-col gap-3 min-w-0">
+                    {/* Rejection banner */}
+                    {task.rejectionReason && (
+                        <div className="flex items-start gap-2 text-[11px] bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg px-3 py-2 text-red-700 dark:text-red-400">
+                            <AlertTriangle className="size-3.5 shrink-0 mt-0.5" />
+                            <span className="leading-relaxed"><b>Dikembalikan:</b> {task.rejectionReason}</span>
+                        </div>
+                    )}
 
-                {/* Activity pill + chevron */}
-                <div className="flex items-center justify-between gap-2">
-                    <span className={`text-[10px] font-semibold px-2.5 py-0.5 rounded-full capitalize ${activityColor}`}>
-                        {task.activityType}
-                    </span>
-                    <ChevronRight className="size-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
-                </div>
-
-                {/* Title */}
-                <p className="font-semibold text-sm text-foreground leading-snug line-clamp-2">
-                    {task.title}
-                </p>
-
-                {/* Land + date meta */}
-                <div className="flex flex-col gap-0.5 text-[11px] text-muted-foreground">
-                    <span>🌿 {task.land?.landName ?? "-"}</span>
-                    {task.dueDate && (
-                        <span>
-                            📅 {new Date(task.dueDate).toLocaleDateString("id-ID", {
-                                day: "numeric", month: "short", year: "numeric",
-                            })}
+                    {/* Activity pill + chevron */}
+                    <div className="flex items-center justify-between gap-2">
+                        <span className={`text-[10px] font-semibold px-2.5 py-0.5 rounded-full capitalize ${activityColor}`}>
+                            {task.activityType}
                         </span>
+                        <ChevronRight className="size-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+                    </div>
+
+                    {/* Title */}
+                    <p className="font-semibold text-sm text-foreground leading-snug line-clamp-2">
+                        {task.title}
+                    </p>
+
+                    {/* Land + date meta */}
+                    <div className="flex flex-col gap-0.5 text-[11px] text-muted-foreground">
+                        <span>🌿 {task.land?.landName ?? "-"}</span>
+                        {task.dueDate && (
+                            <span>
+                                📅 {new Date(task.dueDate).toLocaleDateString("id-ID", {
+                                    day: "numeric", month: "short", year: "numeric",
+                                })}
+                            </span>
+                        )}
+                    </div>
+
+                    {/* Deadline countdown */}
+                    <DeadlineBadge daysLeft={daysLeft} />
+
+                    {/* CTA button */}
+                    {task.status === "pending" && (
+                        <div className="flex gap-2 mt-1" onClick={(e) => e.stopPropagation()}>
+                            <Button
+                                size="sm"
+                                variant="outline"
+                                className="flex-1 border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 gap-1.5 font-semibold"
+                                onClick={handleRejectClick}
+                            >
+                                Tolak
+                            </Button>
+                            <Button
+                                size="sm"
+                                className="flex-1 gap-1.5 font-semibold"
+                                onClick={handleStart}
+                            >
+                                <Play className="size-3" /> Mulai
+                            </Button>
+                        </div>
+                    )}
+                    {task.status === "in_progress" && (
+                        <Button
+                            size="sm"
+                            className="w-full gap-2 mt-1 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
+                            onClick={handleSubmitClick}
+                        >
+                            <SendHorizontal className="size-3.5" /> Submit ke Owner
+                        </Button>
+                    )}
+                    {task.status === "on_approval" && (
+                        <div className="text-[11px] text-center text-yellow-600 dark:text-yellow-400 py-2 px-3 rounded-lg bg-yellow-50 dark:bg-yellow-950/20 border border-yellow-200 dark:border-yellow-800 font-medium">
+                            ⏳ Menunggu persetujuan owner...
+                        </div>
+                    )}
+                    {task.status === "completed" && (
+                        <div className="flex items-center gap-2 mt-1">
+                            <div className="flex-1 text-[11px] text-center text-primary py-2 px-3 rounded-lg bg-primary/10 border border-primary/20 font-medium">
+                                ✅ Selesai & diverifikasi owner
+                            </div>
+                            <AlertDialog>
+                                <AlertDialogTrigger render={<Button
+                                        variant="ghost"
+                                        size="icon"
+                                        className="shrink-0 h-9 w-9 text-muted-foreground hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30"
+                                        onClick={(e) => e.stopPropagation()}
+                                    >
+                                        <Trash2 className="size-4" />
+                                    </Button>}>
+                                    
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                        <AlertDialogTitle>Hapus dari Log Aktivitas?</AlertDialogTitle>
+                                        <AlertDialogDescription>
+                                            Tugas ini akan dihapus permanen. Tindakan ini tidak dapat dibatalkan.
+                                        </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                        <AlertDialogCancel>Batal</AlertDialogCancel>
+                                        <AlertDialogAction
+                                            className="bg-destructive hover:bg-destructive/90"
+                                            onClick={(e) => {
+                                                e.stopPropagation()
+                                                toast.promise(deleteCompletedTask(task.id), {
+                                                    loading: "Menghapus dari log...",
+                                                    success: "Tugas berhasil dihapus.",
+                                                    error: (err) => err.message,
+                                                })
+                                            }}
+                                        >
+                                            Ya, Hapus
+                                        </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
+                            </AlertDialog>
+                        </div>
                     )}
                 </div>
-
-                {/* Deadline countdown */}
-                <DeadlineBadge daysLeft={daysLeft} />
-
-                {/* CTA button */}
-                {task.status === "pending" && (
-                    <Button
-                        size="sm"
-                        className="w-full gap-2 mt-1 font-semibold"
-                        onClick={handleStart}
-                    >
-                        <Play className="size-3.5" /> Mulai Kerjakan
-                    </Button>
-                )}
-                {task.status === "in_progress" && (
-                    <Button
-                        size="sm"
-                        className="w-full gap-2 mt-1 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
-                        onClick={handleSubmit}
-                    >
-                        <SendHorizontal className="size-3.5" /> Submit ke Owner
-                    </Button>
-                )}
-                {task.status === "on_approval" && (
-                    <div className="text-[11px] text-center text-yellow-600 dark:text-yellow-400 py-2 px-3 rounded-lg bg-yellow-50 dark:bg-yellow-950/20 border border-yellow-200 dark:border-yellow-800 font-medium">
-                        ⏳ Menunggu persetujuan owner...
-                    </div>
-                )}
-                {task.status === "completed" && (
-                    <div className="flex items-center gap-2 mt-1">
-                        <div className="flex-1 text-[11px] text-center text-primary py-2 px-3 rounded-lg bg-primary/10 border border-primary/20 font-medium">
-                            ✅ Selesai & diverifikasi owner
-                        </div>
-                        <AlertDialog>
-                            <AlertDialogTrigger render={<Button
-                                    variant="ghost"
-                                    size="icon"
-                                    className="shrink-0 h-9 w-9 text-muted-foreground hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30"
-                                    onClick={(e) => e.stopPropagation()}
-                                >
-                                    <Trash2 className="size-4" />
-                                </Button>}>
-                                
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                                <AlertDialogHeader>
-                                    <AlertDialogTitle>Hapus dari Log Aktivitas?</AlertDialogTitle>
-                                    <AlertDialogDescription>
-                                        Tugas ini akan dihapus permanen. Tindakan ini tidak dapat dibatalkan.
-                                    </AlertDialogDescription>
-                                </AlertDialogHeader>
-                                <AlertDialogFooter>
-                                    <AlertDialogCancel>Batal</AlertDialogCancel>
-                                    <AlertDialogAction
-                                        className="bg-destructive hover:bg-destructive/90"
-                                        onClick={(e) => {
-                                            e.stopPropagation()
-                                            toast.promise(deleteCompletedTask(task.id), {
-                                                loading: "Menghapus dari log...",
-                                                success: "Tugas berhasil dihapus.",
-                                                error: (err) => err.message,
-                                            })
-                                        }}
-                                    >
-                                        Ya, Hapus
-                                    </AlertDialogAction>
-                                </AlertDialogFooter>
-                            </AlertDialogContent>
-                        </AlertDialog>
-                    </div>
-                )}
             </div>
-        </div>
+
+            <SubmitTaskDialog
+                taskId={task.id}
+                open={isSubmitDialogOpen}
+                onOpenChange={setIsSubmitDialogOpen}
+            />
+
+            <RejectTaskDialog
+                taskId={task.id}
+                open={isRejectDialogOpen}
+                onOpenChange={setIsRejectDialogOpen}
+            />
+        </>
     )
 }

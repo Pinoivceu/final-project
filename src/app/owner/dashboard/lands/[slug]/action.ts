@@ -332,6 +332,7 @@ export async function rejectTask(taskId: number, reason: string) {
                 completedAt: null,       // Hapus tanggal selesai sebelumnya
                 startedAt: null,         // Reset agar mandor harus menekan "Mulai" lagi
                 verifiedAt: null,        // Pastikan verifikasi kosong
+                image: null,             // Bersihkan gambar agar mandor mengunggah gambar baru nanti
             },
         })
 

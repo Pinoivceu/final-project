@@ -172,6 +172,7 @@ export const TaskScalarFieldEnum = {
   completedAt: 'completedAt',
   verifiedAt: 'verifiedAt',
   rejectionReason: 'rejectionReason',
+  image: 'image',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   landId: 'landId',

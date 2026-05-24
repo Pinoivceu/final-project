@@ -17,13 +17,36 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
-import { MoreHorizontal, Edit, Trash2, Eye, CheckCircle2, Clock } from "lucide-react"
+import { MoreHorizontal, Edit, Trash2, Eye, CheckCircle2, Clock, XCircle, Loader2, AlertTriangle } from "lucide-react"
 import React from "react"
 import { toast } from "sonner"
 import { deleteTask } from "./action"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { TaskDetailSheet } from "@/components/sheet-task"
 import { EditTaskForm } from "./form"
+
+const STATUS_CONFIG: Record<string, { label: string, color: string, icon: React.ReactNode }> = {
+    pending: {
+        label: "Menunggu",
+        color: "text-gray-500 dark:text-gray-400",
+        icon: <Clock className="size-4" />
+    },
+    in_progress: {
+        label: "Dikerjakan",
+        color: "text-blue-600 dark:text-blue-400",
+        icon: <Loader2 className="size-4 animate-spin" />
+    },
+    rejected_by_mandor: {
+        label: "Ditolak Mandor",
+        color: "text-red-600 dark:text-red-400",
+        icon: <XCircle className="size-4" />
+    },
+    completed: {
+        label: "Selesai",
+        color: "text-green-600 dark:text-green-400",
+        icon: <CheckCircle2 className="size-4" />
+    }
+}
 
 export default function TaskList({ task }: { task: any }) {
     const taskId = task.id
@@ -40,7 +63,7 @@ export default function TaskList({ task }: { task: any }) {
     const approvalTasks = task.tasks.filter((t: any) => t.status === "on_approval");
 
     // Filter untuk section Grid di bagian bawah
-    const otherStatuses = ["pending", "in_progress", "completed"];
+    const otherStatuses = ["pending", "in_progress", "rejected_by_mandor", "completed"];
 
     return (
         <div className="flex flex-col gap-10">
@@ -78,9 +101,9 @@ export default function TaskList({ task }: { task: any }) {
                     return (
                         <div key={statusName} className="flex flex-col gap-4">
                             <div className="flex items-center justify-between border-b pb-2">
-                                <h3 className="text-sm font-bold uppercase tracking-widest text-primary flex items-center gap-2">
-                                    <Clock className="size-4" />
-                                    {statusName.replace("_", " ")}
+                                <h3 className={`text-sm font-bold uppercase tracking-widest ${STATUS_CONFIG[statusName]?.color || "text-primary"} flex items-center gap-2`}>
+                                    {STATUS_CONFIG[statusName]?.icon || <Clock className="size-4" />}
+                                    {STATUS_CONFIG[statusName]?.label || statusName.replace("_", " ")}
                                 </h3>
                                 <span className="bg-primary/10 text-primary px-2 py-0.5 rounded text-xs font-bold">
                                     {filteredTasks.length}
@@ -131,8 +154,10 @@ function TaskCard({ item, className }: { item: any; className?: string }) {
         setIsDetailOpen(true);
     };
 
+    const borderClass = item.status === "rejected_by_mandor" ? "border-l-4 border-l-red-500" : "";
+
     return (
-        <Card onClick={() => handleOpenDetail(item)} className={`shadow-sm group relative hover:shadow-md transition-shadow ${className}`}>
+        <Card onClick={() => handleOpenDetail(item)} className={`shadow-sm group relative hover:shadow-md transition-shadow cursor-pointer ${borderClass} ${className}`}>
             {/* Dropdown Menu di pojok kanan atas */}
             <div onClick={(e) => e.stopPropagation()} className="absolute top-2 right-2">
                 <DropdownMenu>
@@ -200,6 +225,12 @@ function TaskCard({ item, className }: { item: any; className?: string }) {
             </div>
 
             <CardHeader className="p-4 pb-2">
+                {item.status === "rejected_by_mandor" && item.rejectionReason && (
+                    <div className="mb-2 flex items-start gap-1.5 text-[11px] bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg p-2.5 text-red-700 dark:text-red-400 leading-normal">
+                        <AlertTriangle className="size-3.5 shrink-0 mt-0.5" />
+                        <span><b>Ditolak Mandor:</b> {item.rejectionReason}</span>
+                    </div>
+                )}
                 <CardTitle className="text-md pr-6 leading-tight">
                     {item.title}
                 </CardTitle>

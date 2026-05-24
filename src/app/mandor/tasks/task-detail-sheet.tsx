@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import {
     Sheet,
     SheetContent,
@@ -22,6 +23,8 @@ import {
 import { toast } from "sonner"
 import { startTask, submitTask } from "./action"
 import { type TaskItem, DeadlineBadge, getDaysLeft, ACTIVITY_COLOR, StatusIcon } from "./task-card"
+import { SubmitTaskDialog } from "./submit-task-dialog"
+import { RejectTaskDialog } from "./reject-task-dialog"
 
 const STATUS_LABEL: Record<string, string> = {
     pending:     "Menunggu",
@@ -39,6 +42,9 @@ export function TaskDetailSheet({
     open: boolean
     onOpenChange: (open: boolean) => void
 }) {
+    const [isSubmitDialogOpen, setIsSubmitDialogOpen] = useState(false)
+    const [isRejectDialogOpen, setIsRejectDialogOpen] = useState(false)
+
     if (!task) return null
 
     const daysLeft = getDaysLeft(task.dueDate)
@@ -49,14 +55,6 @@ export function TaskDetailSheet({
         toast.promise(startTask(task!.id), {
             loading: "Memulai tugas...",
             success: () => { onOpenChange(false); return "Tugas berhasil dimulai!" },
-            error: (err) => err.message,
-        })
-    }
-
-    async function handleSubmit() {
-        toast.promise(submitTask(task!.id), {
-            loading: "Mengajukan ke owner...",
-            success: () => { onOpenChange(false); return "Tugas berhasil diajukan!" },
             error: (err) => err.message,
         })
     }
@@ -193,15 +191,24 @@ export function TaskDetailSheet({
                 {/* Footer Actions */}
                 <div className="border-t pt-4 mt-auto">
                     {task.status === "pending" && (
-                        <Button className="w-full gap-2" onClick={handleStart}>
-                            <Play className="size-4" /> Mulai Kerjakan
-                        </Button>
+                        <div className="flex gap-2">
+                            <Button
+                                variant="outline"
+                                className="flex-1 border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 font-semibold"
+                                onClick={() => setIsRejectDialogOpen(true)}
+                            >
+                                Tolak Tugas
+                            </Button>
+                            <Button className="flex-1 font-semibold" onClick={handleStart}>
+                                <Play className="size-4" /> Mulai
+                            </Button>
+                        </div>
                     )}
                     {task.status === "in_progress" && (
                         <div className="flex flex-col gap-2">
                             <Button
-                                className="w-full gap-2 bg-primary hover:bg-primary/90 text-primary-foreground"
-                                onClick={handleSubmit}
+                                className="w-full gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
+                                onClick={() => setIsSubmitDialogOpen(true)}
                             >
                                 <SendHorizontal className="size-4" /> Submit ke Owner
                             </Button>
@@ -211,19 +218,31 @@ export function TaskDetailSheet({
                         </div>
                     )}
                     {task.status === "on_approval" && (
-                        <div className="flex items-center justify-center gap-2 py-3 text-sm text-yellow-600 dark:text-yellow-400 bg-yellow-50 dark:bg-yellow-950/20 rounded-lg border border-yellow-200 dark:border-yellow-800">
+                        <div className="flex items-center justify-center gap-2 py-3 text-sm text-yellow-600 dark:text-yellow-400 bg-yellow-50 dark:bg-yellow-950/20 rounded-lg border border-yellow-200 dark:border-yellow-800 font-medium">
                             <Clock3 className="size-4 shrink-0" />
                             Menunggu persetujuan dari owner...
                         </div>
                     )}
                     {task.status === "completed" && (
-                        <div className="flex items-center justify-center gap-2 py-3 text-sm text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-800">
+                        <div className="flex items-center justify-center gap-2 py-3 text-sm text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-950/20 rounded-lg border border-green-200 dark:border-green-800 font-medium">
                             <CheckCircle2 className="size-4 shrink-0" />
                             Tugas telah diverifikasi oleh owner
                         </div>
                     )}
                 </div>
             </SheetContent>
+            <SubmitTaskDialog
+                taskId={task.id}
+                open={isSubmitDialogOpen}
+                onOpenChange={setIsSubmitDialogOpen}
+                onSuccess={() => onOpenChange(false)}
+            />
+            <RejectTaskDialog
+                taskId={task.id}
+                open={isRejectDialogOpen}
+                onOpenChange={setIsRejectDialogOpen}
+                onSuccess={() => onOpenChange(false)}
+            />
         </Sheet>
     )
 }

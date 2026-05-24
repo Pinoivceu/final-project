@@ -12,9 +12,12 @@ export default async function MandorTasksPage() {
     const payload = await decrypt(sessionToken)
     const mandorId = payload?.userId as string
 
-    // Fetch all tasks for this mandor
+    // Fetch all tasks for this mandor (excluding rejected tasks)
     const allTasks = await prisma.task.findMany({
-        where: { mandorId },
+        where: {
+            mandorId,
+            status: { not: "rejected_by_mandor" }
+        },
         include: {
             land: { select: { landName: true } },
         },

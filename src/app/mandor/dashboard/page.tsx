@@ -33,7 +33,7 @@ export default async function MandorDashboard() {
     const tasks = await prisma.task.findMany({
         where: {
             mandorId,
-            status: { not: "completed" }
+            status: { notIn: ["completed", "rejected_by_mandor"] }
         },
         include: {
             land: { select: { landName: true } }

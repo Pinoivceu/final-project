@@ -446,6 +446,8 @@ export function EditTaskForm({ task, onSuccess }: { task: any; onSuccess: () => 
                     <SelectItem value="pending">Pending</SelectItem>
                     <SelectItem value="in_progress">In Progress</SelectItem>
                     <SelectItem value="on_approval">On Approval</SelectItem>
+                    <SelectItem value="rejected_by_mandor">Ditolak Mandor</SelectItem>
+                    <SelectItem value="completed">Selesai</SelectItem>
                   </SelectContent>
                 </Select>
               </Field>

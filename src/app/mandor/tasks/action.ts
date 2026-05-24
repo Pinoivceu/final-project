@@ -28,7 +28,7 @@ export async function startTask(taskId: number) {
     }
 }
 
-export async function submitTask(taskId: number) {
+export async function submitTask(taskId: number, imageUrl?: string) {
     try {
         const task = await prisma.task.findUnique({ where: { id: taskId } })
 
@@ -41,14 +41,51 @@ export async function submitTask(taskId: number) {
             data: {
                 status: "on_approval",
                 completedAt: new Date(),
+                image: imageUrl || null,
             },
         })
 
         revalidatePath("/mandor/tasks")
         revalidatePath("/mandor/dashboard")
+        if (task.landId) {
+            revalidatePath(`/owner/dashboard/lands/${task.landId}`)
+        }
+        revalidatePath("/owner/dashboard")
         return { success: true }
     } catch (error: any) {
         throw new Error(error.message || "Gagal mengajukan tugas ke owner.")
+    }
+}
+
+export async function rejectTaskByMandor(taskId: number, reason: string) {
+    try {
+        if (!reason || reason.trim() === "") {
+            throw new Error("Alasan penolakan wajib diisi.")
+        }
+
+        const task = await prisma.task.findUnique({ where: { id: taskId } })
+
+        if (!task) throw new Error("Tugas tidak ditemukan.")
+        if (task.status !== "pending")
+            throw new Error("Hanya tugas berstatus 'pending' yang bisa ditolak.")
+
+        await prisma.task.update({
+            where: { id: taskId },
+            data: {
+                status: "rejected_by_mandor",
+                rejectionReason: reason,
+            },
+        })
+
+        revalidatePath("/mandor/tasks")
+        revalidatePath("/mandor/dashboard")
+        if (task.landId) {
+            revalidatePath(`/owner/dashboard/lands/${task.landId}`)
+        }
+        revalidatePath("/owner/dashboard")
+        return { success: true }
+    } catch (error: any) {
+        throw new Error(error.message || "Gagal menolak tugas.")
     }
 }
 

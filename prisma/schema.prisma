@@ -141,6 +141,7 @@ model Task {
   completedAt     DateTime?
   verifiedAt      DateTime?
   rejectionReason String?   @db.Text
+  image           String?   @db.Text
   
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
